@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Join = () => {
-  return <div></div>;
+  return (
+    <div>
+      <span>회원가입</span>
+    </div>
+  );
 };
 
 export default Join;

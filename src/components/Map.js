@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Map = () => {
-  return <div></div>;
+  return (
+    <div>
+      <span>지도</span>
+    </div>
+  );
 };
 
 export default Map;
