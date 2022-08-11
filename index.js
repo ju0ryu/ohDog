@@ -26,12 +26,3 @@ const db = mysql.createPool({
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);
 });
-
-app.get('/list', (req, res) => {
-  console.log('list');
-  const sqlQuery =
-    "SELECT BOARD_NUM, BOARD_WRITER, BOARD_TITLE, BOARD_CONTENT,DATE_FORMAT(BOARD_DATE, '%Y-%m-%d')AS BOARD_DATE FROM BOARD_TBL;";
-  db.query(sqlQuery, (err, result) => {
-    res.send(result);
-  });
-});
