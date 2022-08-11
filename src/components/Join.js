@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../css/join.scss';
 const Join = () => {
   return (
     <div>

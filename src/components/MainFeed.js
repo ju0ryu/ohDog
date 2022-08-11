@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../css/mainFeed.scss';
 const MainFeed = () => {
   return (
     <div>

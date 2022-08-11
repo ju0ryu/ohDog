@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../css/calendar.scss';
 const Calendar = () => {
   return (
     <div>

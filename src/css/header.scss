@@ -1,0 +1,33 @@
+#root {
+  .header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: white;
+    z-index: 30;
+    .wrapper {
+      margin: 0 auto;
+      width: 90%;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .logo {
+        width: 124px;
+        display: flex;
+        align-items: center;
+      }
+      .navigation {
+        .nav-wrapper {
+          display: grid;
+          grid-template-columns: repeat(3, 90px);
+          column-gap: 18px;
+          .nav {
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
+    }
+  }
+}

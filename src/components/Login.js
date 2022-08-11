@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/login.scss';
 //로그인
 const Login = () => {
   return (

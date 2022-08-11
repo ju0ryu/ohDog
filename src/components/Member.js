@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../css/member.scss';
 const Member = () => {
   return (
     <div>
