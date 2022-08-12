@@ -10,6 +10,8 @@ import Calendar from './components/Calendar';
 import Board from './components/Board';
 import Map from './components/Map';
 import Header from './components/Header';
+import Animal from './components/Animal';
+import EditMember from './components/EditMember';
 const App = () => {
   return (
     <>
@@ -22,8 +24,12 @@ const App = () => {
         <Route path="/myFeed" element={<MyFeed />} /> {/*나의 피드 : 수호*/}
         <Route path="/image" element={<Image />} /> {/*이미지 : 태용*/}
         <Route path="/calendar" element={<Calendar />} /> {/*캘린더 : 주영*/}
-        <Route path="board" element={<Board />} /> {/*게시판 : 종현*/}
-        <Route path="map" element={<Map />} /> {/*지도 : 주영*/}
+        <Route path="/board" element={<Board />} /> {/*게시판 : 종현*/}
+        <Route path="/map" element={<Map />} /> {/*지도 : 주영*/}
+        <Route path="/animal" element={<Animal />} />
+        {/*애완동물 등록페이지*/}
+        <Route path="/editMember" element={<EditMember />} />
+        {/*회원정보수정 페이지*/}
       </Routes>
     </>
   );

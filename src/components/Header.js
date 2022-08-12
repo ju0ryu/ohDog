@@ -21,7 +21,7 @@ const Header = () => {
           </ul>
         </nav>
         <div className="logo">
-          <img src="/ohDog_title.png" alt="로고" />
+          <img src="/ohDog_title.svg" alt="로고" />
         </div>
         <nav className="navigation">
           <ul className="nav-wrapper">
