@@ -1,11 +1,17 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/map.scss';
 
 const { kakao } = window;
 let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
 const Map = () => {
+  const [category, setCategory] = useState();
+
+  const onClick = (e) => {
+    setCategory(e.target.name);
+    console.log(category);
+  };
+
   useEffect(() => {
     var container = document.getElementById('map');
     var options = {
@@ -65,10 +71,25 @@ const Map = () => {
         <input type="submit" value="검색" />
       </form>
       <div className="category">
-        <input type="button" name="애견동반카페" value="카페" />
-        <input type="button" name="동물병원" value="병원" />
-        <input type="button" name="애견미용실" value="미용실" />
-        <input type="button" name="애견동반식당" value="식당" />
+        <input
+          type="button"
+          name="애견동반카페"
+          value="카페"
+          onClick={onClick}
+        />
+        <input type="button" name="동물병원" value="병원" onClick={onClick} />
+        <input
+          type="button"
+          name="애견미용실"
+          value="미용실"
+          onClick={onClick}
+        />
+        <input
+          type="button"
+          name="애견동반식당"
+          value="식당"
+          onClick={onClick}
+        />
       </div>
       <div className="mapContent">
         <div

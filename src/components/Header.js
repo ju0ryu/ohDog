@@ -13,6 +13,11 @@ const Header = () => {
                 <img src="#" alt="내피드" />
               </li>
             </Link>
+            <Link to="/animal">
+              <li className="nav">
+                <img src="#" alt="동물" />
+              </li>
+            </Link>
             <Link to="/calendar">
               <li className="nav">
                 <img src="#" alt="캘린더" />
