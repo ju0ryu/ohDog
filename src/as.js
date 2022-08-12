@@ -1,3 +1,0 @@
-sfwefwef
-SVGFEDropShadowElementsdvsdv
-sdgvsd
