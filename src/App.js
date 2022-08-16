@@ -8,7 +8,7 @@ import MyFeed from './components/MyFeed';
 import Image from './components/Image';
 import Calendar from './components/Calendar';
 import Board from './components/Board';
-import Map from './components/Map';
+import Maps from './components/Maps';
 import Header from './components/Header';
 import Animal from './components/Animal';
 import EditMember from './components/EditMember';
@@ -25,7 +25,7 @@ const App = () => {
         <Route path="/image" element={<Image />} /> {/*이미지 : 태용*/}
         <Route path="/calendar" element={<Calendar />} /> {/*캘린더 : 주영*/}
         <Route path="/board" element={<Board />} /> {/*게시판 : 종현*/}
-        <Route path="/map" element={<Map />} /> {/*지도 : 주영*/}
+        <Route path="/map" element={<Maps />} /> {/*지도 : 주영*/}
         <Route path="/animal" element={<Animal />} />
         {/*애완동물 등록페이지*/}
         <Route path="/editMember" element={<EditMember />} />
