@@ -80,7 +80,7 @@ function Maps() {
     };
     ps.keywordSearch(keywords, placesSearchCB, {
       location: new kakao.maps.LatLng(state.center.lat, state.center.lng),
-      radius: 4000,
+      radius: 4000, // 주석달기
     });
   };
 
