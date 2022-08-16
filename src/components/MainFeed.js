@@ -3,7 +3,7 @@ import '../css/mainFeed.scss';
 const MainFeed = () => {
   return (
     <div>
-      <span>전체피드</span>
+      <span>홈</span>
     </div>
   );
 };
