@@ -1,3 +1,29 @@
 #root {
   padding-top: 54px;
 }
+li {
+  float: left;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  padding-right: 10px;
+  color: black;
+}
+
+#menu {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+#menu li a {
+  margin-right: 92px;
+}
+
+#menu li a:hover {
+  color: rgb(41, 48, 233);
+}
