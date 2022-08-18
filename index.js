@@ -68,6 +68,49 @@ app.post('/fdelete', (req, res) => {
   });
 });
 
+// 캘린더
+
+//캘린더 일정입력
+app.post('/cinsert', (req, res) => {
+  console.log('cinsert check ---------', req.body);
+  var ctitle = req.body.ctitle;
+  var startdate = req.body.startdate;
+  var enddate = req.body.enddate;
+  var ccolor = req.body.ccolor;
+  var userid = req.body.userid;
+
+  const sqlQuery =
+    'insert into calendar (ctitle, startdate, enddate, ccolor, userid) values(?,?,?,?,?);';
+  db.query(
+    sqlQuery,
+    [ctitle, startdate, enddate, ccolor, userid],
+    (err, result) => {
+      // console.err(err);
+      res.send(result);
+    },
+  );
+});
+
+// 캘린더 전체출력
+app.get('/clist', (req, res) => {
+  const sqlQuery =
+    'select cnum,ctitle,date_format(startdate, "%Y-%m-%d")as startdate,date_add(date_format(enddate, "%Y-%m-%d"),interval 1 day)as enddate,ccolor from calendar;';
+  db.query(sqlQuery, (err, result) => {
+    console.log(result);
+    res.send(result);
+  });
+});
+
+// app.post('/update', (req, res) => {
+//    var ctitle = req.body.ctitle;
+//   var startdate = req.body.startdate;
+//   var enddate = req.body.enddate;
+//    var ccolor = req.body.ccolor;
+//   var userid = req.body.userid;
+
+//   const sqlQuery = 'update calendar set ctitle=?,startdate=?,enddate=?,ccolor=?'
+// })
+
 // myfeed req res 설정 끝
 
 app.listen(PORT, () => {
