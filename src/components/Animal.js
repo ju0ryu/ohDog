@@ -4,7 +4,7 @@ import '../css/animal.scss';
 const Animal = () => {
   return (
     <div>
-      <span>반려동물</span>
+      <span>반려동물test</span>
     </div>
   );
 };
