@@ -7,7 +7,7 @@ import Member from './components/Member';
 import MyFeed from './components/MyFeed';
 import Image from './components/Image';
 import Calendar from './components/Calendar';
-import Board from './components/Board';
+import Board from './components/board/Board';
 import Maps from './components/Maps';
 import Header from './components/Header';
 import Animal from './components/Animal';
