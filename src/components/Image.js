@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useRef, useState, useCallback } from 'react';
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from 'react-images';
@@ -61,6 +62,19 @@ const App = ({ handlelist }) => {
 
 
 
+=======
+import React, { useState, useCallback } from 'react';
+import Gallery from 'react-photo-gallery';
+import Carousel, { Modal, ModalGateway } from 'react-images';
+import { photos } from './photo';
+import { Link } from 'react-router-dom';
+import '../css/image.scss';
+
+function App() {
+  const [currentImage, setCurrentImage] = useState(0);
+  const [viewerIsOpen, setViewerIsOpen] = useState(false);
+
+>>>>>>> beb8a966b80a2d33c2951ecb0afecb7989e001e3
   const openPhoto = useCallback((event, { photo, index }) => {
     setCurrentImage(index);
     setViewerIsOpen(true);
@@ -73,6 +87,7 @@ const App = ({ handlelist }) => {
   return (
 
     <div>
+<<<<<<< HEAD
       <table border="1" width="700px" align="center">
 
         <tr>
@@ -107,6 +122,28 @@ const App = ({ handlelist }) => {
 
 
       <h1 className="myheader">어떻게 연결 시키지????</h1>
+=======
+      <nav id="menu">
+        <h1>
+          <ul>
+            <Link to="/myFeed">
+              <li>
+                <a class="feedlink" href="#">
+                  MYFEED
+                </a>
+              </li>
+            </Link>
+            <Link to="/image">
+              <li>
+                <a class="photolink" href="#">
+                  MYPHOTO
+                </a>
+              </li>
+            </Link>
+          </ul>
+        </h1>
+      </nav>
+>>>>>>> beb8a966b80a2d33c2951ecb0afecb7989e001e3
       <Gallery photos={photos} onClick={openPhoto}></Gallery>
       <ModalGateway>
         {viewerIsOpen ? (
@@ -123,9 +160,13 @@ const App = ({ handlelist }) => {
         ) : null}
       </ModalGateway>
     </div >
-  )
+  );
 }
+<<<<<<< HEAD
 
 
 
 export default App
+=======
+export default App;
+>>>>>>> beb8a966b80a2d33c2951ecb0afecb7989e001e3
