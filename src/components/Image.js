@@ -10,21 +10,27 @@ import { Link } from 'react-router-dom';
 
 
 const Image = ({ handlelist }) => {
-  const imageRef = useRef();
+  // const imageRef = useRef();
+  const userid = 'userid 01'
+  const imgurl = useRef();
+  // const imgdataRef = useRef();
+  const secret = 'Y'
 
 
 
   const [image_name, setImage_name] = useState("");
+  // 이미지 상태 추가??
   const [imgBase64, setImgBase64] = useState("");
+  // 이미지 미리보기?
 
   function onImage(e) {
     setImage_name(e.target.files[0]);
   }
 
   const handleInsert = (e) => {
-    console.log("handleInsert =>", imageRef.current.value);
+    console.log("handleInsert =>", imgurl.current.value);
     e.preventDefault();
-    if (imageRef.current.value === "" || imageRef.current.value === undefined) {
+    if (imgurl.current.value === "" || imgurl.current.value === undefined) {
       alert("이미지를 선택하세요!!!");
       return false;
     }
@@ -35,10 +41,13 @@ const Image = ({ handlelist }) => {
 
     axios
       .post(
-        "http://localhost:8008/insert",
+        "http://localhost:8008/iinsert",
         // 위에 url 어떻게 연결 시켜야할지 모르겠음.
         {
-
+          userid,
+          secret,
+          // imgurl: imgurlRef.current.value,
+          // imgdata: imgdataRef.current.value,
           image: image_name,
         },
         config
@@ -46,7 +55,7 @@ const Image = ({ handlelist }) => {
       .then((res) => {
         console.log("handleInsert =>", res);
 
-        imageRef.current.value = "";
+        imgurl.current.value = "";
       })
       .catch((e) => {
         console.error(e);
@@ -104,7 +113,7 @@ const Image = ({ handlelist }) => {
             <input
               type="file"
               name="imageUpload"
-              ref={imageRef}
+              ref={imgurl}
               accept="image/*"
               onChange={onImage}
             />
