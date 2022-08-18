@@ -17,10 +17,10 @@ let corsOptions = {
 app.use(cors(corsOptions));
 
 const db = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '123456',
-  database: 'bbs',
+  host: '210.114.22.116',
+  user: 'js_team_6',
+  password: 'js123456',
+  database: 'js_team_6',
 });
 
 app.listen(PORT, () => {

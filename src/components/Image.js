@@ -1,14 +1,64 @@
-import React, { useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from 'react-images';
 import { photos } from './photo';
+import axios from "axios";
 // import './Style.css'
 
 
-function App() {
 
+
+const App = ({ handlelist }) => {
+  // const titleRef = useRef();
+  // const writerRef = useRef();
+  // const contentRef = useRef(); n
+  const imageRef = useRef();
+
+
+
+  const [image_name, setImage_name] = useState("");
+
+  function onImage(e) {
+    setImage_name(e.target.files[0]);
+  }
+
+  const handleInsert = (e) => {
+    console.log("handleInsert =>", imageRef.current.value);
+    e.preventDefault();
+    if (imageRef.current.value === "" || imageRef.current.value === undefined) {
+      alert("이미지를 선택하세요!!!");
+      return false;
+    }
+
+    const config = {
+      headers: { "Content-Type": "multipart/form-data" }
+    };
+
+    axios
+      .post(
+        "http://localhost:8008/insert",
+        // 위에 url 어떻게 연결 시켜야할지 모르겠음.
+        {
+          // title: titleRef.current.value,
+          // writer: writerRef.current.value,
+          // content: contentRef.current.value,
+          image: image_name,
+        },
+        config
+      )
+      .then((res) => {
+        console.log("handleInsert =>", res);
+
+        imageRef.current.value = "";
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
+
+
 
 
   const openPhoto = useCallback((event, { photo, index }) => {
@@ -23,8 +73,40 @@ function App() {
   return (
 
     <div>
-      <button>하이요</button>
-      <h1 className="myheader">제목창입니다</h1>
+      <table border="1" width="700px" align="center">
+
+        <tr>
+          <td>이미지</td>
+          <td align="left">
+            <input
+              type="file"
+              name="image"
+              ref={imageRef}
+              accept="image/*"
+              onChange={onImage}
+            />
+          </td>
+          {/* 이미지 추가된 내용 */}
+          <div>
+            {image_name && <img src={image_name} alt="preview-img" />}
+
+          </div>
+        </tr>
+        <tr>
+          <td colSpan="2" align="center">
+            <input
+              type="submit"
+              value="전송"
+              onClick={handleInsert}
+            ></input>
+            &nbsp;
+            <input type="reset" value="취소"></input>
+          </td>
+        </tr>
+      </table>
+
+
+      <h1 className="myheader">어떻게 연결 시키지????</h1>
       <Gallery photos={photos} onClick={openPhoto}></Gallery>
       <ModalGateway>
         {viewerIsOpen ? (
@@ -43,4 +125,7 @@ function App() {
     </div >
   )
 }
+
+
+
 export default App
