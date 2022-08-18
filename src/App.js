@@ -6,7 +6,7 @@ import Join from './components/Join';
 import Member from './components/Member';
 import MyFeed from './components/MyFeed';
 import Image from './components/Image';
-import Calendar from './components/Calendar';
+import Calendars from './components/Calendars';
 import Board from './components/Board';
 import Maps from './components/Maps';
 import Header from './components/Header';
@@ -23,7 +23,7 @@ const App = () => {
         <Route path="/mainFeed" element={<MainFeed />} /> {/* 전체피드 : 수호*/}
         <Route path="/myFeed" element={<MyFeed />} /> {/*나의 피드 : 수호*/}
         <Route path="/image" element={<Image />} /> {/*이미지 : 태용*/}
-        <Route path="/calendar" element={<Calendar />} /> {/*캘린더 : 주영*/}
+        <Route path="/calendar" element={<Calendars />} /> {/*캘린더 : 주영*/}
         <Route path="/board" element={<Board />} /> {/*게시판 : 종현*/}
         <Route path="/map" element={<Maps />} /> {/*지도 : 주영*/}
         <Route path="/animal" element={<Animal />} />

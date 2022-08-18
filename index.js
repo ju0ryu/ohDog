@@ -17,11 +17,58 @@ let corsOptions = {
 app.use(cors(corsOptions));
 
 const db = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '123456',
-  database: 'bbs',
+  host: '210.114.22.116',
+  user: 'js_team_6',
+  password: 'js123456',
+  database: 'js_team_6',
 });
+
+//myfeed  req res 설정 시작
+
+// app.get('/flist', (req, res) => {
+//   console.log('list!!!');
+//   const sqlQuery =
+//     "SELECT userid, fcomment, DATE_FORMAT(fdate, '%m-%d-%H-%i') AS fdate FROM feed;";
+//   db.query(sqlQuery, (err, result) => {
+//     res.send(result);
+//   });
+// });
+// //전체피드
+
+app.post('/flist', (req, res) => {
+  console.log('내피드', req.body);
+  var userid = req.body.userid;
+  const sqlQuery =
+    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m월%d일 %H:%i') AS fdate from feed where userid = 'userid 01';";
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/finsert', (req, res) => {
+  console.log('/insert', req.body);
+  var userid = req.body.userid;
+  var writer = req.body.writer;
+  var secret = req.body.secret;
+
+  const sqlQuery = 'INSERT INTO feed (userid, fcomment,secret) values (?,?,?);';
+  db.query(sqlQuery, [userid, writer, secret], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/fdelete', (req, res) => {
+  const fnum = req.body.fnum;
+  console.log('/delete(id) => ', fnum);
+
+  const sqlQuery = 'DELETE FROM feed WHERE fnum = ?;';
+  db.query(sqlQuery, [fnum], (err, result) => {
+    console.log(err);
+    res.send(result);
+  });
+});
+
+// myfeed req res 설정 끝
 
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);

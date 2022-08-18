@@ -67,12 +67,19 @@ function Maps() {
         let markers = [];
 
         for (var i = 0; i < data.length; i++) {
+          console.log(data);
           markers.push({
             position: {
               lat: data[i].y,
               lng: data[i].x,
             },
-            content: data[i].place_name,
+            // content: data[i].place_name,
+            content: {
+              name: data[i].place_name,
+              address: data[i].road_address_name,
+              phone: data[i].phone,
+              url: data[i].place_url,
+            },
           });
         }
         setMarkers(markers);
@@ -139,7 +146,13 @@ function Maps() {
             onClick={() => setInfo(marker)}
           >
             {info && info.content === marker.content && (
-              <div style={{ color: '#000' }}>{marker.content}</div>
+              <div style={{ color: '#000' }}>
+                {/* {marker.content} */}
+                <p>{marker.content.name}</p>
+                <p>{marker.content.address}</p>
+                <p>{marker.content.phone}</p>
+                <a href={marker.content.url}>{marker.content.url}</a>
+              </div>
             )}
           </MapMarker>
         ))}
