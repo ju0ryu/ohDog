@@ -10,14 +10,12 @@ import { Link } from 'react-router-dom';
 
 
 const Image = ({ handlelist }) => {
-  // const titleRef = useRef();
-  // const writerRef = useRef();
-  // const contentRef = useRef(); n
   const imageRef = useRef();
 
 
 
   const [image_name, setImage_name] = useState("");
+  const [imgBase64, setImgBase64] = useState("");
 
   function onImage(e) {
     setImage_name(e.target.files[0]);
@@ -40,9 +38,7 @@ const Image = ({ handlelist }) => {
         "http://localhost:8008/insert",
         // 위에 url 어떻게 연결 시켜야할지 모르겠음.
         {
-          // title: titleRef.current.value,
-          // writer: writerRef.current.value,
-          // content: contentRef.current.value,
+
           image: image_name,
         },
         config
@@ -71,6 +67,8 @@ const Image = ({ handlelist }) => {
     setCurrentImage(0);
     setViewerIsOpen(false);
   };
+
+
 
   return (
 
@@ -105,17 +103,19 @@ const Image = ({ handlelist }) => {
           <td align="left">
             <input
               type="file"
-              name="image"
+              name="imageUpload"
               ref={imageRef}
               accept="image/*"
               onChange={onImage}
             />
           </td>
           {/* 이미지 추가된 내용 */}
-          <div>
-            {image_name && <img src={image_name} alt="preview-img" />}
+          {/* <div>
+            {image_name && <img src={image_name} alt={onImage} />}
 
-          </div>
+          </div> */}
+
+
         </tr>
         <tr>
           <td colSpan="2" align="center">
