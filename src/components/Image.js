@@ -3,12 +3,13 @@ import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from 'react-images';
 import { photos } from './photo';
 import axios from "axios";
+import { Link } from 'react-router-dom';
 // import './Style.css'
 
 
 
 
-const App = ({ handlelist }) => {
+const Image = ({ handlelist }) => {
   // const titleRef = useRef();
   // const writerRef = useRef();
   // const contentRef = useRef(); n
@@ -75,6 +76,28 @@ const App = ({ handlelist }) => {
 
     <div>
 
+      <nav id="menu">
+        <h1>
+          <ul>
+            <Link to="/myFeed">
+              <li>
+                <a class="feedlink" href="#">
+                  MYFEED
+                </a>
+              </li>
+            </Link>
+            <Link to="/image">
+              <li>
+                <a class="photolink" href="#">
+                  MYPHOTO
+                </a>
+              </li>
+            </Link>
+          </ul>
+        </h1>
+      </nav>
+
+
       <table border="1" width="700px" align="center">
 
         <tr>
@@ -110,26 +133,7 @@ const App = ({ handlelist }) => {
 
       <h1 className="myheader">어떻게 연결 시키지????</h1>
 
-      {/* <nav id="menu">
-        <h1>
-          <ul>
-            <Link to="/myFeed">
-              <li>
-                <a class="feedlink" href="#">
-                  MYFEED
-                </a>
-              </li>
-            </Link>
-            <Link to="/image">
-              <li>
-                <a class="photolink" href="#">
-                  MYPHOTO
-                </a>
-              </li>
-            </Link>
-          </ul>
-        </h1>
-      </nav> */}
+
 
       <Gallery photos={photos} onClick={openPhoto}></Gallery>
       <ModalGateway>
@@ -153,5 +157,5 @@ const App = ({ handlelist }) => {
 
 
 
-export default App
+export default Image
 
