@@ -1,12 +1,21 @@
 import './MyFeedWrite';
 import '../css/myFeedWrite.scss';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import axios from 'axios';
 
 const MyFeedWrite = ({ handlelist }) => {
   const userid = 'userid 01';
   const writerRef = useRef();
-  const secret = 1;
+  const secretRef = useRef();
+  // const [secret, setSecret] = useState();
+  var secret = 'Y';
+
+  const onChange = (e) => {
+    // console.log(e.target.value);
+    secret = e.target.value;
+    console.log(secret);
+  };
+
   const handleInsert = () => {
     if (
       writerRef.current.value === '' ||
@@ -52,6 +61,24 @@ const MyFeedWrite = ({ handlelist }) => {
                 value="글쓰기"
                 onClick={handleInsert}
               ></input>
+              <input
+                type="radio"
+                name="cs_open"
+                id="cs_open"
+                value="Y"
+                class="radio"
+                onChange={onChange}
+              ></input>
+              <span>공개</span>&nbsp;&nbsp;
+              <input
+                type="radio"
+                name="cs_open"
+                id="cs_open"
+                value="N"
+                class="radio"
+                onChange={onChange}
+              />
+              <span>비공개</span>&nbsp;
             </td>
           </tr>
         </table>
