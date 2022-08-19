@@ -23,7 +23,42 @@ const db = mysql.createPool({
   database: 'js_team_6',
 });
 
-//mainfeed req res 설정 시작
+// 로그인
+app.post('/login', (req, res) => {
+  console.log('/login', req.body);
+  var id = req.body.id;
+  var pw = req.body.pw;
+
+  const sqlQuery =
+    "select count(*) as 'cnt' from member where userid=? and userpw=?;";
+  db.query(sqlQuery, [id, pw], (err, result) => {
+    res.send(result);
+  });
+});
+//회원가입
+app.post('/member', (req, res) => {
+  console.log('/member', req.body);
+  var id = req.body.id;
+  var pw = req.body.pw;
+  var checkpw = req.body.checkpw;
+  var nickname = req.body.nickname;
+  var tel = req.body.tel;
+  var addr = req.body.addr;
+  var birth = req.body.birth;
+  var gender = req.body.gender;
+
+  const sqlQuery =
+    'insert into member (userid, userpw, checkpw, nickname,tel,addr,birth,gender) values (?,?,?,?,?,?,?,?);';
+  db.query(
+    sqlQuery,
+    [id, pw, checkpw, nickname, tel, addr, birth, gender],
+    (err, result) => {
+      res.send(result);
+    },
+  );
+});
+
+//mainfeed req res 설정 시작 (전체피드)
 
 app.get('/mainfeed', (req, res) => {
   console.log('main!!!');
@@ -36,7 +71,7 @@ app.get('/mainfeed', (req, res) => {
 
 //mainfeed req res 설정 끝
 
-//myfeed  req res 설정 시작
+//myfeed  req res 설정 시작 (마이피드)
 
 app.post('/flist', (req, res) => {
   console.log('내피드', req.body);
@@ -72,6 +107,42 @@ app.post('/fdelete', (req, res) => {
 });
 
 // myfeed req res 설정 끝
+
+//fcomment req res 설정 시작 (댓글기능)
+
+app.post('/fccontenlist', (req, res) => {
+  console.log('피드댓글', req.body);
+  var userid = req.body.userid;
+  const sqlQuery =
+    "SELECT fnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fdate from fcomment where userid = 'userid 01' order by date_format(fdate, '%m월%d일 %H:%i') desc;";
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/fccontentinsert', (req, res) => {
+  console.log('댓글달기', req.body);
+  var userid = req.body.userid;
+  var fccontent = req.body.fccontent;
+
+  const sqlQuery = 'INSERT INTO fcomment (userid, fccontent) values (?,?);';
+  db.query(sqlQuery, [userid, fccontent], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/fccontentdelete', (req, res) => {
+  const fcnum = req.body.fnum;
+  console.log('/delete(fccontent) => ', fcnum);
+
+  const sqlQuery = 'DELETE FROM fcomment WHERE fcnum = ?;';
+  db.query(sqlQuery, [fcnum], (err, result) => {
+    console.log(err);
+    res.send(result);
+  });
+});
+
+//fcomment req res 설정 끝
 
 // 캘린더
 
