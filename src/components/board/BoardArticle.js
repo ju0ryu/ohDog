@@ -14,20 +14,6 @@ const BoardArticle = ({ article, handlelist }) => {
       </td>
       <td>좋아요</td>
       <td>미정</td>
-      {/* <td align="center">
-        <input
-          type="button"
-          value="수정"
-          id={article.BOARD_NUM}
-          onClick={handleupdateform}
-        ></input>
-        <input
-          type="button"
-          value="삭제"
-          id={article.BOARD_NUM}
-          onClick={handleDelete}
-        ></input>
-      </td> */}
     </tr>
   );
 };

@@ -34,6 +34,7 @@ const BoardList = ({ boardlist, handlelist }) => {
               <th width="60">글제목</th>
               <th width="60">미정</th>
             </tr>
+            ;
           </thead>
           <tbody>
             {boardlist.boardList.map((article) => {
