@@ -17,22 +17,25 @@ const MyFeedArticle = ({ article, handlelist }) => {
 
   return (
     <div>
-      <td align="right">
-        <input
-          type="button"
-          value="삭제"
-          id={article.fnum}
-          onClick={handleDelete}
-        ></input>
-      </td>
-      <tr>
-        <td>
-          {article.userid} : {article.fcomment}
+      <table border="1" width="100%">
+        <td colSpan="2" align="right">
+          <input
+            type="button"
+            value="삭제"
+            id={article.fnum}
+            onClick={handleDelete}
+          ></input>
         </td>
-      </tr>
-      <tr>
-        <td align="right">{article.fdate}</td>
-      </tr>
+        <tr>
+          <td width="20%">{article.userid} </td>
+          <td> {article.fcomment}</td>
+        </tr>
+        <tr>
+          <td colSpan="2" align="right">
+            {article.fdate}
+          </td>
+        </tr>
+      </table>
       <br />
       <br />
       <br />

@@ -71,6 +71,31 @@ app.post('/fdelete', (req, res) => {
   });
 });
 
+// myfeed req res 설정 끝
+
+// 캘린더
+
+//캘린더 일정입력
+app.post('/cinsert', (req, res) => {
+  console.log('cinsert check ---------', req.body);
+  var ctitle = req.body.ctitle;
+  var startdate = req.body.startdate;
+  var enddate = req.body.enddate;
+  var ccolor = req.body.ccolor;
+  var userid = req.body.userid;
+
+  const sqlQuery =
+    'insert into calendar (ctitle, startdate, enddate, ccolor, userid) values(?,?,?,?,?);';
+  db.query(
+    sqlQuery,
+    [ctitle, startdate, enddate, ccolor, userid],
+    (err, result) => {
+      // console.err(err);
+      res.send(result);
+    },
+  );
+});
+
 // 캘린더 전체출력
 app.get('/clist', (req, res) => {
   const sqlQuery =
@@ -102,27 +127,161 @@ app.post('/cupdate', (req, res) => {
   );
 });
 
-// 캘린더 전체출력
-app.get('/clist', (req, res) => {
+//캘린더 일정입력
+app.post('/cinsert', (req, res) => {
+  console.log('cinsert check ---------', req.body);
+  var ctitle = req.body.ctitle;
+  var startdate = req.body.startdate;
+  var enddate = req.body.enddate;
+  var ccolor = req.body.ccolor;
+  var userid = req.body.userid;
+
   const sqlQuery =
-    'select cnum,ctitle,date_format(startdate, "%Y-%m-%d")as startdate,date_add(date_format(enddate, "%Y-%m-%d"),interval 1 day)as enddate,ccolor from calendar;';
-  db.query(sqlQuery, (err, result) => {
-    console.log(result);
+    'insert into calendar (ctitle, startdate, enddate, ccolor, userid) values(?,?,?,?,?);';
+  db.query(
+    sqlQuery,
+    [ctitle, startdate, enddate, ccolor, userid],
+    (err, result) => {
+      // console.err(err);
+      res.send(result);
+    },
+  );
+});
+
+// 일정삭제
+app.post('/cdelete', (req, res) => {
+  console.log('삭제', req.body);
+  var cnum = req.body.cnum;
+  const sqlQuery = 'delete from calendar where cnum = ?;';
+  db.query(sqlQuery, [cnum], (err, result) => {
     res.send(result);
   });
 });
 
-// app.post('/update', (req, res) => {
-//    var ctitle = req.body.ctitle;
-//   var startdate = req.body.startdate;
-//   var enddate = req.body.enddate;
-//    var ccolor = req.body.ccolor;
-//   var userid = req.body.userid;
+// ================================사진===========================
 
-//   const sqlQuery = 'update calendar set ctitle=?,startdate=?,enddate=?,ccolor=?'
-// })
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+// 세가지 추가됨 멀터는 파일 추가
+// 패스는 경로
+// fs 파일 다루를수 있음
 
-// myfeed req res 설정 끝
+try {
+  fs.readdirSync('uploads');
+} catch (error) {
+  console.error('uploads 폴더가 없어 uploads 폴더를 생성합니다.');
+  fs.mkdirSync('uploads');
+}
+// 업로드 파일 생성 시켜주는듯?????
+// 밑에 무저껀 넣어야함?
+const upload = multer({
+  storage: multer.diskStorage({
+    // 읽어오기???
+    destination(req, file, done) {
+      // done>>>위치찾기??건이씨 설명
+      done(null, 'uploads/');
+    },
+    // 업로드 경로 변경 시킬수 있음
+    filename(req, file, done) {
+      const ext = path.extname(file.originalname);
+      done(null, path.basename(file.originalname, ext) + Date.now() + ext);
+    },
+  }),
+  limits: { fileSize: 10 * 1024 * 1024 },
+});
+// 객체 만들면 스토리지 디스토리이지 저장경로 ???
+// 파일네임 업로드 된 파일 경로? ext 확장자만 base는 확장자 제외하고?? 데이터 나우는 현재시간 뒤에는 확장자?
+
+// 이미지가 저장된 경로를 static으로 지정하면 불러올 수 있다.
+app.use('/uploads', express.static('uploads'));
+
+app.post('/iinsert', upload.single('image'), (req, res) => {
+  console.log('/iinsert', req.file, req.body);
+  var userid = req.body.userid;
+
+  var secret = req.body.secret;
+
+  const sqlQuery = 'INSERT INTO image (userid, imgurl, secret) values (?,?,?);';
+  db.query(
+    sqlQuery,
+    [userid, req.file.filename, secret],
+    // 파일네임 실제 업로드된 파일명임
+    (err, result) => {
+      res.send(result);
+    },
+  );
+});
+
+// ================================사진===========================
+
+// ********************게시판 코드 시작 ********************
+
+// 게시판 게시글 전체조회
+app.get('/list', (req, res) => {
+  console.log('list!!!');
+  const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
+// 게시판 게시글 입력
+//카테고리 넣어야함---------------------------------------------
+app.post('/insert', (req, res) => {
+  console.log('/insert', req.body);
+  var writer = req.body.writer;
+  var title = req.body.title;
+  var content = req.body.content;
+  var category = req.body.category;
+
+  const sqlQuery =
+    'INSERT INTO BOARD (USERID, BTITLE, BCONTENT, CATEGORY) values (?,?,?,?);';
+  db.query(sqlQuery, [writer, title, content, category], (err, result) => {
+    res.send(result);
+  });
+});
+
+//게시판 게시글 상세보기
+app.post('/detail', (req, res) => {
+  console.log('/detail', req.body);
+  var num = parseInt(req.body.num);
+
+  const sqlQuery =
+    "SELECT BOARDNUM, USERID, BTITLE, BCONTENT, DATE_FORMAT(BDATE, '%Y-%m-%d') AS BDATE FROM BOARD where BOARDNUM = ?;";
+  db.query(sqlQuery, [num], (err, result) => {
+    res.send(result);
+  });
+});
+
+//게시판 게시글 업데이트
+app.post('/update', (req, res) => {
+  console.log('/update', req.body);
+  var title = req.body.article.board_title;
+  var content = req.body.article.board_content;
+  var num = req.body.article.board_num;
+
+  const sqlQuery =
+    'update BOARD set BTITLE=?, BCONTENT=?, BDATE=now() where boardnum=?;';
+  db.query(sqlQuery, [title, content, num], (err, result) => {
+    res.send(result);
+    console.log('result=', result);
+  });
+});
+
+//게시판 게시글 삭제
+app.post('/delete', (req, res) => {
+  const num = req.body.num;
+  console.log('/delete(id) => ', num);
+
+  const sqlQuery = 'DELETE FROM BOARD WHERE BOARDNUM = ?;';
+  db.query(sqlQuery, [num], (err, result) => {
+    console.log(err);
+    res.send(result);
+  });
+});
+
+// ********************게시판 종료 ********************
 
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);
