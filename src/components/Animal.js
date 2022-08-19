@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/animal.scss';
 
 const Animal = () => {
+  const [insertForm, setInsertForm] = useState(false);
+
+  const addForm = () => {
+    setInsertForm(true);
+  };
+
   return (
     <div>
-      <span>반려동물</span>
+      <div>
+        <input type="button" value="➕" onClick={addForm} />
+      </div>
+      <div>
+        {insertForm && (
+          <form>
+            <tr>
+              <input />
+            </tr>
+          </form>
+        )}
+      </div>
     </div>
   );
 };

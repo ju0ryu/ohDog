@@ -8,6 +8,11 @@ const Header = () => {
       <div className="wrapper">
         <nav className="navigation">
           <ul className="nav-wrapper">
+            <Link to="/mainFeed">
+              <li className="nav">
+                <img src="#" alt="전체피드" />
+              </li>
+            </Link>
             <Link to="/myFeed">
               <li className="nav">
                 <img src="#" alt="내피드" />
@@ -18,11 +23,6 @@ const Header = () => {
                 <img src="#" alt="동물" />
               </li>
             </Link>
-            <Link to="/calendar">
-              <li className="nav">
-                <img src="#" alt="캘린더" />
-              </li>
-            </Link>
           </ul>
         </nav>
         <div className="logo">
@@ -30,14 +30,14 @@ const Header = () => {
         </div>
         <nav className="navigation">
           <ul className="nav-wrapper">
-            <Link to="/mainFeed">
-              <li className="nav">
-                <img src="#" alt="전체피드" />
-              </li>
-            </Link>
             <Link to="/board">
               <li className="nav">
                 <img src="#" alt="게시판" />
+              </li>
+            </Link>
+            <Link to="/calendar">
+              <li className="nav">
+                <img src="#" alt="캘린더" />
               </li>
             </Link>
             <Link to="/map">
