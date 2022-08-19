@@ -3,29 +3,34 @@ import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from 'react-images';
 import { photos } from './photo';
 import axios from "axios";
+import { Link } from 'react-router-dom';
 // import './Style.css'
 
 
 
 
-const App = ({ handlelist }) => {
-  // const titleRef = useRef();
-  // const writerRef = useRef();
-  // const contentRef = useRef(); n
-  const imageRef = useRef();
+const Image = ({ handlelist }) => {
+  // const imageRef = useRef();
+  const userid = 'userid 01'
+  const imgurl = useRef();
+  // const imgdataRef = useRef();
+  const secret = 'Y'
 
 
 
   const [image_name, setImage_name] = useState("");
+  // 이미지 상태 추가??
+  const [imgBase64, setImgBase64] = useState("");
+  // 이미지 미리보기?
 
   function onImage(e) {
     setImage_name(e.target.files[0]);
   }
 
   const handleInsert = (e) => {
-    console.log("handleInsert =>", imageRef.current.value);
+    console.log("handleInsert =>", imgurl.current.value);
     e.preventDefault();
-    if (imageRef.current.value === "" || imageRef.current.value === undefined) {
+    if (imgurl.current.value === "" || imgurl.current.value === undefined) {
       alert("이미지를 선택하세요!!!");
       return false;
     }
@@ -36,12 +41,13 @@ const App = ({ handlelist }) => {
 
     axios
       .post(
-        "http://localhost:8008/insert",
+        "http://localhost:8008/iinsert",
         // 위에 url 어떻게 연결 시켜야할지 모르겠음.
         {
-          // title: titleRef.current.value,
-          // writer: writerRef.current.value,
-          // content: contentRef.current.value,
+          userid,
+          secret,
+          // imgurl: imgurlRef.current.value,
+          // imgdata: imgdataRef.current.value,
           image: image_name,
         },
         config
@@ -49,7 +55,7 @@ const App = ({ handlelist }) => {
       .then((res) => {
         console.log("handleInsert =>", res);
 
-        imageRef.current.value = "";
+        imgurl.current.value = "";
       })
       .catch((e) => {
         console.error(e);
@@ -71,46 +77,13 @@ const App = ({ handlelist }) => {
     setViewerIsOpen(false);
   };
 
+
+
   return (
 
     <div>
 
-      <table border="1" width="700px" align="center">
-
-        <tr>
-          <td>이미지</td>
-          <td align="left">
-            <input
-              type="file"
-              name="image"
-              ref={imageRef}
-              accept="image/*"
-              onChange={onImage}
-            />
-          </td>
-          {/* 이미지 추가된 내용 */}
-          <div>
-            {image_name && <img src={image_name} alt="preview-img" />}
-
-          </div>
-        </tr>
-        <tr>
-          <td colSpan="2" align="center">
-            <input
-              type="submit"
-              value="전송"
-              onClick={handleInsert}
-            ></input>
-            &nbsp;
-            <input type="reset" value="취소"></input>
-          </td>
-        </tr>
-      </table>
-
-
-      <h1 className="myheader">어떻게 연결 시키지????</h1>
-
-      {/* <nav id="menu">
+      <nav id="menu">
         <h1>
           <ul>
             <Link to="/myFeed">
@@ -129,7 +102,47 @@ const App = ({ handlelist }) => {
             </Link>
           </ul>
         </h1>
-      </nav> */}
+      </nav>
+
+
+      <table border="1" width="700px" align="center">
+
+        <tr>
+          <td>이미지</td>
+          <td align="left">
+            <input
+              type="file"
+              name="imageUpload"
+              ref={imgurl}
+              accept="image/*"
+              onChange={onImage}
+            />
+          </td>
+          {/* 이미지 추가된 내용 */}
+          {/* <div>
+            {image_name && <img src={image_name} alt={onImage} />}
+
+          </div> */}
+
+
+        </tr>
+        <tr>
+          <td colSpan="2" align="center">
+            <input
+              type="submit"
+              value="전송"
+              onClick={handleInsert}
+            ></input>
+            &nbsp;
+            <input type="reset" value="취소"></input>
+          </td>
+        </tr>
+      </table>
+
+
+      <h1 className="myheader">어떻게 연결 시키지????</h1>
+
+
 
       <Gallery photos={photos} onClick={openPhoto}></Gallery>
       <ModalGateway>
@@ -153,5 +166,5 @@ const App = ({ handlelist }) => {
 
 
 
-export default App
+export default Image
 
