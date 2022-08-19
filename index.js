@@ -68,29 +68,6 @@ app.post('/fdelete', (req, res) => {
   });
 });
 
-// 캘린더
-
-//캘린더 일정입력
-app.post('/cinsert', (req, res) => {
-  console.log('cinsert check ---------', req.body);
-  var ctitle = req.body.ctitle;
-  var startdate = req.body.startdate;
-  var enddate = req.body.enddate;
-  var ccolor = req.body.ccolor;
-  var userid = req.body.userid;
-
-  const sqlQuery =
-    'insert into calendar (ctitle, startdate, enddate, ccolor, userid) values(?,?,?,?,?);';
-  db.query(
-    sqlQuery,
-    [ctitle, startdate, enddate, ccolor, userid],
-    (err, result) => {
-      // console.err(err);
-      res.send(result);
-    },
-  );
-});
-
 // 캘린더 전체출력
 app.get('/clist', (req, res) => {
   const sqlQuery =
@@ -101,17 +78,104 @@ app.get('/clist', (req, res) => {
   });
 });
 
-// app.post('/update', (req, res) => {
-//    var ctitle = req.body.ctitle;
-//   var startdate = req.body.startdate;
-//   var enddate = req.body.enddate;
-//    var ccolor = req.body.ccolor;
-//   var userid = req.body.userid;
+//일정 수정
+app.post('/cupdate', (req, res) => {
+  console.log('일정수정', req.body);
+  var cnum = parseInt(req.body.cnum);
+  var ctitle = req.body.ctitle;
+  var startdate = req.body.startdate;
+  var enddate = req.body.enddate;
+  var ccolor = req.body.ccolor;
+  var userid = req.body.userid;
 
-//   const sqlQuery = 'update calendar set ctitle=?,startdate=?,enddate=?,ccolor=?'
-// })
+  const sqlQuery =
+    'update calendar set ctitle=?,startdate=?,enddate=?,ccolor=? where cnum =?;';
+  db.query(
+    sqlQuery,
+    [ctitle, startdate, enddate, ccolor, cnum],
+    (err, result) => {
+      res.send(result);
+    },
+  );
+});
 
-// myfeed req res 설정 끝
+// 일정삭제
+app.post('/cdelete', (req, res) => {
+  console.log('삭제', req.body);
+  var cnum = req.body.cnum;
+  const sqlQuery = 'delete from calendar where cnum = ?;';
+  db.query(sqlQuery, [cnum], (err, result) => {
+    res.send(result);
+  });
+});
+
+// ********************게시판 코드 시작 ********************
+
+// 게시판 게시글 전체조회
+app.get('/list', (req, res) => {
+  console.log('list!!!');
+  const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
+// 게시판 게시글 입력
+//카테고리 넣어야함---------------------------------------------
+app.post('/insert', (req, res) => {
+  console.log('/insert', req.body);
+  var writer = req.body.writer;
+  var title = req.body.title;
+  var content = req.body.content;
+  var category = req.body.category;
+
+  const sqlQuery =
+    'INSERT INTO BOARD (USERID, BTITLE, BCONTENT, CATEGORY) values (?,?,?,?);';
+  db.query(sqlQuery, [writer, title, content, category], (err, result) => {
+    res.send(result);
+  });
+});
+
+//게시판 게시글 상세보기
+app.post('/detail', (req, res) => {
+  console.log('/detail', req.body);
+  var num = parseInt(req.body.num);
+
+  const sqlQuery =
+    "SELECT BOARDNUM, USERID, BTITLE, BCONTENT, DATE_FORMAT(BDATE, '%Y-%m-%d') AS BDATE FROM BOARD where BOARDNUM = ?;";
+  db.query(sqlQuery, [num], (err, result) => {
+    res.send(result);
+  });
+});
+
+//게시판 게시글 업데이트
+app.post('/update', (req, res) => {
+  console.log('/update', req.body);
+  var title = req.body.article.board_title;
+  var content = req.body.article.board_content;
+  var num = req.body.article.board_num;
+
+  const sqlQuery =
+    'update BOARD set BTITLE=?, BCONTENT=?, BDATE=now() where boardnum=?;';
+  db.query(sqlQuery, [title, content, num], (err, result) => {
+    res.send(result);
+    console.log('result=', result);
+  });
+});
+
+//게시판 게시글 삭제
+app.post('/delete', (req, res) => {
+  const num = req.body.num;
+  console.log('/delete(id) => ', num);
+
+  const sqlQuery = 'DELETE FROM BOARD WHERE BOARDNUM = ?;';
+  db.query(sqlQuery, [num], (err, result) => {
+    console.log(err);
+    res.send(result);
+  });
+});
+
+// ********************게시판 종료 ********************
 
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);

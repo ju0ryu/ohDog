@@ -1,13 +1,7 @@
-import { useEffect } from "react";
-import BoardArticle from "./BoardArticle";
+import { useEffect } from 'react';
+import BoardArticle from './BoardArticle';
 
-const BoardList = ({
-  boardlist,
-  actionmode,
-  handlelist,
-  handledetail,
-  handleupdateform,
-}) => {
+const BoardList = ({ boardlist, handlelist }) => {
   useEffect(() => {
     handlelist();
   }, []);
@@ -15,14 +9,14 @@ const BoardList = ({
   if (boardlist.boardList.length === 0) {
     return (
       <div>
-        <table width="700px" border="1" align="center">
+        <table width="900px" border="1" align="center">
           <thead>
             <tr>
               <th width="60">번호</th>
-              <th width="240">제목</th>
-              <th width="100">작성자</th>
-              <th width="100">작성일</th>
-              <th width="200">수정/삭제</th>
+              <th width="100">카테고리</th>
+              <th width="300">제목</th>
+              <th width="60">좋아요</th>
+              <th width="60">미정</th>
             </tr>
           </thead>
         </table>
@@ -31,26 +25,23 @@ const BoardList = ({
   } else {
     return (
       <div>
-        <table width="700px" border="1" align="center">
+        <table width="900px" border="1" align="center">
           <thead>
             <tr>
               <th width="60">번호</th>
-              <th width="240">제목</th>
-              <th width="100">작성자</th>
-              <th width="100">작성일</th>
-              <th width="200">수정/삭제</th>
+              <th width="100">카테고리</th>
+              <th width="300">제목</th>
+              <th width="60">글제목</th>
+              <th width="60">미정</th>
             </tr>
           </thead>
           <tbody>
             {boardlist.boardList.map((article) => {
               return (
                 <BoardArticle
-                  actionmode={actionmode}
                   article={article}
-                  key={article.BOARD_NUM}
+                  key={article.boardnum}
                   handlelist={handlelist}
-                  handledetail={handledetail}
-                  handleupdateform={handleupdateform}
                 />
               );
             })}
