@@ -220,7 +220,7 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
 // 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
   console.log('list!!!');
-  const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
+  const sqlQuery = 'SELECT boardnum, category, btitle FROM board;';
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
@@ -248,7 +248,7 @@ app.post('/detail', (req, res) => {
   var num = parseInt(req.body.num);
 
   const sqlQuery =
-    "SELECT BOARDNUM, USERID, BTITLE, BCONTENT, DATE_FORMAT(BDATE, '%Y-%m-%d') AS BDATE FROM BOARD where BOARDNUM = ?;";
+    "SELECT boardnum, userid, btitle, bcontent, DATE_FORMAT(bdate, '%Y-%m-%d') AS bdate, category FROM board where boardnum = ?;";
   db.query(sqlQuery, [num], (err, result) => {
     res.send(result);
   });

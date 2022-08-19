@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import BoardArticle from './BoardArticle';
 
-const BoardList = ({ boardlist, handlelist }) => {
-  useEffect(() => {
-    handlelist();
-  }, []);
+const BoardList = ({ boardlist }) => {
+  // useEffect(() => {
+  //   handlelist();
+  // }, []);
 
   if (boardlist.boardList.length === 0) {
     return (
@@ -34,17 +34,10 @@ const BoardList = ({ boardlist, handlelist }) => {
               <th width="60">글제목</th>
               <th width="60">미정</th>
             </tr>
-            ;
           </thead>
           <tbody>
             {boardlist.boardList.map((article) => {
-              return (
-                <BoardArticle
-                  article={article}
-                  key={article.boardnum}
-                  handlelist={handlelist}
-                />
-              );
+              return <BoardArticle article={article} key={article.boardnum} />;
             })}
           </tbody>
         </table>
