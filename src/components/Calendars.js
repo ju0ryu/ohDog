@@ -48,7 +48,8 @@ const Calendars = () => {
 
   // 일정 등록
   const onSubmit = (e) => {
-    // e.preventDefault();
+    console.log('확인');
+    e.preventDefault();
     console.log(insertTitleRef.current.value);
     setEventTitle(insertTitleRef.current.value);
     setEventStartDate(insertStartDateRef.current.value);
