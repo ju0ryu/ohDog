@@ -23,7 +23,42 @@ const db = mysql.createPool({
   database: 'js_team_6',
 });
 
-//mainfeed req res 설정 시작
+// 로그인
+app.post('/login', (req, res) => {
+  console.log('/login', req.body);
+  var id = req.body.id;
+  var pw = req.body.pw;
+
+  const sqlQuery =
+    "select count(*) as 'cnt' from member where userid=? and userpw=?;";
+  db.query(sqlQuery, [id, pw], (err, result) => {
+    res.send(result);
+  });
+});
+//회원가입
+app.post('/member', (req, res) => {
+  console.log('/member', req.body);
+  var id = req.body.id;
+  var pw = req.body.pw;
+  var checkpw = req.body.checkpw;
+  var nickname = req.body.nickname;
+  var tel = req.body.tel;
+  var addr = req.body.addr;
+  var birth = req.body.birth;
+  var gender = req.body.gender;
+
+  const sqlQuery =
+    'insert into member (userid, userpw, checkpw, nickname,tel,addr,birth,gender) values (?,?,?,?,?,?,?,?);';
+  db.query(
+    sqlQuery,
+    [id, pw, checkpw, nickname, tel, addr, birth, gender],
+    (err, result) => {
+      res.send(result);
+    },
+  );
+});
+
+//mainfeed req res 설정 시작 (전체피드)
 
 app.get('/mainfeed', (req, res) => {
   console.log('main!!!');
@@ -256,7 +291,7 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
 // 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
   console.log('list!!!');
-  const sqlQuery = 'SELECT boardnum, category, btitle FROM board;';
+  const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
@@ -284,7 +319,7 @@ app.post('/detail', (req, res) => {
   var num = parseInt(req.body.num);
 
   const sqlQuery =
-    "SELECT boardnum, userid, btitle, bcontent, DATE_FORMAT(bdate, '%Y-%m-%d') AS bdate, category FROM board where boardnum = ?;";
+    "SELECT BOARDNUM, USERID, BTITLE, BCONTENT, DATE_FORMAT(BDATE, '%Y-%m-%d') AS BDATE FROM BOARD where BOARDNUM = ?;";
   db.query(sqlQuery, [num], (err, result) => {
     res.send(result);
   });
