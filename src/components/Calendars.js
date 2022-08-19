@@ -12,18 +12,30 @@ const Calendars = () => {
   const [eventEndDate, setEventEndDate] = useState();
   const [eventColor, setEventColor] = useState();
   const [cList, setCList] = useState({ list: [] });
-
+  const [calUpdate, setCalUpdate] = useState({
+    cnum: '',
+    ctitle: '',
+    startdate: '',
+    enddate: '',
+    ccolor: '',
+    userid: 'userid 01',
+  });
+  const numRef = useRef();
   const titleRef = useRef();
   const startDateRef = useRef();
   const endDateRef = useRef();
   const colorRef = useRef();
-  const calendarRef = useRef();
 
+  const insertTitleRef = useRef();
+  const insertStartDateRef = useRef();
+  const insertEndDateRef = useRef();
+  const insertColorRef = useRef();
+
+  // 전체일정 달력에 출력
   useEffect(() => {
     axios
       .get('http://localhost:8008/clist', {})
       .then((res) => {
-        console.log(res);
         const { data } = res;
         setCList({
           list: data,
@@ -34,18 +46,21 @@ const Calendars = () => {
       });
   }, []);
 
+  // 일정 등록
   const onSubmit = (e) => {
-    setEventTitle(titleRef.current.value);
-    setEventStartDate(startDateRef.current.value);
-    setEventEndDate(endDateRef.current.value);
-    setEventColor(colorRef.current.value);
+    // e.preventDefault();
+    console.log(insertTitleRef.current.value);
+    setEventTitle(insertTitleRef.current.value);
+    setEventStartDate(insertStartDateRef.current.value);
+    setEventEndDate(insertEndDateRef.current.value);
+    setEventColor(insertColorRef.current.value);
     setVisible(false);
     axios
       .post('http://localhost:8008/cinsert', {
-        ctitle: titleRef.current.value,
-        startdate: startDateRef.current.value,
-        enddate: endDateRef.current.value,
-        ccolor: colorRef.current.value,
+        ctitle: insertTitleRef.current.value,
+        startdate: insertStartDateRef.current.value,
+        enddate: insertEndDateRef.current.value,
+        ccolor: insertColorRef.current.value,
         userid: 'userid 01',
       })
       .then((res) => {
@@ -57,6 +72,22 @@ const Calendars = () => {
     window.location.reload();
   };
 
+  // 수정폼에 입력할 값설정
+  const updateDetail = (update) => {
+    setCalUpdate({
+      cnum: update.event.id,
+      ctitle: update.event.title,
+      startdate: update.event.start,
+      enddate: update.event.end,
+      ccolor: update.event.backgroundColor,
+    });
+    setUpdateVisible(true);
+  };
+  useEffect(() => {
+    console.log(calUpdate);
+  }, [calUpdate]);
+
+  //일정 수정
   const onUpdate = (e) => {
     e.preventDefault();
     setEventTitle(titleRef.current.value);
@@ -64,26 +95,50 @@ const Calendars = () => {
     setEventEndDate(endDateRef.current.value);
     setEventColor(colorRef.current.value);
     setUpdateVisible(false);
+    if (window.confirm('수정 하시겠습니까?')) {
+      axios
+        .post('http://localhost:8008/cupdate', {
+          cnum: numRef.current.value,
+          ctitle: titleRef.current.value,
+          startdate: startDateRef.current.value,
+          enddate: endDateRef.current.value,
+          ccolor: colorRef.current.value,
+          userid: 'userid 01',
+        })
+        .then((res) => {
+          console.log('확인');
+          setEventTitle('');
+          setEventStartDate('');
+          setEventEndDate('');
+          setEventColor('');
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+      alert('수정되었습니다');
+    } else {
+      alert('취소되었습니다');
+    }
 
-    axios
-      .post('http://localhost:8008/cupdate', {
-        ctitle: titleRef.current.value,
-        startdate: startDateRef.current.value,
-        enddate: endDateRef.current.value,
-        ccolor: colorRef.current.value,
-        userid: 'userid 01',
-      })
-      .then((res) => {
-        console.log('확인');
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    window.location.reload();
   };
 
-  const onDelete = () => {
-    const title = titleRef.current.value;
-    alert(title);
+  const onDelete = (e) => {
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
+      console.log(e.target.id);
+      axios
+        .post('http://localhost:8008/cdelete', {
+          cnum: e.target.id,
+        })
+        .then((res) => {})
+        .catch((err) => {
+          console.error(err);
+        });
+      alert('삭제되었습니다');
+    } else {
+      alert('취소되었습니다');
+    }
+    window.location.reload();
   };
   return (
     <div>
@@ -101,19 +156,19 @@ const Calendars = () => {
           <form onSubmit={onSubmit} className="inputForm">
             <tr>
               <label for="titleInput">제목 : </label>
-              <input type="text" name="titleInput" ref={titleRef} />
+              <input type="text" name="titleInput" ref={insertTitleRef} />
             </tr>
             <tr>
               <label for="colorInput">색상 : </label>
-              <input type="color" name="colorInput" ref={colorRef} />
+              <input type="color" name="colorInput" ref={insertColorRef} />
             </tr>
             <tr>
               <label for="startInput">시작날짜 : </label>
-              <input type="date" name="startInput" ref={startDateRef} />
+              <input type="date" name="startInput" ref={insertStartDateRef} />
             </tr>
             <tr>
               <label for="endInput">끝날짜 : </label>
-              <input type="date" name="endInput" ref={endDateRef} />
+              <input type="date" name="endInput" ref={insertEndDateRef} />
             </tr>
             <tr>
               <input type="submit" value="등록" />
@@ -123,13 +178,14 @@ const Calendars = () => {
         {/* 수정 테이블 */}
         {updateVisible && (
           <form onSubmit={onUpdate} className="inputForm">
+            <input type="hidden" defaultValue={calUpdate.cnum} ref={numRef} />
             <tr>
               <label for="titleInput">제목 : </label>
               <input
                 type="text"
                 name="titleInput"
                 ref={titleRef}
-                defaultValue={eventTitle}
+                defaultValue={calUpdate.ctitle}
               />
             </tr>
             <tr>
@@ -138,7 +194,7 @@ const Calendars = () => {
                 type="color"
                 name="colorInput"
                 ref={colorRef}
-                defaultValue={eventColor}
+                defaultValue={calUpdate.ccolor}
               />
             </tr>
             <tr>
@@ -147,32 +203,37 @@ const Calendars = () => {
                 type="date"
                 name="dateInput"
                 ref={startDateRef}
-                defaultValue={eventStartDate}
+                defaultValue={calUpdate.startdate}
               />
             </tr>
             <tr>
-              <label for="dateInput">시작날짜 : </label>
+              <label for="dateInput">끝날짜 : </label>
               <input
                 type="date"
                 name="dateInput"
                 ref={endDateRef}
-                defaultValue={eventEndDate}
+                defaultValue={calUpdate.enddate}
               />
             </tr>
             <tr>
               <input type="submit" value="수정" />
-              <input type="button" value="삭제" onClick={onDelete}></input>
+              <input
+                type="button"
+                id={calUpdate.cnum}
+                value="삭제"
+                onClick={onDelete}
+              ></input>
             </tr>
           </form>
         )}
       </div>
       <div style={{ margin: '25px 25px' }}>
         <FullCalendar
-          ref={calendarRef}
           plugins={[dayGridPlugin]}
           locale="ko"
           eventClick={function (arg) {
-            setUpdateVisible(true);
+            updateDetail(arg);
+            console.log(arg.event.id);
           }}
           events={cList.list.map((item) => {
             return {
