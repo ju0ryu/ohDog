@@ -23,6 +23,41 @@ const db = mysql.createPool({
   database: 'js_team_6',
 });
 
+// 로그인
+app.post('/login', (req, res) => {
+  console.log('/login', req.body);
+  var id = req.body.id;
+  var pw = req.body.pw;
+
+  const sqlQuery =
+    "select count(*) as 'cnt' from member where userid=? and userpw=?;";
+  db.query(sqlQuery, [id, pw], (err, result) => {
+    res.send(result);
+  });
+});
+//회원가입
+app.post('/member', (req, res) => {
+  console.log('/member', req.body);
+  var id = req.body.id;
+  var pw = req.body.pw;
+  var checkpw = req.body.checkpw;
+  var nickname = req.body.nickname;
+  var tel = req.body.tel;
+  var addr = req.body.addr;
+  var birth = req.body.birth;
+  var gender = req.body.gender;
+
+  const sqlQuery =
+    'insert into member (userid, userpw, checkpw, nickname,tel,addr,birth,gender) values (?,?,?,?,?,?,?,?);';
+  db.query(
+    sqlQuery,
+    [id, pw, checkpw, nickname, tel, addr, birth, gender],
+    (err, result) => {
+      res.send(result);
+    },
+  );
+});
+
 //mainfeed req res 설정 시작
 
 app.get('/mainfeed', (req, res) => {
