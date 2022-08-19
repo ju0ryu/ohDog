@@ -17,7 +17,7 @@ const Animal = () => {
         {insertForm && (
           <form>
             <tr>
-              <input 
+              <input />
             </tr>
           </form>
         )}
