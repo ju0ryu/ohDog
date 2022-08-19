@@ -71,6 +71,57 @@ app.post('/fdelete', (req, res) => {
   });
 });
 
+// 캘린더 전체출력
+app.get('/clist', (req, res) => {
+  const sqlQuery =
+    'select cnum,ctitle,date_format(startdate, "%Y-%m-%d")as startdate,date_add(date_format(enddate, "%Y-%m-%d"),interval 1 day)as enddate,ccolor from calendar;';
+  db.query(sqlQuery, (err, result) => {
+    console.log(result);
+    res.send(result);
+  });
+});
+
+//일정 수정
+app.post('/cupdate', (req, res) => {
+  console.log('일정수정', req.body);
+  var cnum = parseInt(req.body.cnum);
+  var ctitle = req.body.ctitle;
+  var startdate = req.body.startdate;
+  var enddate = req.body.enddate;
+  var ccolor = req.body.ccolor;
+  var userid = req.body.userid;
+
+  const sqlQuery =
+    'update calendar set ctitle=?,startdate=?,enddate=?,ccolor=? where cnum =?;';
+  db.query(
+    sqlQuery,
+    [ctitle, startdate, enddate, ccolor, cnum],
+    (err, result) => {
+      res.send(result);
+    },
+  );
+});
+
+// 캘린더 전체출력
+app.get('/clist', (req, res) => {
+  const sqlQuery =
+    'select cnum,ctitle,date_format(startdate, "%Y-%m-%d")as startdate,date_add(date_format(enddate, "%Y-%m-%d"),interval 1 day)as enddate,ccolor from calendar;';
+  db.query(sqlQuery, (err, result) => {
+    console.log(result);
+    res.send(result);
+  });
+});
+
+// app.post('/update', (req, res) => {
+//    var ctitle = req.body.ctitle;
+//   var startdate = req.body.startdate;
+//   var enddate = req.body.enddate;
+//    var ccolor = req.body.ccolor;
+//   var userid = req.body.userid;
+
+//   const sqlQuery = 'update calendar set ctitle=?,startdate=?,enddate=?,ccolor=?'
+// })
+
 // myfeed req res 설정 끝
 
 app.listen(PORT, () => {
