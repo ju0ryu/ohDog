@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import axios from '../../node_modules/axios/index';
+import { useNavigate } from 'react-router-dom';
 
 const Calendars = () => {
   const [visible, setVisible] = useState(false);
@@ -18,7 +19,7 @@ const Calendars = () => {
     startdate: '',
     enddate: '',
     ccolor: '',
-    userid: 'userid 01',
+    userid: '',
   });
   const numRef = useRef();
   const titleRef = useRef();
@@ -30,11 +31,29 @@ const Calendars = () => {
   const insertStartDateRef = useRef();
   const insertEndDateRef = useRef();
   const insertColorRef = useRef();
+  const navigate = useNavigate();
+
+  // console.log(
+  //   'Login:window.sessionStorage(login_id) =>',
+  //   window.sessionStorage.getItem('id'),
+  // );
+
+  useEffect(() => {
+    window.sessionStorage.getItem('id');
+    if (window.sessionStorage.getItem('id') != null) {
+      setVisible(true);
+    } else {
+      alert('로그인 후 이용하여 주세요');
+      navigate('/');
+    }
+  }, []);
 
   // 전체일정 달력에 출력
   useEffect(() => {
     axios
-      .get('http://localhost:8008/clist', {})
+      .post('http://localhost:8008/clist', {
+        id: window.sessionStorage.getItem('id'),
+      })
       .then((res) => {
         const { data } = res;
         setCList({
@@ -44,6 +63,7 @@ const Calendars = () => {
       .catch((err) => {
         console.error(err);
       });
+    setVisible(false);
   }, []);
 
   // 일정 등록
@@ -62,7 +82,7 @@ const Calendars = () => {
         startdate: insertStartDateRef.current.value,
         enddate: insertEndDateRef.current.value,
         ccolor: insertColorRef.current.value,
-        userid: 'userid 01',
+        userid: window.sessionStorage.getItem('id'),
       })
       .then((res) => {
         console.log('확인');
@@ -104,7 +124,6 @@ const Calendars = () => {
           startdate: startDateRef.current.value,
           enddate: endDateRef.current.value,
           ccolor: colorRef.current.value,
-          userid: 'userid 01',
         })
         .then((res) => {
           console.log('확인');

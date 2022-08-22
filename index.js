@@ -284,62 +284,7 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
   );
 });
 
-app.post('/ilist', upload.single('image'), (req, res) => {
-  console.log("/ilist", req.file, req.body);
-  var userid = req.body.userid;
-
-  var secret = req.body.secret;
-
-  const sqlQuery = 'INSERT INTO image (userid, imgurl, secret) values (?,?,?);';
-  db.query(
-    sqlQuery,
-    [userid, req.file.filename, secret],
-    // 파일네임 실제 업로드된 파일명임
-    (err, result) => {
-      res.send(result);
-    },
-  );
-})
-
-// ================================사진 끝===========================
-// ================================동물
-app.post('/ainsert', upload.single('image'), (req, res) => {
-  console.log('/ainsert', req.file, req.body);
-  var userid = req.body.userid;
-  var aname = req.body.aname;
-  var agender = req.body.agender;
-  var aspecies = req.body.aspecies;
-  var aage = parseInt(req.body.aage);
-
-  const sqlQuery =
-    'INSERT INTO animal (aimg,aname,agender,aspecies,aage,userid) values (?,?,?,?,?,?);';
-  db.query(
-    sqlQuery,
-    [req.file.filename, aname, agender, aspecies, aage, userid],
-    (err, result) => {
-      res.send(result);
-    },
-  );
-});
-
-app.post('/alist', (req, res) => {
-  console.log('alist :', req.body);
-  var userid = req.body.userid;
-  const sqlQuery =
-    'select anum, aimg, aname,agender,aspecies,aage from animal where userid=?;';
-  db.query(sqlQuery, [userid], (err, result) => {
-    res.send(result);
-  });
-});
-
-app.post('/adelete', (req, res) => {
-  console.log('adelete :', req.body);
-  var anum = parseInt(req.body.anum);
-  const sqlQuery = 'delete from animal where anum = ?;';
-  db.query(sqlQuery, [anum], (err, result) => {
-    res.send(result);
-  });
-});
+// ================================사진===========================
 
 // ********************게시판 코드 시작 ********************
 
