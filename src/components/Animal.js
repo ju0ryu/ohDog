@@ -2,23 +2,47 @@ import React, { useRef, useState } from 'react';
 import '../css/animal.scss';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Animal = () => {
   const [insertForm, setInsertForm] = useState(false);
   const [image_name, setImage_name] = useState('');
   const [gender, setGender] = useState();
   const [alist, setAlist] = useState();
+  const [article, setArticle] = useState({
+    Article: [],
+  });
 
-  const userid = 'userid 01';
+  const userid = window.sessionStorage.getItem('id');
   const imgRef = useRef();
   const nameRef = useRef();
   const speciesRef = useRef();
   const ageRef = useRef();
+  const navigate = useNavigate();
+  useEffect(() => {
+    window.sessionStorage.getItem('id');
+    if (window.sessionStorage.getItem('id') == null) {
+      alert('로그인 후 이용하여 주세요');
+      navigate('/');
+    }
+  }, []);
 
   useEffect(() => {
-    axios.post('http://localhost:8008/alist', { userid }).then((res) => {
-      const { data } = res;
-    });
+    console.log('article :', article.Article);
+  }, [article]);
+
+  useEffect(() => {
+    axios
+      .post('http://localhost:8008/alist', { userid })
+      .then((res) => {
+        const { data } = res;
+        setArticle({
+          Article: data,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   useEffect(() => {
@@ -59,19 +83,88 @@ const Animal = () => {
       )
       .then((res) => {
         console.log('확인');
+        window.location.reload();
       })
       .catch((e) => {
         console.error(e);
       });
-    // window.location.reload();
     setInsertForm(false);
+  };
+
+  const deleteArticle = (e) => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      console.log(e.target.id);
+      axios
+        .post('http://localhost:8008/adelete', { anum: e.target.id })
+        .then((res) => {
+          alert('삭제되었습니다');
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      alert('삭제가 취소되었습니다');
+    }
   };
 
   return (
     <div>
-      <div>
-        <input type="button" value="➕" onClick={addForm} />
-      </div>
+      {article.Article.length != 0 ? (
+        <div style={{ display: 'flex' }}>
+          {article.Article.map((article) => {
+            return (
+              <div style={{ marginLeft: '20px' }}>
+                <table border="1" width="200px">
+                  <tr>
+                    <td colSpan="2" align="right">
+                      <input
+                        type="button"
+                        value="❌"
+                        id={article.anum}
+                        onClick={deleteArticle}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="2">
+                      <img
+                        src={`http://localhost:8008/uploads/${article.aimg}`}
+                        alt=""
+                        width="200px"
+                        height="250px"
+                      />
+                    </td>
+                  </tr>
+                  <tr colSpan="2">
+                    <td>이름 : </td>
+                    <td>{article.aname}</td>
+                  </tr>
+                  <tr>
+                    <td>성별 : </td>
+                    <td>{article.agender == 'M' ? '수컷' : '암컷'}</td>
+                  </tr>
+                  <tr>
+                    <td>견종 : </td>
+                    <td>{article.aspecies}</td>
+                  </tr>
+                  <tr>
+                    <td>나이 : </td>
+                    <td>{`${article.aage} 살`}</td>
+                  </tr>
+                </table>
+              </div>
+            );
+          })}
+          <div style={{ marginLeft: '20px', marginTop: '150px' }}>
+            <input type="button" value="➕" onClick={addForm} />
+          </div>
+        </div>
+      ) : (
+        <div style={{ marginLeft: '20px', marginTop: '150px' }}>
+          <input type="button" value="➕" onClick={addForm} />
+        </div>
+      )}
       <div>
         {insertForm && (
           <>
@@ -103,7 +196,7 @@ const Animal = () => {
                 <input
                   type="radio"
                   name="inputGender"
-                  value="female"
+                  value="F"
                   onChange={genderChange}
                 />
                 <label>암컷</label>
