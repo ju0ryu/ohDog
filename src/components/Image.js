@@ -16,62 +16,31 @@ const Image = ({ handlelist }) => {
   // const imgdataRef = useRef();
   var secret = 'Y'
 
-
-
-  // 시크릿 변경 공개 비공개
+  // 공개비공개?
   const onChange = (e) => {
     // console.log(e.target.value);
     secret = e.target.value;
     console.log(secret);
   };
 
+  const image = [{ source: 'https://images.unsplash.com/photo-1594415156038-02d665441df2?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max' }]
+
 
 
   const [image_name, setImage_name] = useState("");
-  // 이미지 상태 추가??\
-
-
-  // const [imgBase64, setImgBase64] = useState("");
+  // 이미지 상태 추가??
+  const [imgBase64, setImgBase64] = useState("");
   // 이미지 미리보기?
-
-
-
 
   function onImage(e) {
     setImage_name(e.target.files[0]);
   }
 
-
-
-  // 포토 갱신???
-  // const [photos, setPhotos] = useState(
-  //   { Photos: [], }
-  // );
-
-
-
-
-  // useEffect(() => {
-  //   axios
-  //     .post('http://localhost:8008/ilist', { userid })
-  //     .then((res) => {
-  //       console.log('res ==>', res);
-  //       const { data } = res;
-  //       console.log('data ==>', data);
-  //       setPhotos({
-  //         Photos: data,
-  //       });
-  //       // 여기도 navigate 써야하나?
-  //     })
-  //     .catch((e) => {
-  //       console.error(e);
-  //     });
-  // }, []);
-
-
-
-
-
+  useEffect(() => {
+    axios
+      .post('http://localhost:8008/ilist', { userid, })
+      .then()
+  }, [])
 
   const handleInsert = (e) => {
     console.log("handleInsert =>", imgurl.current.value);
@@ -80,34 +49,34 @@ const Image = ({ handlelist }) => {
       alert("이미지를 선택하세요!!!");
       return false;
     }
-
-    const config = {
-      headers: { "Content-Type": "multipart/form-data" }
-    };
-
-    axios
-      .post(
-        "http://localhost:8008/iinsert",
-        // 위에 url 어떻게 연결 시켜야할지 모르겠음.
-        {
-          userid,
-          secret,
-          // imgurl: imgurlRef.current.value,
-          // imgdata: imgdataRef.current.value,
-          image: image_name,
-        },
-        config
-      )
-      .then((res) => {
-        console.log("handleInsert =>", res);
-        // handlelist();
-        imgurl.current.value = "";
-      })
-      .catch((e) => {
-        console.error(e);
-      });
   };
 
+
+  const config = {
+    headers: { "Content-Type": "multipart/form-data" }
+  };
+
+  axios
+    .post(
+      "http://localhost:8008/iinsert",
+      // 위에 url 어떻게 연결 시켜야할지 모르겠음.
+      {
+        userid,
+        secret,
+        // imgurl: imgurlRef.current.value,
+        // imgdata: imgdataRef.current.value,
+        image: image_name,
+      },
+      config
+    )
+    .then((res) => {
+      console.log("handleInsert =>", res);
+
+      imgurl.current.value = "";
+    })
+    .catch((e) => {
+      console.error(e);
+    });
 
 
 
@@ -168,6 +137,11 @@ const Image = ({ handlelist }) => {
               onChange={onImage}
             />
           </td>
+          {/* 이미지 추가된 내용 */}
+          {/* <div>
+            {image_name && <img src={image_name} alt={onImage} />}
+
+          </div> */}
           <td>
             <input
               type="radio"
@@ -188,12 +162,6 @@ const Image = ({ handlelist }) => {
             />
             <span>비공개</span>&nbsp;
           </td>
-          {/* 이미지 추가된 내용 */}
-          {/* <div>
-            {image_name && <img src={image_name} alt={onImage} />}
-
-          </div> */}
-
 
         </tr>
         <tr>
@@ -213,26 +181,26 @@ const Image = ({ handlelist }) => {
       <h1 className="myheader">어떻게 연결 시키지????</h1>
 
 
-      {/* 갤러리 포토 밑에 뿌려주는거 */}
+      {/* Galeery가 밑에 사진 뿌려주는 역활 */}
       <Gallery photos={photos} onClick={openPhoto}></Gallery>
 
-      {/* 창뛰어주는듯? 모델게이트웨이???? */}
+
       <ModalGateway>
 
+        {/* 삼항연산자 인듯? */}
         {viewerIsOpen ? (
           <Modal onClose={closeImage}>
             <Carousel
               currentIndex={currentImage}
               views={photos.map(x => ({
                 ...x,
-                srcset: x.srcSet,
-                caption: x.title,
+                // srcset: x.srcSet,
+                // caption: x.title
               }))}
             />
           </Modal>
         ) : null}
-
-
+        {/* --------------------여기까지 -------------------- */}
       </ModalGateway>
     </div >
   );
@@ -242,4 +210,3 @@ const Image = ({ handlelist }) => {
 
 
 export default Image
-
