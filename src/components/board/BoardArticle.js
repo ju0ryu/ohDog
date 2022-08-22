@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from '../../../node_modules/react-router-dom/index';
 
 const BoardArticle = ({ article }) => {
@@ -34,15 +34,17 @@ const BoardArticle = ({ article }) => {
             bdate: data[0].bdate,
             category: data[0].category,
           });
-          console.log('detail =>', detail);
-          navigate('/detail', { state: detail });
+          return changePage(detail);
         }
       })
       .catch((e) => {
         console.error(e);
       });
   };
-
+  const changePage = (detail) => {
+    console.log('detail :', detail);
+    navigate('/detail', { state: detail });
+  };
   return (
     <tr>
       <td>{article.boardnum}</td>

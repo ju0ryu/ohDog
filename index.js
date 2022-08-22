@@ -69,9 +69,20 @@ app.get('/mainfeed', (req, res) => {
   });
 });
 
+//mainfeed req res 설정 시작 (전체피드)
+
+app.get('/mainfeed', (req, res) => {
+  console.log('main!!!');
+  const sqlQuery =
+    "SELECT userid, fcomment, DATE_FORMAT(fdate, '%m-%d-%H-%i') AS fdate FROM feed where secret =  'Y' order by date_format(fdate, '%m-%d-%H-%i') desc ;";
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
 //mainfeed req res 설정 끝
 
-//myfeed  req res 설정 시작
+//myfeed  req res 설정 시작 (마이피드)
 
 app.post('/flist', (req, res) => {
   console.log('내피드', req.body);
@@ -107,6 +118,42 @@ app.post('/fdelete', (req, res) => {
 });
 
 // myfeed req res 설정 끝
+
+//fcomment req res 설정 시작 (댓글기능)
+
+app.post('/fccontenlist', (req, res) => {
+  console.log('피드댓글', req.body);
+  var userid = req.body.userid;
+  const sqlQuery =
+    "SELECT fnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fdate from fcomment where userid = 'userid 01' order by date_format(fdate, '%m월%d일 %H:%i') desc;";
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/fccontentinsert', (req, res) => {
+  console.log('댓글달기', req.body);
+  var userid = req.body.userid;
+  var fccontent = req.body.fccontent;
+
+  const sqlQuery = 'INSERT INTO fcomment (userid, fccontent) values (?,?);';
+  db.query(sqlQuery, [userid, fccontent], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/fccontentdelete', (req, res) => {
+  const fcnum = req.body.fnum;
+  console.log('/delete(fccontent) => ', fcnum);
+
+  const sqlQuery = 'DELETE FROM fcomment WHERE fcnum = ?;';
+  db.query(sqlQuery, [fcnum], (err, result) => {
+    console.log(err);
+    res.send(result);
+  });
+});
+
+//fcomment req res 설정 끝
 
 // 캘린더
 
@@ -248,6 +295,14 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
   );
 });
 
+// app.post('/ilist', (req, res) => {
+//   console.log('ilist!!!');
+//   const sqlQuery = "SELECT userid, imgurl from image where userid = 'userid 01';";
+//   db.query(sqlQuery, (err, result) => {
+//     res.send(result);
+//   });
+// });
+
 // ================================사진===========================
 
 // ********************게시판 코드 시작 ********************
@@ -255,7 +310,7 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
 // 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
   console.log('list!!!');
-  const sqlQuery = 'SELECT boardnum, category, btitle FROM board;';
+  const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
@@ -283,7 +338,7 @@ app.post('/detail', (req, res) => {
   var num = parseInt(req.body.num);
 
   const sqlQuery =
-    "SELECT boardnum, userid, btitle, bcontent, DATE_FORMAT(bdate, '%Y-%m-%d') AS bdate, category FROM board where boardnum = ?;";
+    "SELECT BOARDNUM, USERID, BTITLE, BCONTENT, DATE_FORMAT(BDATE, '%Y-%m-%d') AS BDATE FROM BOARD where BOARDNUM = ?;";
   db.query(sqlQuery, [num], (err, result) => {
     res.send(result);
   });
