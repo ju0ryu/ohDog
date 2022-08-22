@@ -69,17 +69,6 @@ app.get('/mainfeed', (req, res) => {
   });
 });
 
-//mainfeed req res 설정 시작 (전체피드)
-
-app.get('/mainfeed', (req, res) => {
-  console.log('main!!!');
-  const sqlQuery =
-    "SELECT userid, fcomment, DATE_FORMAT(fdate, '%m-%d-%H-%i') AS fdate FROM feed where secret =  'Y' order by date_format(fdate, '%m-%d-%H-%i') desc ;";
-  db.query(sqlQuery, (err, result) => {
-    res.send(result);
-  });
-});
-
 //mainfeed req res 설정 끝
 
 //myfeed  req res 설정 시작 (마이피드)
@@ -179,10 +168,11 @@ app.post('/cinsert', (req, res) => {
 });
 
 // 캘린더 전체출력
-app.get('/clist', (req, res) => {
+app.post('/clist', (req, res) => {
+  var userid = req.body.id;
   const sqlQuery =
-    'select cnum,ctitle,date_format(startdate, "%Y-%m-%d")as startdate,date_add(date_format(enddate, "%Y-%m-%d"),interval 1 day)as enddate,ccolor from calendar;';
-  db.query(sqlQuery, (err, result) => {
+    'select cnum,ctitle,date_format(startdate, "%Y-%m-%d")as startdate,date_add(date_format(enddate, "%Y-%m-%d"),interval 1 day)as enddate,ccolor from calendar where userid = ?;';
+  db.query(sqlQuery, [userid], (err, result) => {
     console.log(result);
     res.send(result);
   });
@@ -196,7 +186,6 @@ app.post('/cupdate', (req, res) => {
   var startdate = req.body.startdate;
   var enddate = req.body.enddate;
   var ccolor = req.body.ccolor;
-  var userid = req.body.userid;
 
   const sqlQuery =
     'update calendar set ctitle=?,startdate=?,enddate=?,ccolor=? where cnum =?;';
@@ -240,7 +229,7 @@ app.post('/cdelete', (req, res) => {
   });
 });
 
-// ================================사진===========================
+// ================================사진 시작 ===========================
 
 const multer = require('multer');
 const path = require('path');
@@ -294,14 +283,6 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
     },
   );
 });
-
-// app.post('/ilist', (req, res) => {
-//   console.log('ilist!!!');
-//   const sqlQuery = "SELECT userid, imgurl from image where userid = 'userid 01';";
-//   db.query(sqlQuery, (err, result) => {
-//     res.send(result);
-//   });
-// });
 
 // ================================사진===========================
 

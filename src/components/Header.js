@@ -1,8 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/header.scss';
 
 const Header = () => {
+  const [visible, setVisible] = useState(false);
+  const navigate = useNavigate();
+  console.log(
+    'Login:window.sessionStorage(login_id) =>',
+    window.sessionStorage.getItem('id'),
+  );
+
+  useEffect(() => {
+    if (window.sessionStorage.getItem('id') != null) {
+      setVisible(true);
+    } else {
+      // alert('로그인 후 이용하여 주세요');
+      navigate('/');
+    }
+  }, []);
+  const logout = () => {
+    window.sessionStorage.clear();
+    alert('로그아웃 되었습니다.');
+    setVisible(false);
+    navigate('/');
+  };
   return (
     <div className="header">
       <div className="wrapper">
@@ -26,7 +47,11 @@ const Header = () => {
           </ul>
         </nav>
         <div className="logo">
-          <img src="/ohDog_title.svg" alt="로고" />
+          <img
+            src="./ohDog_title.svg"
+            alt=""
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
         </div>
         <nav className="navigation">
           <ul className="nav-wrapper">
@@ -45,6 +70,11 @@ const Header = () => {
                 <img src="#" alt="지도" />
               </li>
             </Link>
+            {visible && (
+              <li>
+                <input type="button" value="로그아웃" onClick={logout} />
+              </li>
+            )}
           </ul>
         </nav>
       </div>

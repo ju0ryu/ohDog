@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
-import React from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import MainFeed from './components/MainFeed';
 import Login from './components/Login';
 import Join from './components/Join';
@@ -12,11 +12,29 @@ import Maps from './components/Maps';
 import Header from './components/Header';
 import Animal from './components/Animal';
 import EditMember from './components/EditMember';
-import BoardDetail from './components/board/BoardDetail';
 const App = () => {
+  const navigate = useNavigate();
+  const [visible, setVisible] = useState();
+  console.log(
+    'Login:window.sessionStorage(login_id) =>',
+    window.sessionStorage.getItem('id'),
+  );
+  useEffect(() => {
+    console.log(visible);
+  }, [visible]);
+
+  useEffect(() => {
+    if (window.sessionStorage.getItem('id') != null) {
+      console.log('로그인확인');
+    } else {
+      // alert('로그인 후 이용하여 주세요');
+      navigate('/');
+    }
+  }, []);
+
   return (
     <>
-      <Header />
+      {window.sessionStorage.getItem('id') != null && <Header />}
       <Routes>
         <Route index element={<Login />} /> {/*로그인 : d현호*/}
         <Route path="/join" element={<Join />} /> {/*회원가입 : 현호*/}
@@ -26,7 +44,6 @@ const App = () => {
         <Route path="/image" element={<Image />} /> {/*이미지 : 태용*/}
         <Route path="/calendar" element={<Calendars />} /> {/*캘린더 : 주영*/}
         <Route path="/board" element={<Board />} /> {/*게시판 : 종현*/}
-        <Route path="/detail" element={<BoardDetail />} /> {/*게시판 : 종현*/}
         <Route path="/map" element={<Maps />} /> {/*지도 : 주영*/}
         <Route path="/animal" element={<Animal />} />
         {/*애완동물 등록페이지*/}
