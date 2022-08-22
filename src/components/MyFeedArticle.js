@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const MyFeedArticle = ({ article, handlelist }) => {
+  const userid = 'userid 01';
   const handleDelete = (e) => {
     console.log('handleDelete(fnum):', e.target.id);
     axios
@@ -33,6 +34,18 @@ const MyFeedArticle = ({ article, handlelist }) => {
         <tr>
           <td colSpan="2" align="right">
             {article.fdate}
+          </td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td colSpan="2" align="right">
+            <input
+              type="text"
+              name="comment"
+              size="80"
+              placeholder="댓글달기"
+            ></input>
+            <input type="button" value="작성" onClick></input>
           </td>
         </tr>
       </table>
