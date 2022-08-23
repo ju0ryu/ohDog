@@ -1,3 +1,32 @@
 #root {
   padding-top: 54px;
+  text-align: center;
+  .editWrapper {
+    margin: 0 auto;
+    .eTitle {
+      font-size: xx-large;
+      font-family: 'Dongle', sans-serif;
+    }
+    .editForm {
+      font-size: 25px;
+      form {
+        table {
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          margin-left: auto;
+          margin-right: auto;
+          width: 40%;
+          label {
+            font-family: 'Dongle', sans-serif;
+          }
+          input {
+            font-family: 'Dongle', sans-serif;
+          }
+        }
+        .eSubmit {
+          font-family: 'Dongle', sans-serif;
+        }
+      }
+    }
+  }
 }

@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 const Image = ({ handlelist }) => {
   // const imageRef = useRef();
-  const userid = 'userid 01';
+  const userid = window.sessionStorage.getItem('id');
   const imgurl = useRef();
   // const imgdataRef = useRef();
   var secret = 'Y'
@@ -91,13 +91,14 @@ const Image = ({ handlelist }) => {
       )
       .then((res) => {
         console.log("handleInsert =>", res);
+        alert('업로드완료')
 
         imgurl.current.value = "";
       })
       .catch((e) => {
         console.error(e);
       });
-
+    window.location.reload()
   }
   // const [currentImage, setCurrentImage] = useState(0);
   // const [viewerIsOpen, setViewerIsOpen] = useState(false);
@@ -217,7 +218,7 @@ const Image = ({ handlelist }) => {
             <Photos
               userid={article.userid}
               imgurl={"http://localhost:8008/uploads/" + article.imgurl}
-
+              imgnum={article.imgnum}
               secret={article.secret}
             />
 
