@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const MyFeedArticle = ({ article, handlelist }) => {
-  const userid = 'userid 01';
   const handleDelete = (e) => {
     console.log('handleDelete(fnum):', e.target.id);
     axios

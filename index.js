@@ -5,7 +5,8 @@ const cors = require('cors'); // 교차허용
 
 const app = express(); //서버생성
 const PORT = process.env.port || 8008; //포트설정
-
+const iconv = require('iconv-lite');
+// npm install iconv-lite
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -48,7 +49,8 @@ app.post('/member', (req, res) => {
   var gender = req.body.gender;
 
   const sqlQuery =
-    'insert into member (userid, userpw, checkpw, nickname,tel,addr,birth,gender) values (?,?,?,?,?,?,?,?);';
+    'insert into member (userid, userpw, checkpw, nickname,tel,addr,birth,gender) v' +
+    'alues (?,?,?,?,?,?,?,?);';
   db.query(
     sqlQuery,
     [id, pw, checkpw, nickname, tel, addr, birth, gender],
@@ -58,26 +60,27 @@ app.post('/member', (req, res) => {
   );
 });
 
-//mainfeed req res 설정 시작
+//mainfeed req res 설정 시작 (전체피드)
 
 app.get('/mainfeed', (req, res) => {
   console.log('main!!!');
   const sqlQuery =
-    "SELECT userid, fcomment, DATE_FORMAT(fdate, '%m-%d-%H-%i') AS fdate FROM feed where secret =  'Y' order by date_format(fdate, '%m-%d-%H-%i') desc ;";
+    "SELECT userid, fcomment, DATE_FORMAT(fdate, '%m-%d-%H-%i') AS fdate FROM feed " +
+    "where secret =  'Y' order by date_format(fdate, '%m-%d-%H-%i') desc ;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
 });
 
-//mainfeed req res 설정 끝
-
-//myfeed  req res 설정 시작 (마이피드)
+//mainfeed req res 설정 끝 myfeed  req res 설정 시작 (마이피드)
 
 app.post('/flist', (req, res) => {
   console.log('내피드', req.body);
   var userid = req.body.userid;
   const sqlQuery =
-    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m월%d일 %H:%i') AS fdate from feed where userid = 'userid 01' order by date_format(fdate, '%m월%d일 %H:%i') desc;";
+    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m월%d일 %H:%i') AS fdate fro" +
+    "m feed where userid = 'userid 01' order by date_format(fdate, '%m월%d일 %H:%i') " +
+    'desc;';
   db.query(sqlQuery, [userid], (err, result) => {
     res.send(result);
   });
@@ -106,15 +109,15 @@ app.post('/fdelete', (req, res) => {
   });
 });
 
-// myfeed req res 설정 끝
-
-//fcomment req res 설정 시작 (댓글기능)
+// myfeed req res 설정 끝 fcomment req res 설정 시작 (댓글기능)
 
 app.post('/fccontenlist', (req, res) => {
   console.log('피드댓글', req.body);
   var userid = req.body.userid;
   const sqlQuery =
-    "SELECT fnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fdate from fcomment where userid = 'userid 01' order by date_format(fdate, '%m월%d일 %H:%i') desc;";
+    "SELECT fnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fdate f" +
+    "rom fcomment where userid = 'userid 01' order by date_format(fdate, '%m월%d일 %H" +
+    ":%i') desc;";
   db.query(sqlQuery, [userid], (err, result) => {
     res.send(result);
   });
@@ -142,11 +145,7 @@ app.post('/fccontentdelete', (req, res) => {
   });
 });
 
-//fcomment req res 설정 끝
-
-// 캘린더
-
-//캘린더 일정입력
+//fcomment req res 설정 끝 캘린더 캘린더 일정입력
 app.post('/cinsert', (req, res) => {
   console.log('cinsert check ---------', req.body);
   var ctitle = req.body.ctitle;
@@ -156,7 +155,8 @@ app.post('/cinsert', (req, res) => {
   var userid = req.body.userid;
 
   const sqlQuery =
-    'insert into calendar (ctitle, startdate, enddate, ccolor, userid) values(?,?,?,?,?);';
+    'insert into calendar (ctitle, startdate, enddate, ccolor, userid) values(?,?,?' +
+    ',?,?);';
   db.query(
     sqlQuery,
     [ctitle, startdate, enddate, ccolor, userid],
@@ -171,7 +171,9 @@ app.post('/cinsert', (req, res) => {
 app.post('/clist', (req, res) => {
   var userid = req.body.id;
   const sqlQuery =
-    'select cnum,ctitle,date_format(startdate, "%Y-%m-%d")as startdate,date_add(date_format(enddate, "%Y-%m-%d"),interval 1 day)as enddate,ccolor from calendar where userid = ?;';
+    'select cnum,ctitle,date_format(startdate, "%Y-%m-%d")as startdate,date_add(dat' +
+    'e_format(enddate, "%Y-%m-%d"),interval 1 day)as enddate,ccolor from calendar w' +
+    'here userid = ?;';
   db.query(sqlQuery, [userid], (err, result) => {
     console.log(result);
     res.send(result);
@@ -208,7 +210,8 @@ app.post('/cinsert', (req, res) => {
   var userid = req.body.userid;
 
   const sqlQuery =
-    'insert into calendar (ctitle, startdate, enddate, ccolor, userid) values(?,?,?,?,?);';
+    'insert into calendar (ctitle, startdate, enddate, ccolor, userid) values(?,?,?' +
+    ',?,?);';
   db.query(
     sqlQuery,
     [ctitle, startdate, enddate, ccolor, userid],
@@ -234,9 +237,8 @@ app.post('/cdelete', (req, res) => {
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-// 세가지 추가됨 멀터는 파일 추가
-// 패스는 경로
-// fs 파일 다루를수 있음
+
+// 세가지 추가됨 멀터는 파일 추가 패스는 경로 fs 파일 다루를수 있음
 
 try {
   fs.readdirSync('uploads');
@@ -244,8 +246,7 @@ try {
   console.error('uploads 폴더가 없어 uploads 폴더를 생성합니다.');
   fs.mkdirSync('uploads');
 }
-// 업로드 파일 생성 시켜주는듯?????
-// 밑에 무저껀 넣어야함?
+// 업로드 파일 생성 시켜주는듯????? 밑에 무저껀 넣어야함?
 const upload = multer({
   storage: multer.diskStorage({
     // 읽어오기???
@@ -256,16 +257,27 @@ const upload = multer({
     // 업로드 경로 변경 시킬수 있음
     filename(req, file, done) {
       const ext = path.extname(file.originalname);
-      done(null, path.basename(file.originalname, ext) + Date.now() + ext);
+      // ㅕ=utf다시팔 다운해야 한글파일 안깨짐
+      done(
+        null,
+        path.basename(
+          iconv.decode(file.originalname, 'utf-8').toString(),
+          ext,
+        ) +
+          Date.now() +
+          ext,
+      );
     },
   }),
-  limits: { fileSize: 10 * 1024 * 1024 },
+  limits: {
+    fileSize: 10 * 1024 * 1024,
+  },
 });
-// 객체 만들면 스토리지 디스토리이지 저장경로 ???
-// 파일네임 업로드 된 파일 경로? ext 확장자만 base는 확장자 제외하고?? 데이터 나우는 현재시간 뒤에는 확장자?
-
-// 이미지가 저장된 경로를 static으로 지정하면 불러올 수 있다.
+// 객체 만들면 스토리지 디스토리이지 저장경로 ??? 파일네임 업로드 된 파일 경로? ext 확장자만 base는 확장자 제외하고?? 데이터
+// 나우는 현재시간 뒤에는 확장자? 이미지가 저장된 경로를 static으로 지정하면 불러올 수 있다.
 app.use('/uploads', express.static('uploads'));
+// d업로드 폴더 스태틱으로 설계 업로드쪽으로 연결
+// 한글파일 깨지는 문제
 
 app.post('/iinsert', upload.single('image'), (req, res) => {
   console.log('/iinsert', req.file, req.body);
@@ -284,11 +296,73 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
   );
 });
 
-// ================================사진===========================
+app.post('/ilist', (req, res) => {
+  console.log('list!!!');
+  var userid = req.body.userid;
+  const sqlQuery =
+    'SELECT imgnum,userid, imgurl, imgdate from image where userid = ?;';
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
 
-// ********************게시판 코드 시작 ********************
+// app.post('/ilist', upload.single('image'), (req, res) => {
+// console.log("/ilist", req.file, req.body);   var userid = req.body.userid;
+// var secret = req.body.secret;   const sqlQuery = 'INSERT INTO image (userid,
+// imgurl, secret) values (?,?,?);';   db.query(     sqlQuery,     [userid,
+// req.file.filename, secret],      파일네임 실제 업로드된 파일명임     (err, result) => {
+// res.send(result);     },   ); })
 
-// 게시판 게시글 전체조회
+app.use(
+  cors({
+    origin: true,
+    methods: ['get', 'post'],
+    credentials: true,
+  }),
+);
+
+// ================================사진 끝===========================
+// ================================동물
+app.post('/ainsert', upload.single('image'), (req, res) => {
+  console.log('/ainsert', req.file, req.body);
+  var userid = req.body.userid;
+  var aname = req.body.aname;
+  var agender = req.body.agender;
+  var aspecies = req.body.aspecies;
+  var aage = parseInt(req.body.aage);
+
+  const sqlQuery =
+    'INSERT INTO animal (aimg,aname,agender,aspecies,aage,userid) values (?,?,?,?,?' +
+    ',?);';
+  db.query(
+    sqlQuery,
+    [req.file.filename, aname, agender, aspecies, aage, userid],
+    (err, result) => {
+      res.send(result);
+    },
+  );
+});
+
+app.post('/alist', (req, res) => {
+  console.log('alist :', req.body);
+  var userid = req.body.userid;
+  const sqlQuery =
+    'select anum, aimg, aname,agender,aspecies,aage from animal where userid=?;';
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/adelete', (req, res) => {
+  console.log('adelete :', req.body);
+  var anum = parseInt(req.body.anum);
+  const sqlQuery = 'delete from animal where anum = ?;';
+  db.query(sqlQuery, [anum], (err, result) => {
+    res.send(result);
+  });
+});
+
+// ********************게시판 코드 시작 ******************** 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
   console.log('list!!!');
   const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
@@ -297,8 +371,7 @@ app.get('/list', (req, res) => {
   });
 });
 
-// 게시판 게시글 입력
-//카테고리 넣어야함---------------------------------------------
+// 게시판 게시글 입력 카테고리 넣어야함---------------------------------------------
 app.post('/insert', (req, res) => {
   console.log('/insert', req.body);
   var writer = req.body.writer;
@@ -319,7 +392,8 @@ app.post('/detail', (req, res) => {
   var num = parseInt(req.body.num);
 
   const sqlQuery =
-    "SELECT BOARDNUM, USERID, BTITLE, BCONTENT, DATE_FORMAT(BDATE, '%Y-%m-%d') AS BDATE FROM BOARD where BOARDNUM = ?;";
+    "SELECT BOARDNUM, USERID, BTITLE, BCONTENT, DATE_FORMAT(BDATE, '%Y-%m-%d') AS B" +
+    'DATE FROM BOARD where BOARDNUM = ?;';
   db.query(sqlQuery, [num], (err, result) => {
     res.send(result);
   });

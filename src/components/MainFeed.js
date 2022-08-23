@@ -3,9 +3,13 @@ import '../css/myFeed.scss';
 import axios from 'axios';
 
 const MainFeed = () => {
+  const userid = window.sessionStorage.getItem('id');
+
   const [mainfeedlist, setMainfeedList] = useState({
     mainfeedList: [],
   });
+
+  const onClick = () => {};
 
   useEffect(() => {
     console.log('mainfeedlist :', mainfeedlist.mainfeedList);
@@ -26,64 +30,39 @@ const MainFeed = () => {
       });
   }, []);
 
-  // const fccontent = ({ fccontentlist }) => {
-  //   const userid = 'userid 01';
-
-  //   axios
-  //     .post('http://localhost:8008/fccontentinsert', {
-  //       userid,
-  //       fccontent: fccontentRef.current.value,
-  //     })
-  //     .then((res) => {
-  //       fccontentlist();
-  //       userid = 'userid 01';
-  //       fccontentRef.current.value = '';
-  //     })
-  //     .catch((e) => {
-  //       console.error(e);
-  //     });
-  // };
-
   return (
     <div>
       {mainfeedlist.mainfeedList.map((mainlist) => {
         return (
-          <div className="mainlist">
-            <table border="1" hight="200px" width="200px">
-              <tr>
-                <td colSpan="2">{mainlist.userid}</td>
-              </tr>
-              <tr>
-                <td colSpan="2" align="center">
-                  {mainlist.fcomment}
-                </td>
-              </tr>
-              <tr>
-                <td colSpan="2" align="right">
-                  {mainlist.fdate}
-                </td>
-              </tr>
-              <br />
-              <tr>
-                <td align="right">
-                  <input
-                    type="text"
-                    name="comment"
-                    size="80"
-                    placeholder="댓글달기"
-                  ></input>
-                </td>
-                <td>
-                  <input type="button" value="작성" onClick></input>
-                </td>
-              </tr>
-            </table>
-          </div>
+          <table border="1" hight="200px" width="400px">
+            <tr>
+              <td colSpan="2">{mainlist.userid}</td>
+            </tr>
+            <tr>
+              <td colSpan="2" align="center">
+                {mainlist.fcomment}
+              </td>
+            </tr>
+            <tr>
+              <td colSpan="2" align="right">
+                {mainlist.fdate}
+              </td>
+            </tr>
+
+            <tr>
+              <td colSpan="2" align="center">
+                <input
+                  id={mainlist.fnum}
+                  type="button"
+                  value="댓글보기"
+                  onClick
+                ></input>
+              </td>
+            </tr>
+          </table>
         );
       })}
-      <div>
-        <label>photo</label>
-      </div>
+      ;
     </div>
   );
 };
