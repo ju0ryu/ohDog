@@ -62,7 +62,7 @@ app.post('/member', (req, res) => {
   });
 });
 
-//mainfeed req res 설정 시작 (전체피드)
+//mainfeed req res 설정 시작
 
 app.get('/mainfeed', (req, res) => {
   console.log('main!!!');
@@ -280,6 +280,7 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 app.post('/ilist', (req, res) => {
   console.log('list!!!');
   var userid = req.body.userid;
@@ -345,6 +346,9 @@ app.post('/adelete', (req, res) => {
     res.send(result);
   });
 });
+=======
+// ================================사진===========================
+>>>>>>> dc17c93dbca24f43fae1d3302b003622d48cec54
 
 // ********************게시판 코드 시작 ******************** 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
