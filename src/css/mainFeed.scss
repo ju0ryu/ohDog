@@ -3,5 +3,14 @@
 }
 
 .mainbox {
-  align: center;
+  display:flex;
+  margin:10px;
+}
+
+.mainlistbox {
+  margin: 20px;
+}
+
+.fcinput {
+  margin-left: 20px;
 }

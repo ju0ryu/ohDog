@@ -37,7 +37,7 @@ const MainFeed = () => {
 
   const fcInsert = (e) => {
     e.preventDefault();
-    console.log(fccontentRef.current.value);
+    console.log('확인', fccontentRef.current.value);
     console.log(e.target.id);
     axios
       .post('http://localhost:8008/fccontentinsert', {
@@ -86,7 +86,7 @@ const MainFeed = () => {
         );
         if (mainlist.fnum == fnumstate) {
           return (
-            <div>
+            <div className="mainlistbox">
               <table border="1" hight="200px" width="400px">
                 <tr>
                   <td colSpan="2">{mainlist.userid}</td>
@@ -118,6 +118,7 @@ const MainFeed = () => {
                   <tr>
                     <td align="right" colSpan="2">
                       <input
+                        className="fcinput"
                         type="text"
                         name="comment"
                         ref={fccontentRef}
@@ -142,7 +143,7 @@ const MainFeed = () => {
           );
         } else {
           return (
-            <div>
+            <div className="mainlistbox">
               <table border="1" hight="200px" width="400px">
                 <tr>
                   <td colSpan="2">{mainlist.userid}</td>
@@ -165,7 +166,6 @@ const MainFeed = () => {
                       type="button"
                       value="댓글보기"
                       onClick={onClick}
-                      ref={fccontentRef}
                     ></input>
                   </td>
                 </tr>

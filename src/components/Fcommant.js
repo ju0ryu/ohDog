@@ -1,6 +1,8 @@
+import '../css/Fcommant.scss';
+
 const Fcommant = ({ article }) => {
   return (
-    <div>
+    <div className="fcommant">
       <form id={article.fnum}>
         <table>
           <tr>
