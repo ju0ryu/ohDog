@@ -5,7 +5,7 @@ const cors = require('cors'); // 교차허용
 
 const app = express(); //서버생성
 const PORT = process.env.port || 8008; //포트설정
-
+const iconv = require("iconv-lite") //파일한글폰트 안꺠짐
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -235,14 +235,22 @@ const upload = multer({
     // 업로드 경로 변경 시킬수 있음
     filename(req, file, done) {
       const ext = path.extname(file.originalname);
-      done(null, path.basename(file.originalname, ext) + Date.now() + ext);
-    },
+      // ㅕ=utf다시팔 다운해야 한글파일 안깨짐
+      done(
+        null,
+        path.basename(iconv.decode(file.originalname, "utf-8").toString(), ext) +
+        Date.now() + ext
+      );
+    }
   }),
-  limits: { fileSize: 10 * 1024 * 1024 },
+  limits: {
+    fileSize: 10 * 1024 * 1024
+  }
 });
 // 객체 만들면 스토리지 디스토리이지 저장경로 ??? 파일네임 업로드 된 파일 경로? ext 확장자만 base는 확장자 제외하고?? 데이터
 // 나우는 현재시간 뒤에는 확장자? 이미지가 저장된 경로를 static으로 지정하면 불러올 수 있다.
 app.use('/uploads', express.static('uploads'));
+// d업로드 폴더 스태틱으로 설계 업로드쪽으로 연결 한글파일 깨지는 문제
 
 app.post('/iinsert', upload.single('image'), (req, res) => {
   console.log('/iinsert', req.file, req.body);
@@ -251,79 +259,58 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
   var secret = req.body.secret;
 
   const sqlQuery = 'INSERT INTO image (userid, imgurl, secret) values (?,?,?);';
-  db.query(
-    sqlQuery,
-    [userid, req.file.filename, secret],
+  db.query(sqlQuery, [
+    userid, req.file.filename, secret
+  ],
     // 파일네임 실제 업로드된 파일명임
     (err, result) => {
       res.send(result);
-    },
-  );
+    });
 });
 
-app.post('/ilist', upload.single('image'), (req, res) => {
-  console.log('/ilist', req.file, req.body);
+app.post('/ilist', (req, res) => {
+  console.log('list!!!');
   var userid = req.body.userid;
-
-  var secret = req.body.secret;
-
-  const sqlQuery = 'INSERT INTO image (userid, imgurl, secret) values (?,?,?);';
-  db.query(
-    sqlQuery,
-    [userid, req.file.filename, secret],
-    // 파일네임 실제 업로드된 파일명임
-    (err, result) => {
-      res.send(result);
-    },
-  );
-});
-
-// ================================사진 끝===========================
-// ================================동물
-app.post('/ainsert', upload.single('image'), (req, res) => {
-  console.log('/ainsert', req.file, req.body);
-  var userid = req.body.userid;
-  var aname = req.body.aname;
-  var agender = req.body.agender;
-  var aspecies = req.body.aspecies;
-  var aage = parseInt(req.body.aage);
-
-  const sqlQuery =
-    'INSERT INTO animal (aimg,aname,agender,aspecies,aage,userid) values (?,?,?,?,?,?);';
-  db.query(
-    sqlQuery,
-    [req.file.filename, aname, agender, aspecies, aage, userid],
-    (err, result) => {
-      res.send(result);
-    },
-  );
-});
-
-app.post('/alist', (req, res) => {
-  console.log('alist :', req.body);
-  var userid = req.body.userid;
-  const sqlQuery =
-    'select anum, aimg, aname,agender,aspecies,aage from animal where userid=?;';
+  const sqlQuery = 'SELECT imgnum,userid, imgurl, imgdate from image where userid = ?;'
   db.query(sqlQuery, [userid], (err, result) => {
     res.send(result);
   });
 });
 
-app.post('/adelete', (req, res) => {
-  console.log('adelete :', req.body);
-  var anum = parseInt(req.body.anum);
-  const sqlQuery = 'delete from animal where anum = ?;';
-  db.query(sqlQuery, [anum], (err, result) => {
+app.post("/idelete", (req, res) => {
+  var imgnum = parseInt(req.body.imgnum);
+  console.log("/idelete => ", req.body);
+
+  const sqlQuery = "DELETE FROM image where imgnum=?;";
+  db.query(sqlQuery, [imgnum], (err, result) => {
+    console.log(err);
     res.send(result);
   });
 });
+
+// app.post('/ilist', upload.single('image'), (req, res) => {
+// console.log("/ilist", req.file, req.body);   var userid = req.body.userid;
+// var secret = req.body.secret;   const sqlQuery = 'INSERT INTO image (userid,
+// imgurl, secret) values (?,?,?);';   db.query(     sqlQuery,     [userid,
+// req.file.filename, secret],      파일네임 실제 업로드된 파일명임     (err, result) => {
+// res.send(result);     },   ); })
+
+app.use(cors({
+  origin: true,
+  methods: [
+    "get", "post"
+  ],
+  credentials: true
+}));
+
+// ================================사진 끝===========================
 
 // ********************게시판 코드 시작 ********************
 
 // 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
   console.log('list!!!');
-  const sqlQuery = 'SELECT boardnum, category, btitle FROM board;';
+  const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
@@ -332,13 +319,13 @@ app.get('/list', (req, res) => {
 // 게시판 게시글 입력 카테고리 넣어야함---------------------------------------------
 app.post('/insert', (req, res) => {
   console.log('/insert', req.body);
-  var title = req.body.title;
   var writer = req.body.writer;
+  var title = req.body.title;
   var content = req.body.content;
   var category = req.body.category;
 
   const sqlQuery =
-    'INSERT INTO board (userid, btitle, bcontent, category) values (?,?,?,?);';
+    'INSERT INTO BOARD (USERID, BTITLE, BCONTENT, CATEGORY) values (?,?,?,?);';
   db.query(sqlQuery, [writer, title, content, category], (err, result) => {
     res.send(result);
   });
@@ -350,7 +337,7 @@ app.post('/detail', (req, res) => {
   var num = parseInt(req.body.num);
 
   const sqlQuery =
-    "SELECT boardnum, userid, btitle, bcontent, DATE_FORMAT(bdate, '%Y-%m-%d') AS bdate FROM board where boardnum = ?;";
+    "SELECT BOARDNUM, USERID, BTITLE, BCONTENT, DATE_FORMAT(BDATE, '%Y-%m-%d') AS BDATE FROM BOARD where BOARDNUM = ?;";
   db.query(sqlQuery, [num], (err, result) => {
     res.send(result);
   });
