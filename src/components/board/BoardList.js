@@ -31,7 +31,7 @@ const BoardList = ({ boardlist }) => {
               <th width="60">번호</th>
               <th width="100">카테고리</th>
               <th width="300">제목</th>
-              <th width="60">글제목</th>
+              <th width="60">좋아요</th>
               <th width="60">미정</th>
             </tr>
           </thead>

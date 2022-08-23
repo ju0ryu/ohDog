@@ -4,16 +4,6 @@ import { useNavigate } from '../../../node_modules/react-router-dom/index';
 
 const BoardArticle = ({ article }) => {
   console.log('BoardArticle =>', article);
-
-  const [detail, setDetail] = useState({
-    boardnum: 0,
-    userid: '',
-    btitle: '',
-    bcontent: '',
-    bdate: '',
-    category: '',
-  });
-
   const navigate = useNavigate();
 
   const handleDetail = (e) => {
@@ -25,24 +15,15 @@ const BoardArticle = ({ article }) => {
         const { data } = res;
         console.log('detail =>', data);
         if (res.data.length > 0) {
-          setDetail({
-            ...detail,
-            boardnum: data[0].boardnum,
-            userid: data[0].userid,
-            btitle: data[0].btitle,
-            bcontent: data[0].bcontent,
-            bdate: data[0].bdate,
-            category: data[0].category,
-          });
-          return changePage(detail);
+          moveToDetail(data);
         }
       })
       .catch((e) => {
         console.error(e);
       });
   };
-  const changePage = (detail) => {
-    console.log('detail :', detail);
+
+  const moveToDetail = (detail) => {
     navigate('/detail', { state: detail });
   };
   return (

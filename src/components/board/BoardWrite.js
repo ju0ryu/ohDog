@@ -1,22 +1,22 @@
 import { useRef } from 'react';
 import axios from 'axios';
+import { useNavigate } from '../../../node_modules/react-router-dom/index';
 
-const BoardWrite = ({ handlelist }) => {
+const BoardWrite = () => {
   const titleRef = useRef();
   const writerRef = useRef();
   const contentRef = useRef();
   const categoryRef = useRef();
 
+  const navigate = useNavigate();
+
   const handleInsert = () => {
-    console.log('handleInsert =>', categoryRef.current.value);
-    if (
-      categoryRef.current.value === '' ||
-      categoryRef.current.value === undefined
-    ) {
-      alert('카테고리를 선택하세요!!!');
-      categoryRef.current.focus();
-      return false;
-    }
+    // if (categoryRef.current.value === undefined) {
+    //   console.log('handleInsert =>', categoryRef.current.value);
+    //   alert('카테고리를 선택하세요!!!');
+    //   categoryRef.current.focus();
+    //   return false;
+    // }
 
     if (titleRef.current.value === '' || titleRef.current.value === undefined) {
       alert('제목을 입력하세요!!!');
@@ -45,13 +45,17 @@ const BoardWrite = ({ handlelist }) => {
         title: titleRef.current.value,
         writer: writerRef.current.value,
         content: contentRef.current.value,
+        category: categoryRef.current.value,
       })
       .then((res) => {
         console.log('handleInsert =>', res);
-        handlelist();
+
         titleRef.current.value = '';
         writerRef.current.value = '';
         contentRef.current.value = '';
+        categoryRef.current.value = '';
+        console.log('handleInsert =>', categoryRef.current.value);
+        navigate('/board');
       })
       .catch((e) => {
         console.error(e);
@@ -65,12 +69,23 @@ const BoardWrite = ({ handlelist }) => {
           <tr>
             <td width="100px">카테고리</td>
             <td align="left" width="550px">
-              <input
-                type="checkbox"
-                name="title"
-                size="68"
-                ref={titleRef}
-              ></input>
+              <select name="board" size="6">
+                <option value="free" ref={categoryRef}>
+                  자유
+                </option>
+                <option value="review" ref={categoryRef}>
+                  리뷰
+                </option>
+                <option value="parcel" ref={categoryRef}>
+                  분양
+                </option>
+                <option value="lost" ref={categoryRef}>
+                  분실
+                </option>
+                <option value="qa" ref={categoryRef}>
+                  Q&amp;A
+                </option>
+              </select>
             </td>
           </tr>
           <tr>

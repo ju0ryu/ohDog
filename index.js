@@ -109,14 +109,12 @@ app.post('/fdelete', (req, res) => {
 
 // myfeed req res 설정 끝
 
-//fcomment req res 설정 시작 (댓글기능)
-
-app.post('/fccontentlist', (req, res) => {
+app.post('/fccontenlist', (req, res) => {
   console.log('피드댓글', req.body);
-  var fnum = req.body.funm;
+  var userid = req.body.userid;
   const sqlQuery =
-    "SELECT fcnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fcdate from fcomment where fnum = ? order by date_format(fdate, '%m월%d일 %H:%i') desc;";
-  db.query(sqlQuery, [fnum], (err, result) => {
+    "SELECT fnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fdate from fcomment where userid = 'userid 01' order by date_format(fdate, '%m월%d일 %H:%i') desc;";
+  db.query(sqlQuery, [userid], (err, result) => {
     res.send(result);
   });
 });
@@ -125,7 +123,6 @@ app.post('/fccontentinsert', (req, res) => {
   console.log('댓글달기', req.body);
   var userid = req.body.userid;
   var fccontent = req.body.fccontent;
-  var fnum = req.body.fnum;
 
   const sqlQuery =
     'INSERT INTO fcomment (userid, fccontent, fnum) values (?,?,?);';
@@ -145,11 +142,7 @@ app.post('/fccontentdelete', (req, res) => {
   });
 });
 
-//fcomment req res 설정 끝
-
-// 캘린더
-
-//캘린더 일정입력
+//fcomment req res 설정 끝 캘린더 캘린더 일정입력
 app.post('/cinsert', (req, res) => {
   console.log('cinsert check ---------', req.body);
   var ctitle = req.body.ctitle;
@@ -290,42 +283,30 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 app.post('/ilist', (req, res) => {
   console.log('list!!!');
   var userid = req.body.userid;
   const sqlQuery = 'SELECT imgnum,userid, imgurl, imgdate from image where userid = ?;'
-  db.query(sqlQuery, [userid], (err, result) => {
-    res.send(result);
-  });
+=======
+app.post('/ilist', upload.single('image'), (req, res) => {
+  console.log('/ilist', req.file, req.body);
+  var userid = req.body.userid;
+
+  var secret = req.body.secret;
+
+  const sqlQuery = 'INSERT INTO image (userid, imgurl, secret) values (?,?,?);';
+  db.query(
+    sqlQuery,
+    [userid, req.file.filename, secret],
+    // 파일네임 실제 업로드된 파일명임
+    (err, result) => {
+      res.send(result);
+    },
+  );
 });
 
-app.post("/idelete", (req, res) => {
-  var imgnum = parseInt(req.body.imgnum);
-  console.log("/idelete => ", req.body);
-
-  const sqlQuery = "DELETE FROM image where imgnum=?;";
-  db.query(sqlQuery, [imgnum], (err, result) => {
-    console.log(err);
-    res.send(result);
-  });
-});
-
-// app.post('/ilist', upload.single('image'), (req, res) => {
-// console.log("/ilist", req.file, req.body);   var userid = req.body.userid;
-// var secret = req.body.secret;   const sqlQuery = 'INSERT INTO image (userid,
-// imgurl, secret) values (?,?,?);';   db.query(     sqlQuery,     [userid,
-// req.file.filename, secret],      파일네임 실제 업로드된 파일명임     (err, result) => {
-// res.send(result);     },   ); })
-
-app.use(cors({
-  origin: true,
-  methods: [
-    "get", "post"
-  ],
-  credentials: true
-}));
-
-// ================================사진 끝===========================
+// ================================사진===========================
 
 // ********************게시판 코드 시작 ********************
 
