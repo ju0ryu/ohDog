@@ -1,19 +1,9 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from '../../../node_modules/react-router-dom/index';
 
 const BoardArticle = ({ article }) => {
   console.log('BoardArticle =>', article);
-
-  const [detail, setDetail] = useState({
-    boardnum: 0,
-    userid: '',
-    btitle: '',
-    bcontent: '',
-    bdate: '',
-    category: '',
-  });
-
   const navigate = useNavigate();
 
   const handleDetail = (e) => {
@@ -25,17 +15,7 @@ const BoardArticle = ({ article }) => {
         const { data } = res;
         console.log('detail =>', data);
         if (res.data.length > 0) {
-          setDetail({
-            ...detail,
-            boardnum: data[0].boardnum,
-            userid: data[0].userid,
-            btitle: data[0].btitle,
-            bcontent: data[0].bcontent,
-            bdate: data[0].bdate,
-            category: data[0].category,
-          });
-          console.log('detail =>', detail);
-          navigate('/detail', { state: detail });
+          moveToDetail(data);
         }
       })
       .catch((e) => {
@@ -43,6 +23,9 @@ const BoardArticle = ({ article }) => {
       });
   };
 
+  const moveToDetail = (detail) => {
+    navigate('/detail', { state: detail });
+  };
   return (
     <tr>
       <td>{article.boardnum}</td>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MyFeedWrite from './MyFeedWrite';
 import MyFeedList from './MyFeedList';
 import '../css/myFeed.scss';
@@ -10,18 +10,24 @@ const MyFeed = () => {
     myfeedList: [],
   });
 
-  const userid = 'userid 01';
+  const userid = window.sessionStorage.getItem('id');
+  // useEffect(() => {
+  //   console.log('세션확인 : ', userid);
+  // }, []);
 
   const getList = () => {
-    axios.post('http://localhost:8008/flist', { userid }).then((res) => {
-      const { data } = res;
-      console.log('data : ', data);
-      setMyfeedList({
-        myfeedList: data,
-      }).catch((e) => {
+    axios
+      .post('http://localhost:8008/flist', { userid })
+      .then((res) => {
+        const { data } = res;
+        console.log('data : ', data);
+        setMyfeedList({
+          myfeedList: data,
+        });
+      })
+      .catch((e) => {
         console.error(e);
       });
-    });
   };
   return (
     <div>
