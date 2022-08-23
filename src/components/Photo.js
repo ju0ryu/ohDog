@@ -1,60 +1,8 @@
-import "./aa.css"
-import axios from "axios";
-
-
-const Photos = ({
-  userid,
-  imgurl,
-  secret,
-  imgnum,
-}) => {
-  const handleDelete = (e) => {
-    if (window.confirm('삭제하시겠습니까?')) {
-      console.log("handleDelete(imgnum) =>", imgnum);
-      axios
-        .post("http://localhost:8008/idelete",
-          { imgnum: e.target.id }
-        )
-        .then((res) => {
-          alert('삭제되었습니다')
-          console.log(res)
-        })
-        .catch((e) => {
-          console.error(e);
-        });
-    } else {
-      alert('삭제가 취소되었습니다')
-    }
-    window.location.reload()
-  };
-
-
-
-
-  console.log("url", imgurl);
+const Photos = ({ userid, imgurl, secret }) => {
+  console.log('url', imgurl);
   // const image = "http://localhost:8008/uploads/" + imgurl;
-  return (
-    <div className="out_img">
-      <img className="img" src={imgurl} />
-
-      <input
-        id={imgnum}
-        type="button"
-        value="삭제"
-        // id={imgurl}
-        onClick={handleDelete}
-      ></input>
-
-
-
-    </div >
-
-
-
-
-  )
-}
-
+  return <img src={imgurl} />;
+};
 
 // {
 //   src: 'https://images.unsplash.com/photo-1594415156038-02d665441df2?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max',

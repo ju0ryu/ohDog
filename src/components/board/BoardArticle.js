@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { useNavigate } from '../../../node_modules/react-router-dom/index';
 
 const BoardArticle = ({ article }) => {

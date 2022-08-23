@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 const Image = ({ handlelist }) => {
   // const imageRef = useRef();
-  const userid = 'userid 01';
+  const userid = window.sessionStorage.getItem('id');
   const imgurl = useRef();
   // const imgdataRef = useRef();
   var secret = 'Y'
