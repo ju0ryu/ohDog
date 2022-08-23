@@ -313,6 +313,47 @@ app.post('/adelete', (req, res) => {
   });
 });
 
+//===========================지도주소불러오기
+app.post('/mdata', (req, res) => {
+  console.log('mdata : ', req.body);
+  var userid = req.body.userid;
+  const sqlQuery = 'select addr from member where userid = ?;';
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
+
+//=========================== 회원수정
+app.post('/elist', (req, res) => {
+  console.log('elist :', req.body);
+  var userid = req.body.userid;
+  const sqlQuery = 'select * from member where userid = ?;';
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/eupdate', (req, res) => {
+  console.log('eupdate : ', req.body);
+  var userid = req.body.userid;
+  var userpw = req.body.userpw;
+  var checkpw = req.body.checkpw;
+  var nickname = req.body.nickname;
+  var tel = req.body.tel;
+  var addr = req.body.addr;
+  var birth = req.body.birth;
+
+  const sqlQuery =
+    'update member set userpw=?, checkpw=?, nickname=?, tel=?, addr=?, birth=? where userid = ?;';
+  db.query(
+    sqlQuery,
+    [userpw, checkpw, nickname, tel, addr, birth, userid],
+    (err, result) => {
+      res.send(result);
+    },
+  );
+});
+
 // ********************게시판 코드 시작 ********************
 
 // 게시판 게시글 전체조회
