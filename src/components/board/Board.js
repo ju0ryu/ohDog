@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import BoardList from './BoardList';
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router';
 
 function Board() {
   const [boardlist, setBoardlist] = useState({
@@ -31,7 +30,6 @@ function Board() {
         setBoardlist({
           boardList: data,
         });
-        // 여기도 navigate 써야하나?
       })
       .catch((e) => {
         console.error(e);
