@@ -24,21 +24,47 @@ const Join = () => {
   };
 
   const handleMember = () => {
-    // if (idRef.current.value === '' || idRef.current.value === undefined) {
-    //   alert('아이디를 입력하세요!!!');
-    //   idRef.current.focus();
-    //   return false;
-    // }
-    // if (pwRef.current.value === '' || pwRef.current.value === undefined) {
-    //   alert('패스워드를 입력하세요!!!');
-    //   pwRef.current.focus();
-    //   return false;
-    // }
-    // if (emailRef.current.value === '' || emailRef.current.value === undefined) {
-    //   alert('이메일을 입력하세요!!!');
-    //   emailRef.current.focus();
-    //   return false;
-    // }
+    if (idRef.current.value === '' || idRef.current.value === undefined) {
+      alert('아이디를 입력하세요!!!');
+      idRef.current.focus();
+      return false;
+    }
+    if (pwRef.current.value === '' || pwRef.current.value === undefined) {
+      alert('패스워드를 입력하세요!!!');
+      pwRef.current.focus();
+      return false;
+    }
+    if (
+      checkpwRef.current.value === '' ||
+      checkpwRef.current.value === undefined
+    ) {
+      alert('패스워드를 확인하세요!!!');
+      checkpwRef.current.focus();
+      return false;
+    }
+    if (
+      nicknameRef.current.value === '' ||
+      nicknameRef.current.value === undefined
+    ) {
+      alert('닉네임을 입력하세요!!!');
+      nicknameRef.current.focus();
+      return false;
+    }
+    if (telRef.current.value === '' || telRef.current.value === undefined) {
+      alert('전화번호를 입력하세요!!!');
+      telRef.current.focus();
+      return false;
+    }
+    if (addrRef.current.value === '' || addrRef.current.value === undefined) {
+      alert('주소를 입력하세요!!!');
+      addrRef.current.focus();
+      return false;
+    }
+    if (birthRef.current.value === '' || birthRef.current.value === undefined) {
+      alert('생년월일을 입력하세요!!!');
+      birthRef.current.focus();
+      return false;
+    }
 
     axios
       .post('http://localhost:8008/member', {
@@ -53,8 +79,8 @@ const Join = () => {
       })
       .then((res) => {
         console.log('handleMember =>', res);
-        if (res.data.affectedRows === 1) alert('회원가입 성공!!!');
-        else alert('회원가입 실패!!!');
+        if (res.data.affectedRows === 1) alert('환영합니다!!');
+        else alert('회원가입에 실패하였습니다.');
         navigate('/');
       })
       .catch((e) => {
@@ -140,15 +166,16 @@ const Join = () => {
           <tr>
             <td width="100px">주소</td>
             <td align="left" width="200px">
-              <input
-                type="text"
-                name="addr"
-                size="20"
-                defaultValue=""
-                ref={addrRef}
-                placeholder="주소를 입력하세요"
-                required
-              ></input>
+              <select id="addr" ref={addrRef}>
+                <option value="a">경기도</option>
+                <option value="b">강원도</option>
+                <option value="c">서울</option>
+                <option value="d">부산</option>
+                <option value="e">광주</option>
+                <option value="f">대구</option>
+                <option value="g">대전</option>
+                <option value="h">충청도</option>
+              </select>
             </td>
           </tr>
           <tr>
