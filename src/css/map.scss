@@ -1,3 +1,118 @@
 #root {
+  height: 1000px;
   padding-top: 54px;
+
+  margin-top: 30px;
+  background-color: rgb(248, 247, 247);
+  .maps {
+    margin: 0 auto;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    .headers {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      font-family: 'Dongle', sans-serif;
+      font-size: xx-large;
+    }
+    .searchInput {
+      display: flex;
+      padding: 10px 10px;
+      align-items: center;
+      justify-content: center;
+      input {
+        font-size: 30px;
+        font-family: 'Dongle', sans-serif;
+        padding: 0 15px;
+        width: 300px;
+        height: 40px;
+        border-left: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        border-right: none;
+        border-radius: 5px 0px 0px 5px;
+      }
+      button {
+        font-family: 'Dongle', sans-serif;
+        font-size: x-large;
+        width: 60px;
+        height: 42px;
+        border-radius: 0 5px 5px 0;
+        border-left: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        background-color: white;
+        cursor: pointer;
+        &:hover {
+          background-color: rgb(0, 0, 255);
+          opacity: 0.7;
+          color: white;
+        }
+      }
+    }
+    .category {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      input {
+        font-family: 'Dongle', sans-serif;
+        font-size: x-large;
+        width: 100px;
+        height: 40px;
+        border-radius: 5px;
+        border: 0.5px solid #ccc;
+        background-color: #fff;
+        margin-right: 5px;
+        cursor: pointer;
+        &:hover {
+          background-color: rgb(0, 0, 255);
+          opacity: 0.7;
+          color: white;
+        }
+      }
+    }
+  }
+  .map {
+    padding: 10px 60px;
+    border-radius: 50px;
+    .marker {
+      padding: 15px 5px;
+      margin: 0px;
+      width: 200px;
+      height: 100px;
+      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Dongle', sans-serif;
+      background-color: #fff;
+      .mTitle {
+        padding: 0 5px;
+        margin: 0px;
+        font-size: 25px;
+      }
+      .mAddr {
+        padding: 0 5px;
+        margin: 0px;
+      }
+      .mPhone {
+        padding: 0 5px;
+        margin: 0px;
+      }
+      .mURL {
+        padding: 0 5px;
+        margin: 0px;
+        &:hover {
+          color: blue;
+        }
+      }
+    }
+  }
 }

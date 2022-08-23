@@ -238,14 +238,18 @@ const upload = multer({
       // ㅕ=utf다시팔 다운해야 한글파일 안깨짐
       done(
         null,
-        path.basename(iconv.decode(file.originalname, "utf-8").toString(), ext) +
-        Date.now() + ext
+        path.basename(
+          iconv.decode(file.originalname, 'utf-8').toString(),
+          ext,
+        ) +
+        Date.now() +
+        ext,
       );
-    }
+    },
   }),
   limits: {
-    fileSize: 10 * 1024 * 1024
-  }
+    fileSize: 10 * 1024 * 1024,
+  },
 });
 // 객체 만들면 스토리지 디스토리이지 저장경로 ??? 파일네임 업로드 된 파일 경로? ext 확장자만 base는 확장자 제외하고?? 데이터
 // 나우는 현재시간 뒤에는 확장자? 이미지가 저장된 경로를 static으로 지정하면 불러올 수 있다.
@@ -259,51 +263,17 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
   var secret = req.body.secret;
 
   const sqlQuery = 'INSERT INTO image (userid, imgurl, secret) values (?,?,?);';
-  db.query(sqlQuery, [
-    userid, req.file.filename, secret
-  ],
+  db.query(
+    sqlQuery,
+    [userid, req.file.filename, secret],
     // 파일네임 실제 업로드된 파일명임
     (err, result) => {
       res.send(result);
-    });
+    },
+  );
 });
 
-app.post('/ilist', (req, res) => {
-  console.log('list!!!');
-  var userid = req.body.userid;
-  const sqlQuery = 'SELECT imgnum,userid, imgurl, imgdate from image where userid = ?;'
-  db.query(sqlQuery, [userid], (err, result) => {
-    res.send(result);
-  });
-});
-
-app.post("/idelete", (req, res) => {
-  var imgnum = parseInt(req.body.imgnum);
-  console.log("/idelete => ", req.body);
-
-  const sqlQuery = "DELETE FROM image where imgnum=?;";
-  db.query(sqlQuery, [imgnum], (err, result) => {
-    console.log(err);
-    res.send(result);
-  });
-});
-
-// app.post('/ilist', upload.single('image'), (req, res) => {
-// console.log("/ilist", req.file, req.body);   var userid = req.body.userid;
-// var secret = req.body.secret;   const sqlQuery = 'INSERT INTO image (userid,
-// imgurl, secret) values (?,?,?);';   db.query(     sqlQuery,     [userid,
-// req.file.filename, secret],      파일네임 실제 업로드된 파일명임     (err, result) => {
-// res.send(result);     },   ); })
-
-app.use(cors({
-  origin: true,
-  methods: [
-    "get", "post"
-  ],
-  credentials: true
-}));
-
-// ================================사진 끝===========================
+// ================================사진===========================
 // ================================동물
 app.post('/ainsert', upload.single('image'), (req, res) => {
   console.log('/ainsert', req.file, req.body);
@@ -324,8 +294,8 @@ app.post('/ainsert', upload.single('image'), (req, res) => {
   );
 });
 
-app.post('/alist', (req, res) => {
-  console.log('alist :', req.body);
+app.post('/ilist', (req, res) => {
+  console.log('list!!!');
   var userid = req.body.userid;
   const sqlQuery =
     'select anum, aimg, aname,agender,aspecies,aage from animal where userid=?;';
@@ -363,25 +333,23 @@ app.post('/elist', (req, res) => {
   });
 });
 
-app.post('/eupdate', (req, res) => {
-  console.log('eupdate : ', req.body);
-  var userid = req.body.userid;
-  var userpw = req.body.userpw;
-  var checkpw = req.body.checkpw;
-  var nickname = req.body.nickname;
-  var tel = req.body.tel;
-  var addr = req.body.addr;
-  var birth = req.body.birth;
+app.use(cors({
+  origin: true,
+  methods: [
+    "get", "post"
+  ],
+  credentials: true
+}));
 
-  const sqlQuery =
-    'update member set userpw=?, checkpw=?, nickname=?, tel=?, addr=?, birth=? where userid = ?;';
-  db.query(
-    sqlQuery,
-    [userpw, checkpw, nickname, tel, addr, birth, userid],
-    (err, result) => {
-      res.send(result);
-    },
-  );
+const sqlQuery =
+  'update member set userpw=?, checkpw=?, nickname=?, tel=?, addr=?, birth=? where userid = ?;';
+db.query(
+  sqlQuery,
+  [userpw, checkpw, nickname, tel, addr, birth, userid],
+  (err, result) => {
+    res.send(result);
+  },
+);
 });
 
 // ********************게시판 코드 시작 ********************
