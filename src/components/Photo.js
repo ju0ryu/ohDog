@@ -1,20 +1,8 @@
-const Photos = ({
-  userid,
-  imgurl,
-  secret,
-}) => {
-  console.log("url", imgurl);
+const Photos = ({ userid, imgurl, secret }) => {
+  console.log('url', imgurl);
   // const image = "http://localhost:8008/uploads/" + imgurl;
-  return (
-
-    <img src={imgurl} />
-
-
-
-
-  )
-}
-
+  return <img src={imgurl} />;
+};
 
 // {
 //   src: 'https://images.unsplash.com/photo-1594415156038-02d665441df2?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max',
