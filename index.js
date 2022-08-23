@@ -5,7 +5,7 @@ const cors = require('cors'); // 교차허용
 
 const app = express(); //서버생성
 const PORT = process.env.port || 8008; //포트설정
-const iconv = require("iconv-lite") //파일한글폰트 안꺠짐
+const iconv = require('iconv-lite'); //파일한글폰트 안꺠짐
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -304,6 +304,85 @@ app.use(cors({
 }));
 
 // ================================사진 끝===========================
+// ================================동물
+app.post('/ainsert', upload.single('image'), (req, res) => {
+  console.log('/ainsert', req.file, req.body);
+  var userid = req.body.userid;
+  var aname = req.body.aname;
+  var agender = req.body.agender;
+  var aspecies = req.body.aspecies;
+  var aage = parseInt(req.body.aage);
+
+  const sqlQuery =
+    'INSERT INTO animal (aimg,aname,agender,aspecies,aage,userid) values (?,?,?,?,?,?);';
+  db.query(
+    sqlQuery,
+    [req.file.filename, aname, agender, aspecies, aage, userid],
+    (err, result) => {
+      res.send(result);
+    },
+  );
+});
+
+app.post('/alist', (req, res) => {
+  console.log('alist :', req.body);
+  var userid = req.body.userid;
+  const sqlQuery =
+    'select anum, aimg, aname,agender,aspecies,aage from animal where userid=?;';
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/adelete', (req, res) => {
+  console.log('adelete :', req.body);
+  var anum = parseInt(req.body.anum);
+  const sqlQuery = 'delete from animal where anum = ?;';
+  db.query(sqlQuery, [anum], (err, result) => {
+    res.send(result);
+  });
+});
+
+//===========================지도주소불러오기
+app.post('/mdata', (req, res) => {
+  console.log('mdata : ', req.body);
+  var userid = req.body.userid;
+  const sqlQuery = 'select addr from member where userid = ?;';
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
+
+//=========================== 회원수정
+app.post('/elist', (req, res) => {
+  console.log('elist :', req.body);
+  var userid = req.body.userid;
+  const sqlQuery = 'select * from member where userid = ?;';
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/eupdate', (req, res) => {
+  console.log('eupdate : ', req.body);
+  var userid = req.body.userid;
+  var userpw = req.body.userpw;
+  var checkpw = req.body.checkpw;
+  var nickname = req.body.nickname;
+  var tel = req.body.tel;
+  var addr = req.body.addr;
+  var birth = req.body.birth;
+
+  const sqlQuery =
+    'update member set userpw=?, checkpw=?, nickname=?, tel=?, addr=?, birth=? where userid = ?;';
+  db.query(
+    sqlQuery,
+    [userpw, checkpw, nickname, tel, addr, birth, userid],
+    (err, result) => {
+      res.send(result);
+    },
+  );
+});
 
 // ********************게시판 코드 시작 ********************
 
