@@ -69,9 +69,7 @@ app.get('/mainfeed', (req, res) => {
   });
 });
 
-//mainfeed req res 설정 끝
-
-//myfeed  req res 설정 시작 (마이피드)
+//mainfeed req res 설정 끝 myfeed  req res 설정 시작 (마이피드)
 
 app.post('/flist', (req, res) => {
   console.log('내피드', req.body);
@@ -106,9 +104,7 @@ app.post('/fdelete', (req, res) => {
   });
 });
 
-// myfeed req res 설정 끝
-
-//fcomment req res 설정 시작 (댓글기능)
+// myfeed req res 설정 끝 fcomment req res 설정 시작 (댓글기능)
 
 app.post('/fccontenlist', (req, res) => {
   console.log('피드댓글', req.body);
@@ -142,11 +138,7 @@ app.post('/fccontentdelete', (req, res) => {
   });
 });
 
-//fcomment req res 설정 끝
-
-// 캘린더
-
-//캘린더 일정입력
+//fcomment req res 설정 끝 캘린더 캘린더 일정입력
 app.post('/cinsert', (req, res) => {
   console.log('cinsert check ---------', req.body);
   var ctitle = req.body.ctitle;
@@ -234,9 +226,8 @@ app.post('/cdelete', (req, res) => {
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-// 세가지 추가됨 멀터는 파일 추가
-// 패스는 경로
-// fs 파일 다루를수 있음
+
+// 세가지 추가됨 멀터는 파일 추가 패스는 경로 fs 파일 다루를수 있음
 
 try {
   fs.readdirSync('uploads');
@@ -244,8 +235,7 @@ try {
   console.error('uploads 폴더가 없어 uploads 폴더를 생성합니다.');
   fs.mkdirSync('uploads');
 }
-// 업로드 파일 생성 시켜주는듯?????
-// 밑에 무저껀 넣어야함?
+// 업로드 파일 생성 시켜주는듯????? 밑에 무저껀 넣어야함?
 const upload = multer({
   storage: multer.diskStorage({
     // 읽어오기???
@@ -261,10 +251,8 @@ const upload = multer({
   }),
   limits: { fileSize: 10 * 1024 * 1024 },
 });
-// 객체 만들면 스토리지 디스토리이지 저장경로 ???
-// 파일네임 업로드 된 파일 경로? ext 확장자만 base는 확장자 제외하고?? 데이터 나우는 현재시간 뒤에는 확장자?
-
-// 이미지가 저장된 경로를 static으로 지정하면 불러올 수 있다.
+// 객체 만들면 스토리지 디스토리이지 저장경로 ??? 파일네임 업로드 된 파일 경로? ext 확장자만 base는 확장자 제외하고?? 데이터
+// 나우는 현재시간 뒤에는 확장자? 이미지가 저장된 경로를 static으로 지정하면 불러올 수 있다.
 app.use('/uploads', express.static('uploads'));
 
 app.post('/iinsert', upload.single('image'), (req, res) => {
@@ -352,8 +340,7 @@ app.get('/list', (req, res) => {
   });
 });
 
-// 게시판 게시글 입력
-//카테고리 넣어야함---------------------------------------------
+// 게시판 게시글 입력 카테고리 넣어야함---------------------------------------------
 app.post('/insert', (req, res) => {
   console.log('/insert', req.body);
   var title = req.body.title;
