@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import '../css/myFeed.scss';
+import '../css/mainFeed.scss';
 import axios from 'axios';
 import Fcommant from './Fcommant';
 
@@ -76,7 +76,7 @@ const MainFeed = () => {
   console.log('fccontentlist.fccontentList =>', fccontentlist.fccontentList);
 
   return (
-    <div>
+    <div className="mainbox">
       {mainfeedlist.mainfeedList.map((mainlist) => {
         console.log(
           'mainlist.fnum=',
