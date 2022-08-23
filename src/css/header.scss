@@ -8,10 +8,19 @@
     .wrapper {
       margin: 0 auto;
       width: 90%;
-      height: 54px;
+      height: 80px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      img,
+      .logout {
+        width: 35px;
+        height: 35px;
+        color: #fff;
+        &:hover {
+          fill: blue;
+        }
+      }
       .logo {
         width: 124px;
         display: flex;
