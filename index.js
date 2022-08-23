@@ -273,7 +273,43 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
   );
 });
 
-// ================================사진===========================
+app.post('/ilist', (req, res) => {
+  console.log('list!!!');
+  var userid = req.body.userid;
+  const sqlQuery =
+    'SELECT imgnum,userid, imgurl, imgdate from image where userid = ?;';
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/idelete', (req, res) => {
+  var imgnum = parseInt(req.body.imgnum);
+  console.log('/idelete => ', req.body);
+
+  const sqlQuery = 'DELETE FROM image where imgnum=?;';
+  db.query(sqlQuery, [imgnum], (err, result) => {
+    console.log(err);
+    res.send(result);
+  });
+});
+
+// app.post('/ilist', upload.single('image'), (req, res) => {
+// console.log("/ilist", req.file, req.body);   var userid = req.body.userid;
+// var secret = req.body.secret;   const sqlQuery = 'INSERT INTO image (userid,
+// imgurl, secret) values (?,?,?);';   db.query(     sqlQuery,     [userid,
+// req.file.filename, secret],      파일네임 실제 업로드된 파일명임     (err, result) => {
+// res.send(result);     },   ); })
+
+app.use(
+  cors({
+    origin: true,
+    methods: ['get', 'post'],
+    credentials: true,
+  }),
+);
+
+// ================================사진 끝===========================
 // ================================동물
 app.post('/ainsert', upload.single('image'), (req, res) => {
   console.log('/ainsert', req.file, req.body);
