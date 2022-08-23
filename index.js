@@ -58,24 +58,26 @@ app.post('/member', (req, res) => {
   );
 });
 
-//mainfeed req res 설정 시작 (전체피드)
+//mainfeed req res 설정 시작
 
 app.get('/mainfeed', (req, res) => {
   console.log('main!!!');
   const sqlQuery =
-    "SELECT userid, fcomment, DATE_FORMAT(fdate, '%m-%d-%H-%i') AS fdate FROM feed where secret =  'Y' order by date_format(fdate, '%m-%d-%H-%i') desc ;";
+    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m-%d-%H-%i') AS fdate FROM feed where secret =  'Y' order by date_format(fdate, '%m-%d-%H-%i') desc ;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
 });
 
-//mainfeed req res 설정 끝 myfeed  req res 설정 시작 (마이피드)
+//mainfeed req res 설정 끝
+
+//myfeed  req res 설정 시작 (마이피드)
 
 app.post('/flist', (req, res) => {
   console.log('내피드', req.body);
   var userid = req.body.userid;
   const sqlQuery =
-    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m월%d일 %H:%i') AS fdate from feed where userid = 'userid 01' order by date_format(fdate, '%m월%d일 %H:%i') desc;";
+    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m월%d일 %H:%i') AS fdate from feed where userid = ? order by date_format(fdate, '%m월%d일 %H:%i') desc;";
   db.query(sqlQuery, [userid], (err, result) => {
     res.send(result);
   });
@@ -104,14 +106,18 @@ app.post('/fdelete', (req, res) => {
   });
 });
 
-// myfeed req res 설정 끝 fcomment req res 설정 시작 (댓글기능)
+// myfeed req res 설정 끝
 
-app.post('/fccontenlist', (req, res) => {
-  console.log('피드댓글', req.body);
-  var userid = req.body.userid;
+//fcomment req res 설정 시작 (댓글기능)
+
+app.post('/fccontentlist', (req, res) => {
+  var fnum = parseInt(req.body.fnum);
+  console.log('피드댓글(req.body)', req.body);
+  console.log('피드댓글(req.body.funm)', req.body.fnum);
   const sqlQuery =
-    "SELECT fnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fdate from fcomment where userid = 'userid 01' order by date_format(fdate, '%m월%d일 %H:%i') desc;";
-  db.query(sqlQuery, [userid], (err, result) => {
+    "SELECT fcnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fcdate from fcomment where fnum = ? order by fcdate desc;";
+  db.query(sqlQuery, [fnum], (err, result) => {
+    console.log('피드댓글(result)', result);
     res.send(result);
   });
 });
@@ -120,9 +126,11 @@ app.post('/fccontentinsert', (req, res) => {
   console.log('댓글달기', req.body);
   var userid = req.body.userid;
   var fccontent = req.body.fccontent;
+  var fnum = parseInt(req.body.fnum);
 
-  const sqlQuery = 'INSERT INTO fcomment (userid, fccontent) values (?,?);';
-  db.query(sqlQuery, [userid, fccontent], (err, result) => {
+  const sqlQuery =
+    'INSERT INTO fcomment (userid, fccontent, fnum) values (?,?,?);';
+  db.query(sqlQuery, [userid, fccontent, fnum], (err, result) => {
     res.send(result);
   });
 });
@@ -138,26 +146,7 @@ app.post('/fccontentdelete', (req, res) => {
   });
 });
 
-//fcomment req res 설정 끝 캘린더 캘린더 일정입력
-app.post('/cinsert', (req, res) => {
-  console.log('cinsert check ---------', req.body);
-  var ctitle = req.body.ctitle;
-  var startdate = req.body.startdate;
-  var enddate = req.body.enddate;
-  var ccolor = req.body.ccolor;
-  var userid = req.body.userid;
-
-  const sqlQuery =
-    'insert into calendar (ctitle, startdate, enddate, ccolor, userid) values(?,?,?,?,?);';
-  db.query(
-    sqlQuery,
-    [ctitle, startdate, enddate, ccolor, userid],
-    (err, result) => {
-      // console.err(err);
-      res.send(result);
-    },
-  );
-});
+//fcomment req res 설정 끝
 
 // 캘린더 전체출력
 app.post('/clist', (req, res) => {

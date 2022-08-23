@@ -1,15 +1,59 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../css/myFeed.scss';
 import axios from 'axios';
+import Fcommant from './Fcommant';
 
 const MainFeed = () => {
   const userid = window.sessionStorage.getItem('id');
+
+  const fccontentRef = useRef();
 
   const [mainfeedlist, setMainfeedList] = useState({
     mainfeedList: [],
   });
 
-  const onClick = () => {};
+  const [fccontentlist, setFccontentList] = useState({
+    fccontentList: [],
+  });
+
+  const [fnumstate, setFnumstate] = useState(-1);
+
+  const onClick = (e) => {
+    console.log('e.target.id =>', e.target.id);
+    axios
+      .post('http://localhost:8008/fccontentlist', { fnum: e.target.id })
+      .then((res) => {
+        const { data } = res;
+        console.log('data(fccontentlist) : ', data);
+        setFnumstate(e.target.id);
+        setFccontentList({
+          fccontentList: data,
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  const fcInsert = (e) => {
+    e.preventDefault();
+    console.log(fccontentRef.current.value);
+    console.log(e.target.id);
+    axios
+      .post('http://localhost:8008/fccontentinsert', {
+        fnum: e.target.id,
+        userid,
+        fccontent: fccontentRef.current.value,
+      })
+      .then((res) => {
+        console.log('fcInser=>', res);
+        fccontentRef.current.value = '';
+        onClick(e);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
 
   useEffect(() => {
     console.log('mainfeedlist :', mainfeedlist.mainfeedList);
@@ -29,40 +73,113 @@ const MainFeed = () => {
         console.error(e);
       });
   }, []);
+  console.log('fccontentlist.fccontentList =>', fccontentlist.fccontentList);
 
   return (
     <div>
       {mainfeedlist.mainfeedList.map((mainlist) => {
-        return (
-          <table border="1" hight="200px" width="400px">
-            <tr>
-              <td colSpan="2">{mainlist.userid}</td>
-            </tr>
-            <tr>
-              <td colSpan="2" align="center">
-                {mainlist.fcomment}
-              </td>
-            </tr>
-            <tr>
-              <td colSpan="2" align="right">
-                {mainlist.fdate}
-              </td>
-            </tr>
-
-            <tr>
-              <td colSpan="2" align="center">
-                <input
-                  id={mainlist.fnum}
-                  type="button"
-                  value="댓글보기"
-                  onClick
-                ></input>
-              </td>
-            </tr>
-          </table>
+        console.log(
+          'mainlist.fnum=',
+          mainlist.fnum,
+          ',  fnumstate=',
+          fnumstate,
         );
+        if (mainlist.fnum == fnumstate) {
+          return (
+            <div>
+              <table border="1" hight="200px" width="400px">
+                <tr>
+                  <td colSpan="2">{mainlist.userid}</td>
+                </tr>
+                <tr>
+                  <td colSpan="2" align="center">
+                    {mainlist.fcomment}
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="2" align="right">
+                    {mainlist.fdate}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colSpan="2" align="center">
+                    <input
+                      id={mainlist.fnum}
+                      type="button"
+                      value="댓글보기"
+                      onClick={onClick}
+                    ></input>
+                  </td>
+                </tr>
+              </table>
+              <form onSubmit={fcInsert} id={mainlist.fnum}>
+                <table>
+                  <tr>
+                    <td align="right" colSpan="2">
+                      <input
+                        type="text"
+                        name="comment"
+                        ref={fccontentRef}
+                        size="40"
+                        defaultValue=""
+                        placeholder="댓글달기"
+                        // onChange={onChange}
+                      />
+                    </td>
+                    <td>
+                      <input type="submit" value="작성"></input>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+              <div>
+                {fccontentlist.fccontentList.map((article) => {
+                  return <Fcommant article={article} />;
+                })}
+              </div>
+            </div>
+          );
+        } else {
+          return (
+            <div>
+              <table border="1" hight="200px" width="400px">
+                <tr>
+                  <td colSpan="2">{mainlist.userid}</td>
+                </tr>
+                <tr>
+                  <td colSpan="2" align="center">
+                    {mainlist.fcomment}
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="2" align="right">
+                    {mainlist.fdate}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colSpan="2" align="center">
+                    <input
+                      id={mainlist.fnum}
+                      type="button"
+                      value="댓글보기"
+                      onClick={onClick}
+                      ref={fccontentRef}
+                    ></input>
+                  </td>
+                </tr>
+              </table>
+
+              {/* <div>
+                 {fccontentlist.fccontentList.map((article) => {
+                   return <Fcommant article={article} />;
+                 })}
+               </div> */}
+            </div>
+          );
+        }
       })}
-      ;
     </div>
   );
 };
