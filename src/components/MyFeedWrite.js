@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import axios from 'axios';
 
 const MyFeedWrite = ({ handlelist }) => {
-  const userid = 'userid 01';
+  const userid = window.sessionStorage.getItem('id');
   const writerRef = useRef();
   const secretRef = useRef();
   // const [secret, setSecret] = useState();
@@ -35,7 +35,6 @@ const MyFeedWrite = ({ handlelist }) => {
       .then((res) => {
         console.log('handleInser=>', res);
         handlelist();
-        userid = 'userid 01';
         writerRef.current.value = '';
       })
       .catch((e) => {
@@ -52,7 +51,7 @@ const MyFeedWrite = ({ handlelist }) => {
               <input
                 type="text"
                 name="writer"
-                size="68"
+                size="65"
                 ref={writerRef}
                 placeholder="일상을 입력하세요"
               ></input>{' '}

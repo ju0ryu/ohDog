@@ -110,10 +110,9 @@ app.post('/fdelete', (req, res) => {
 
 //fcomment req res 설정 시작 (댓글기능)
 
-app.post('/fccontentlist', (req, res) => {
-  var fnum = parseInt(req.body.fnum);
-  console.log('피드댓글(req.body)', req.body);
-  console.log('피드댓글(req.body.funm)', req.body.fnum);
+app.post('/fccontenlist', (req, res) => {
+  console.log('피드댓글', req.body);
+  var userid = req.body.userid;
   const sqlQuery =
     "SELECT fcnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fcdate from fcomment where fnum = ? order by fcdate desc;";
   db.query(sqlQuery, [fnum], (err, result) => {
@@ -147,6 +146,29 @@ app.post('/fccontentdelete', (req, res) => {
 });
 
 //fcomment req res 설정 끝
+
+// 캘린더
+
+//캘린더 일정입력
+app.post('/cinsert', (req, res) => {
+  console.log('cinsert check ---------', req.body);
+  var ctitle = req.body.ctitle;
+  var startdate = req.body.startdate;
+  var enddate = req.body.enddate;
+  var ccolor = req.body.ccolor;
+  var userid = req.body.userid;
+
+  const sqlQuery =
+    'insert into calendar (ctitle, startdate, enddate, ccolor, userid) values(?,?,?,?,?);';
+  db.query(
+    sqlQuery,
+    [ctitle, startdate, enddate, ccolor, userid],
+    (err, result) => {
+      // console.err(err);
+      res.send(result);
+    },
+  );
+});
 
 // 캘린더 전체출력
 app.post('/clist', (req, res) => {
@@ -273,41 +295,22 @@ app.post('/iinsert', upload.single('image'), (req, res) => {
   );
 });
 
-app.post('/ilist', (req, res) => {
-  console.log('list!!!');
+app.post('/ilist', upload.single('image'), (req, res) => {
+  console.log('/ilist', req.file, req.body);
   var userid = req.body.userid;
-  const sqlQuery =
-    'SELECT imgnum,userid, imgurl, imgdate from image where userid = ?;';
-  db.query(sqlQuery, [userid], (err, result) => {
-    res.send(result);
-  });
+
+  var secret = req.body.secret;
+
+  const sqlQuery = 'INSERT INTO image (userid, imgurl, secret) values (?,?,?);';
+  db.query(
+    sqlQuery,
+    [userid, req.file.filename, secret],
+    // 파일네임 실제 업로드된 파일명임
+    (err, result) => {
+      res.send(result);
+    },
+  );
 });
-
-app.post('/idelete', (req, res) => {
-  var imgnum = parseInt(req.body.imgnum);
-  console.log('/idelete => ', req.body);
-
-  const sqlQuery = 'DELETE FROM image where imgnum=?;';
-  db.query(sqlQuery, [imgnum], (err, result) => {
-    console.log(err);
-    res.send(result);
-  });
-});
-
-// app.post('/ilist', upload.single('image'), (req, res) => {
-// console.log("/ilist", req.file, req.body);   var userid = req.body.userid;
-// var secret = req.body.secret;   const sqlQuery = 'INSERT INTO image (userid,
-// imgurl, secret) values (?,?,?);';   db.query(     sqlQuery,     [userid,
-// req.file.filename, secret],      파일네임 실제 업로드된 파일명임     (err, result) => {
-// res.send(result);     },   ); })
-
-app.use(
-  cors({
-    origin: true,
-    methods: ['get', 'post'],
-    credentials: true,
-  }),
-);
 
 // ================================사진 끝===========================
 // ================================동물
@@ -422,7 +425,7 @@ app.post('/detail', (req, res) => {
   var num = parseInt(req.body.num);
 
   const sqlQuery =
-    "SELECT boardnum, userid, btitle, bcontent, DATE_FORMAT(bdate, '%Y-%m-%d') AS bdate, category FROM board where boardnum = ?;";
+    "SELECT BOARDNUM, USERID, BTITLE, BCONTENT, DATE_FORMAT(BDATE, '%Y-%m-%d') AS BDATE FROM BOARD where BOARDNUM = ?;";
   db.query(sqlQuery, [num], (err, result) => {
     console.log('/datail(result)', result);
     res.send(result);

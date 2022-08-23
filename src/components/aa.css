@@ -1,0 +1,13 @@
+.img {
+    width: 250px;
+    height: 250px;
+    object-fit: fill;
+}
+
+.out_img {
+    width: 1300px;
+    height: 500px;
+    border: 1px solid red;
+    margin: 0 auto;
+    padding-top: 80px;
+}
