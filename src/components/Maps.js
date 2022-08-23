@@ -1,7 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-// import '../css/map.scss';
-import '../css/map.css';
+import '../css/map.scss';
+// import '../css/map.css';
+import { useNavigate } from 'react-router';
+import axios from 'axios';
 const { kakao } = window;
 
 function Maps() {
@@ -19,6 +21,31 @@ function Maps() {
   const twoRef = useRef();
   const threeRef = useRef();
   const fourRef = useRef();
+  const navigate = useNavigate();
+  const userid = window.sessionStorage.getItem('id');
+
+  useEffect(() => {
+    window.sessionStorage.getItem('id');
+    if (window.sessionStorage.getItem('id') == null) {
+      alert('로그인 후 이용하여 주세요');
+      navigate('/');
+    }
+
+    axios
+      .post('http://localhost:8008/mdata', { userid })
+      .then((res) => {
+        const { data } = res;
+        SetSearchAddress(data[0].addr);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log(searchAddress);
+    SearchMap();
+  }, [searchAddress]);
 
   // 주소 입력후 검색 클릭 시 원하는 주소로 이동
   const SearchMap = () => {
@@ -93,12 +120,17 @@ function Maps() {
 
   return (
     <>
-      <div>
-        <input onChange={handleSearchAddress}></input>
-        <button placeholder="현재 위치를 입력하여 주세요" onClick={SearchMap}>
-          검색
-        </button>
-        <div>
+      <div className="maps">
+        <div className="headers">
+          <p>주변시설 찾기</p>
+        </div>
+        <div className="searchInput">
+          <input onChange={handleSearchAddress}></input>
+          <button placeholder="현재 위치를 입력하여 주세요" onClick={SearchMap}>
+            검색
+          </button>
+        </div>
+        <div className="category">
           <input
             type="button"
             name="주변 애견 카페"
@@ -129,34 +161,42 @@ function Maps() {
           />
         </div>
       </div>
-      <Map // 지도를 표시할 Container
-        center={state.center}
-        isPanto={state.isPanto}
-        style={{
-          // 지도의 크기
-          width: '100%',
-          height: '450px',
-        }}
-        level={5}
-      >
-        {markers.map((marker) => (
-          <MapMarker
-            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-            position={marker.position}
-            onClick={() => setInfo(marker)}
-          >
-            {info && info.content === marker.content && (
-              <div style={{ color: '#000' }}>
-                {/* {marker.content} */}
-                <p>{marker.content.name}</p>
-                <p>{marker.content.address}</p>
-                <p>{marker.content.phone}</p>
-                <a href={marker.content.url}>{marker.content.url}</a>
-              </div>
-            )}
-          </MapMarker>
-        ))}
-      </Map>
+      <div className="map">
+        <Map // 지도를 표시할 Container
+          center={state.center}
+          isPanto={state.isPanto}
+          style={{
+            // 지도의 크기
+            width: '100%',
+            height: '500px',
+            borderRadius: '20px',
+            border: '1px solid rgba(255, 255, 255)',
+            boxShadow: '1px 1px 1px 1px gray',
+          }}
+          level={5}
+        >
+          {markers.map((marker) => (
+            <MapMarker
+              style={{ border: 'none' }}
+              key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+              position={marker.position}
+              onClick={() => setInfo(marker)}
+            >
+              {info && info.content === marker.content && (
+                <div className="marker">
+                  {/* {marker.content} */}
+                  <p className="mTitle">{marker.content.name}</p>
+                  <p className="mAddr">{marker.content.address}</p>
+                  <p className="mPhone">{marker.content.phone}</p>
+                  <a className="mURL" href={marker.content.url}>
+                    {marker.content.url}
+                  </a>
+                </div>
+              )}
+            </MapMarker>
+          ))}
+        </Map>
+      </div>
     </>
   );
 }

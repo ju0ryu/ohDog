@@ -12,6 +12,7 @@ import Maps from './components/Maps';
 import Header from './components/Header';
 import Animal from './components/Animal';
 import EditMember from './components/EditMember';
+import './App.css';
 const App = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState();

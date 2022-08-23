@@ -12,6 +12,7 @@ const Calendars = () => {
   const [eventStartDate, setEventStartDate] = useState();
   const [eventEndDate, setEventEndDate] = useState();
   const [eventColor, setEventColor] = useState();
+  const [display, setDisplay] = useState('');
   const [cList, setCList] = useState({ list: [] });
   const [calUpdate, setCalUpdate] = useState({
     cnum: '',
@@ -32,6 +33,8 @@ const Calendars = () => {
   const insertEndDateRef = useRef();
   const insertColorRef = useRef();
   const navigate = useNavigate();
+
+  var displayChange = {};
 
   // console.log(
   //   'Login:window.sessionStorage(login_id) =>',
@@ -160,18 +163,24 @@ const Calendars = () => {
     }
     window.location.reload();
   };
+
+  const ChangeVisible = () => {
+    setVisible(!visible);
+    if (visible) {
+      displayChange = { display: 'none' };
+    } else {
+      displayChange = { display: 'block' };
+    }
+  };
   return (
-    <div>
-      <div>
-        <button
-          className="visibleBtn"
-          onClick={() => {
-            setVisible(!visible);
-          }}
-        >
+    <div className="calWrapper">
+      <div className="visibleBtn">
+        <button onClick={ChangeVisible}>
           {/* 일정입력칸 */}
           {visible ? '취소' : '일정입력하기'}
         </button>
+      </div>
+      <div className="hoverForm" style={{ displayChange }}>
         {visible && (
           <form onSubmit={onSubmit} className="inputForm">
             <tr>
@@ -191,7 +200,7 @@ const Calendars = () => {
               <input type="date" name="endInput" ref={insertEndDateRef} />
             </tr>
             <tr>
-              <input type="submit" value="등록" />
+              <input className="submitBtn" type="submit" value="등록" />
             </tr>
           </form>
         )}
@@ -247,7 +256,7 @@ const Calendars = () => {
           </form>
         )}
       </div>
-      <div style={{ margin: '25px 25px' }}>
+      <div className="calendar" style={{ margin: '25px 25px' }}>
         <FullCalendar
           plugins={[dayGridPlugin]}
           locale="ko"
