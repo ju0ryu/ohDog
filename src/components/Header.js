@@ -19,6 +19,7 @@ import pet2 from '../icon/pet2.svg';
 import pets from '../icon/petG.svg';
 import logouts from '../icon/logout.svg';
 import logoutss from '../icon/logoutG.svg';
+import logoNew from '../icon/ohDogNew.jpg';
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
@@ -72,7 +73,7 @@ const Header = () => {
         </nav>
         <div className="logo">
           <img
-            src={logo}
+            src={logoNew}
             alt="로고"
             style={{ width: '100%', height: '100%' }}
           />

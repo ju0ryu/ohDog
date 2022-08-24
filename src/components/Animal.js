@@ -110,130 +110,176 @@ const Animal = () => {
 
   return (
     <div>
-      {article.Article.length != 0 ? (
-        <div style={{ display: 'flex' }}>
-          {article.Article.map((article) => {
-            return (
-              <div style={{ marginLeft: '20px' }}>
-                <table border="1" width="200px">
-                  <tr>
-                    <td colSpan="2" align="right">
-                      <input
-                        type="button"
-                        value="❌"
-                        id={article.anum}
-                        onClick={deleteArticle}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan="2">
-                      <img
-                        src={`http://localhost:8008/uploads/${article.aimg}`}
-                        alt=""
-                        width="200px"
-                        height="250px"
-                      />
-                    </td>
-                  </tr>
-                  <tr colSpan="2">
-                    <td>이름 : </td>
-                    <td>{article.aname}</td>
-                  </tr>
-                  <tr>
-                    <td>성별 : </td>
-                    <td>{article.agender == 'M' ? '수컷' : '암컷'}</td>
-                  </tr>
-                  <tr>
-                    <td>견종 : </td>
-                    <td>{article.aspecies}</td>
-                  </tr>
-                  <tr>
-                    <td>나이 : </td>
-                    <td>{`${article.aage} 살`}</td>
-                  </tr>
-                </table>
-              </div>
-            );
-          })}
-          <div style={{ marginLeft: '20px', marginTop: '150px' }}>
+      <div className="animalTitle">
+        <p>마이펫 등록</p>
+      </div>
+      <div>
+        {article.Article.length != 0 ? (
+          <div className="updateDataWrapper">
+            {article.Article.map((article) => {
+              return (
+                <div className="updateData">
+                  <table>
+                    <tr>
+                      <td colSpan="2" align="right">
+                        <input
+                          className="deleteData"
+                          type="button"
+                          value="❌"
+                          id={article.anum}
+                          onClick={deleteArticle}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colSpan="2">
+                        <img
+                          src={`http://localhost:8008/uploads/${article.aimg}`}
+                          alt=""
+                        />
+                      </td>
+                    </tr>
+                    <tr colSpan="2">
+                      <td>이름 : </td>
+                      <td>{article.aname}</td>
+                    </tr>
+                    <tr>
+                      <td>성별 : </td>
+                      <td>{article.agender == 'M' ? '수컷' : '암컷'}</td>
+                    </tr>
+                    <tr>
+                      <td>견종 : </td>
+                      <td>{article.aspecies}</td>
+                    </tr>
+                    <tr>
+                      <td>나이 : </td>
+                      <td>{`${article.aage} 살`}</td>
+                    </tr>
+                  </table>
+                </div>
+              );
+            })}
+            <div className="addForm">
+              <input type="button" value="➕" onClick={addForm} />
+            </div>
+          </div>
+        ) : (
+          <div className="addForm">
             <input type="button" value="➕" onClick={addForm} />
           </div>
-        </div>
-      ) : (
-        <div style={{ marginLeft: '20px', marginTop: '150px' }}>
-          <input type="button" value="➕" onClick={addForm} />
-        </div>
-      )}
+        )}
+      </div>
       <div>
         {insertForm && (
           <>
-            <img src="./noimg.gif" alt="이미지" />
-            <form onSubmit={formSubmit}>
-              <tr></tr>
+            {/* <img src={onImage} alt="이미지" /> */}
+            <form className="hoverForm" onSubmit={formSubmit}>
+              <div className="fileBox">
+                <tr>
+                  <td colSpan="2">
+                    <label for="imageUpload">사진선택</label>
+                    <input
+                      type="file"
+                      id="imageUpload"
+                      accept="image/*"
+                      onChange={onImage}
+                      ref={imgRef}
+                    />
+                  </td>
+                </tr>
+              </div>
               <tr>
-                <input
-                  type="file"
-                  name="imageUpload"
-                  accept="image/*"
-                  onChange={onImage}
-                  ref={imgRef}
-                />
+                <td>
+                  <label for="inputName">이름 : </label>
+                </td>
+                <td>
+                  <input type="text" name="inputName" ref={nameRef} />
+                </td>
               </tr>
               <tr>
-                <label for="inputName">이름 : </label>
-                <input type="text" name="inputName" ref={nameRef} />
+                <td>
+                  <label for="inputGender">성별 : </label>
+                </td>
+                <div className="select">
+                  <td>
+                    <input
+                      id="male"
+                      type="radio"
+                      name="inputGender"
+                      value="M"
+                      onChange={genderChange}
+                    />
+                    <label for="male">수컷</label>
+                  </td>
+                  <td>
+                    <input
+                      id="female"
+                      type="radio"
+                      name="inputGender"
+                      value="F"
+                      onChange={genderChange}
+                    />
+                    <label for="female">암컷</label>
+                  </td>
+                </div>
               </tr>
               <tr>
-                <label for="inputGender">성별 : </label>
-                <input
-                  type="radio"
-                  name="inputGender"
-                  value="M"
-                  onChange={genderChange}
-                />
-                <label>수컷</label>
-                <input
-                  type="radio"
-                  name="inputGender"
-                  value="F"
-                  onChange={genderChange}
-                />
-                <label>암컷</label>
+                <td>
+                  <label for="inputSpecies">견종 : </label>
+                </td>
+                <td>
+                  <select
+                    className="selectSpecies"
+                    name="species"
+                    ref={speciesRef}
+                  >
+                    <option value="">선택하기</option>
+                    <option value="포메라니안">포메라니안</option>
+                    <option value="말티즈">말티즈</option>
+                    <option value="비숑">비숑</option>
+                    <option value="스피치">스피치</option>
+                    <option value="치와와">치와와</option>
+                    <option value="시추">시추</option>
+                    <option value="푸들">푸들</option>
+                    <option value="시바견">시바견</option>
+                    <option value="웰시코기">웰시코기</option>
+                    <option value="닥스훈트">닥스훈트</option>
+                    <option value="불독">불독</option>
+                    <option value="셰퍼드">셰퍼드</option>
+                    <option value="보더콜리">보더콜리</option>
+                    <option value="리트리버">리트리버</option>
+                    <option value="허스키">허스키</option>
+                    <option value="퍼그">퍼그</option>
+                    <option value="핏불테리어">핏불테리어</option>
+                    <option value="치와와">치와와</option>
+                    <option value="비글">비글</option>
+                    <option value="사모예드">사모예드</option>
+                    <option value="기타">기타</option>
+                  </select>
+                </td>
               </tr>
               <tr>
-                <label for="inputSpecies">견종 : </label>
-                <select name="species" ref={speciesRef}>
-                  <option value="">선택하기</option>
-                  <option value="포메라니안">포메라니안</option>
-                  <option value="말티즈">말티즈</option>
-                  <option value="비숑">비숑</option>
-                  <option value="스피치">스피치</option>
-                  <option value="치와와">치와와</option>
-                  <option value="시추">시추</option>
-                  <option value="푸들">푸들</option>
-                  <option value="시바견">시바견</option>
-                  <option value="웰시코기">웰시코기</option>
-                  <option value="닥스훈트">닥스훈트</option>
-                  <option value="불독">불독</option>
-                  <option value="셰퍼드">셰퍼드</option>
-                  <option value="보더콜리">보더콜리</option>
-                  <option value="리트리버">리트리버</option>
-                  <option value="허스키">허스키</option>
-                  <option value="퍼그">퍼그</option>
-                  <option value="핏불테리어">핏불테리어</option>
-                  <option value="치와와">치와와</option>
-                  <option value="비글">비글</option>
-                  <option value="사모예드">사모예드</option>
-                  <option value="기타">기타</option>
-                </select>
+                <td>
+                  <label for="inputAge">나이 : </label>
+                </td>
+                <td>
+                  <input type="number" name="inputAge" ref={ageRef} />
+                </td>
               </tr>
               <tr>
-                <label for="inputAge">나이 : </label>
-                <input type="number" name="inputAge" ref={ageRef} />
+                <td colSpan="2">
+                  <input className="submitBtn" type="submit" value="등록" />
+                </td>
               </tr>
               <tr>
-                <input type="submit" value="등록" />
+                <td colSpan="2">
+                  <input
+                    className="cancelBtn"
+                    type="button"
+                    value="취소"
+                    onClick={() => setInsertForm(false)}
+                  />
+                </td>
               </tr>
             </form>
           </>

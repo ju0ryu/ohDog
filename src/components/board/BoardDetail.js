@@ -11,13 +11,12 @@ const BoardDetail = () => {
 
   const navigate = useNavigate();
 
+  //업데이트폼으로 넘겨주기
   const handleUpdateForm = (e) => {
-    alert(e.target.id);
     axios
       .post('http://localhost:8008/detail', { num: e.target.id })
       .then((res) => {
         const { data } = res;
-        alert(data);
         console.log('updatedetail2=>', data);
         if (res.data.length > 0) {
           moveToUpdate(data);

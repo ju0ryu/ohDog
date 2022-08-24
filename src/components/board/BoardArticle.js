@@ -5,6 +5,7 @@ const BoardArticle = ({ article }) => {
   console.log('BoardArticle =>', article);
   const navigate = useNavigate();
 
+  //상세보기로 넘겨주기
   const handleDetail = (e) => {
     console.log(e.target.id);
 

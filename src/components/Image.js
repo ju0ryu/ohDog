@@ -1,10 +1,16 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react';
-import Gallery from "react-photo-gallery";
-import Carousel, { Modal, ModalGateway } from 'react-images';
+import React, { useRef, useState, useCallback, useEffect, Component } from 'react';
+// import Gallery from "react-photo-gallery";
+
 import Photos from './photo';
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import '../css/image.scss';
+
 // import './Style.css'
+
+
+
+
 
 
 
@@ -102,6 +108,10 @@ const Image = ({ handlelist }) => {
   }
   // const [currentImage, setCurrentImage] = useState(0);
   // const [viewerIsOpen, setViewerIsOpen] = useState(false);
+
+
+  // 모달 생성 안됨....ㅅㅂ
+  // 모달 보내는법 알아야함.
 
 
 
@@ -212,7 +222,7 @@ const Image = ({ handlelist }) => {
           );
         })
       } */}
-      <div>
+      <div className='container'>
         {imagelist.imageList.map((article) => {
           return (
             <Photos
@@ -236,30 +246,31 @@ const Image = ({ handlelist }) => {
       {/* <div className='div'><img src={aa} /> </div> */}
 
       {/* Galeery가 밑에 사진 뿌려주는 역활 */}
-      {/* <Gallery photos={photos} onClick={openPhoto}></Gallery>
+      {/* <Gallery photos={photos} onClick={openPhoto}></Gallery> */}
 
 
-      <ModalGateway>
+      {/* <ModalGateway>
 
-        
+
         {viewerIsOpen ? (
           <Modal onClose={closeImage}>
             <Carousel
               currentIndex={currentImage}
               views={photos.map(x => ({
                 ...x,
-            
+
               }))}
             />
           </Modal>
         ) : null}
-      
+
       </ModalGateway> */}
+
+
     </div >
+
   );
 }
 
-
-
-
 export default Image
+

@@ -28,19 +28,45 @@ const BoardUpdateForm = () => {
     });
   };
 
+  //삭제기능
+  const handleDelete = (e) => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      console.log('handleDelete(boardnum) =>', e.target.id);
+      axios
+        .post('http://localhost:8008/delete', {
+          num: e.target.id,
+        })
+        .then(() => {
+          alert('삭제되었습니다');
+          navigate('/board');
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else {
+      alert('삭제가 취소되었습니다.');
+    }
+  };
+
+  //업데이트기능
   const handleUpdate = () => {
-    console.log('handleUpdate =>', data);
-    axios
-      .post('http://localhost:8008/update', {
-        data: data,
-      })
-      .then((res) => {
-        console.log('handleUpdate( changedRows) =>', res.data.changedRows);
-        navigate('/board');
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    if (window.confirm('수정하시겠습니까?')) {
+      console.log('handleUpdate =>', data);
+      axios
+        .post('http://localhost:8008/update', {
+          data: data,
+        })
+        .then((res) => {
+          alert('수정되었습니다.');
+          console.log('handleUpdate( changedRows) =>', res.data.changedRows);
+          navigate('/board');
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else {
+      alert('수정이 취소되었습니다.');
+    }
   };
 
   return (
@@ -82,7 +108,14 @@ const BoardUpdateForm = () => {
                 value="글수정"
                 onClick={handleUpdate}
               ></input>
+              <input
+                type="button"
+                value="글삭제"
+                id={state[0].boardnum}
+                onClick={handleDelete}
+              ></input>
             </td>
+            <td></td>
           </tr>
         </table>
       </form>

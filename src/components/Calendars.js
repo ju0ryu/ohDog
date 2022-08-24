@@ -34,8 +34,6 @@ const Calendars = () => {
   const insertColorRef = useRef();
   const navigate = useNavigate();
 
-  var displayChange = {};
-
   // console.log(
   //   'Login:window.sessionStorage(login_id) =>',
   //   window.sessionStorage.getItem('id'),
@@ -119,6 +117,7 @@ const Calendars = () => {
     setEventEndDate(endDateRef.current.value);
     setEventColor(colorRef.current.value);
     setUpdateVisible(false);
+    setVisible(true);
     if (window.confirm('수정 하시겠습니까?')) {
       axios
         .post('http://localhost:8008/cupdate', {
@@ -142,7 +141,6 @@ const Calendars = () => {
     } else {
       alert('취소되었습니다');
     }
-
     window.location.reload();
   };
 
@@ -166,93 +164,183 @@ const Calendars = () => {
 
   const ChangeVisible = () => {
     setVisible(!visible);
-    if (visible) {
-      displayChange = { display: 'none' };
-    } else {
-      displayChange = { display: 'block' };
-    }
   };
   return (
-    <div className="calWrapper">
+    <div
+      className={visible || updateVisible ? 'blur calWrapper' : 'calWrapper'}
+    >
       <div className="visibleBtn">
+        <p>일정등록</p>
         <button onClick={ChangeVisible}>
           {/* 일정입력칸 */}
           {visible ? '취소' : '일정입력하기'}
         </button>
       </div>
-      <div className="hoverForm" style={{ displayChange }}>
+      <div>
         {visible && (
-          <form onSubmit={onSubmit} className="inputForm">
-            <tr>
-              <label for="titleInput">제목 : </label>
-              <input type="text" name="titleInput" ref={insertTitleRef} />
-            </tr>
-            <tr>
-              <label for="colorInput">색상 : </label>
-              <input type="color" name="colorInput" ref={insertColorRef} />
-            </tr>
-            <tr>
-              <label for="startInput">시작날짜 : </label>
-              <input type="date" name="startInput" ref={insertStartDateRef} />
-            </tr>
-            <tr>
-              <label for="endInput">끝날짜 : </label>
-              <input type="date" name="endInput" ref={insertEndDateRef} />
-            </tr>
-            <tr>
-              <input className="submitBtn" type="submit" value="등록" />
-            </tr>
+          <form
+            className={visible ? 'hoverForm' : 'hidden'}
+            onSubmit={onSubmit}
+          >
+            <table>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td className="nameLabel">
+                  <label for="titleInput">제목 : </label>
+                </td>
+                <td>
+                  <input type="text" name="titleInput" ref={insertTitleRef} />
+                </td>
+              </tr>
+              <tr>
+                <td className="nameLabel">
+                  <label for="colorInput">색상 : </label>
+                </td>
+                <td>
+                  <input
+                    className="colorInput"
+                    type="color"
+                    name="colorInput"
+                    ref={insertColorRef}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="nameLabel">
+                  <label for="startInput">시작날짜 : </label>
+                </td>
+                <td>
+                  <input
+                    type="date"
+                    name="startInput"
+                    ref={insertStartDateRef}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="nameLabel">
+                  <label for="endInput">끝날짜 : </label>
+                </td>
+                <td>
+                  <input type="date" name="endInput" ref={insertEndDateRef} />
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <input className="submitBtn" type="submit" value="등록" />
+                </td>
+              </tr>
+            </table>
           </form>
         )}
         {/* 수정 테이블 */}
         {updateVisible && (
-          <form onSubmit={onUpdate} className="inputForm">
-            <input type="hidden" defaultValue={calUpdate.cnum} ref={numRef} />
-            <tr>
-              <label for="titleInput">제목 : </label>
-              <input
-                type="text"
-                name="titleInput"
-                ref={titleRef}
-                defaultValue={calUpdate.ctitle}
-              />
-            </tr>
-            <tr>
-              <label for="colorInput">색상 : </label>
-              <input
-                type="color"
-                name="colorInput"
-                ref={colorRef}
-                defaultValue={calUpdate.ccolor}
-              />
-            </tr>
-            <tr>
-              <label for="dateInput">시작날짜 : </label>
-              <input
-                type="date"
-                name="dateInput"
-                ref={startDateRef}
-                defaultValue={calUpdate.startdate}
-              />
-            </tr>
-            <tr>
-              <label for="dateInput">끝날짜 : </label>
-              <input
-                type="date"
-                name="dateInput"
-                ref={endDateRef}
-                defaultValue={calUpdate.enddate}
-              />
-            </tr>
-            <tr>
-              <input type="submit" value="수정" />
-              <input
-                type="button"
-                id={calUpdate.cnum}
-                value="삭제"
-                onClick={onDelete}
-              ></input>
-            </tr>
+          <form
+            onSubmit={onUpdate}
+            className={updateVisible ? 'hoverForm' : 'hidden'}
+          >
+            <table>
+              <input type="hidden" defaultValue={calUpdate.cnum} ref={numRef} />
+              <tr>
+                <td className="nameLabel">
+                  <label for="titleInput">제목 : </label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="titleInput"
+                    ref={titleRef}
+                    defaultValue={calUpdate.ctitle}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="nameLabel">
+                  <label for="colorInput">색상 : </label>
+                </td>
+                <td>
+                  <input
+                    className="colorInput"
+                    type="color"
+                    name="colorInput"
+                    ref={colorRef}
+                    defaultValue={calUpdate.ccolor}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="nameLabel">
+                  <label for="dateInput">시작날짜 : </label>
+                </td>
+                <td>
+                  <input
+                    type="date"
+                    name="dateInput"
+                    ref={startDateRef}
+                    defaultValue={calUpdate.startdate}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="nameLabel">
+                  <label for="dateInput">끝날짜 : </label>
+                </td>
+                <td>
+                  <input
+                    type="date"
+                    name="dateInput"
+                    ref={endDateRef}
+                    defaultValue={calUpdate.enddate}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                  <input type="submit" className="submitBtn" value="수정" />
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <input
+                    className="deleteBtn"
+                    type="button"
+                    id={calUpdate.cnum}
+                    value="삭제"
+                    onClick={onDelete}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                  <input
+                    className="cancelBtn"
+                    type="button"
+                    value="취소"
+                    onClick={() => setUpdateVisible(false)}
+                  />
+                </td>
+              </tr>
+            </table>
           </form>
         )}
       </div>

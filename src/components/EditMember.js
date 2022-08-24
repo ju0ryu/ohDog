@@ -4,6 +4,7 @@ import PopupDom from './PopupDom';
 import PopupPostCode from './PopupPostCode';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import logo from '../icon/ohDog_logo.svg';
 
 const EditMember = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -91,10 +92,29 @@ const EditMember = () => {
         </div>
         <div className="editForm">
           <form onSubmit={updateForm}>
+            <div className="popup">
+              <div id="popupDom">
+                {isPopupOpen && (
+                  <PopupDom>
+                    <PopupPostCode
+                      onClose={closePostCode}
+                      setAddress={setAddress}
+                    />
+                  </PopupDom>
+                )}
+              </div>
+            </div>
             <table>
+              <tr>
+                <td colSpan="2">
+                  <img src={logo} alt="로고" />
+                </td>
+              </tr>
               <tr>
                 <td>
                   <label for="id">아이디 : </label>
+                </td>
+                <td>
                   <input
                     type="text"
                     name="id"
@@ -106,6 +126,8 @@ const EditMember = () => {
               <tr>
                 <td>
                   <label for="pw">비밀번호 : </label>
+                </td>
+                <td>
                   <input
                     type="password"
                     name="pw"
@@ -117,6 +139,8 @@ const EditMember = () => {
               <tr>
                 <td>
                   <label for="pwCheck">비밀번호확인 : </label>
+                </td>
+                <td>
                   <input
                     ref={pwcRef}
                     type="password"
@@ -128,6 +152,8 @@ const EditMember = () => {
               <tr>
                 <td>
                   <label for="nick">닉네임 : </label>
+                </td>
+                <td>
                   <input
                     ref={nickRef}
                     type="text"
@@ -139,6 +165,8 @@ const EditMember = () => {
               <tr>
                 <td>
                   <label for="tel">전화번호</label>
+                </td>
+                <td>
                   <input
                     ref={telRef}
                     type="tel"
@@ -149,35 +177,35 @@ const EditMember = () => {
               </tr>
               <tr>
                 <td>
-                  <div id="popupDom">
-                    {isPopupOpen && (
-                      <PopupDom>
-                        <PopupPostCode
-                          onClose={closePostCode}
-                          setAddress={setAddress}
-                        />
-                      </PopupDom>
-                    )}
-                  </div>
                   <label for="addr">주소 : </label>
+                </td>
+                <td>
                   <input
                     ref={addr1Ref}
                     type="text"
                     name="addr"
                     defaultValue={address == null ? article.addr : address}
                   />
+                </td>
+                <td>
                   <button type="button" onClick={openPostCode}>
                     🔍
                   </button>
-                  <div>
-                    <label for="addrDetail">상세주소 : </label>
-                    <input ref={addr2Ref} type="text" name="addrDetail" />
-                  </div>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <label for="birth">생년월일</label>
+                  <label for="addrDetail">상세주소 : </label>
+                </td>
+                <td>
+                  <input ref={addr2Ref} type="text" name="addrDetail" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="birth">생년월일 : </label>
+                </td>
+                <td>
                   <input
                     ref={birthRef}
                     type="date"
@@ -188,7 +216,9 @@ const EditMember = () => {
               </tr>
               <tr>
                 <td>
-                  <label for="gender">성별</label>
+                  <label for="gender">성별 : </label>
+                </td>
+                <td>
                   <input
                     type="text"
                     name="gender"
