@@ -168,7 +168,7 @@ function Maps() {
           style={{
             // 지도의 크기
             width: '100%',
-            height: '500px',
+            height: '600px',
             borderRadius: '20px',
             border: '1px solid rgba(255, 255, 255)',
             boxShadow: '1px 1px 1px 1px gray',
