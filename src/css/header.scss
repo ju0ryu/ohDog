@@ -1,21 +1,21 @@
 #root {
   .header {
-    width: 100%;
     position: fixed;
     top: 0;
-    background-color: white;
+    left: 19%;
+    right: 19%;
     z-index: 30;
     .wrapper {
-      margin: 0 auto;
-      width: 90%;
+      text-align: center;
       height: 80px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background-color: white;
       img,
       .logout {
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
         color: #fff;
         &:hover {
           fill: blue;
@@ -27,11 +27,26 @@
         display: flex;
         align-items: center;
       }
-      .navigation {
+      .navigation1 {
+        margin-right: 200px;
+
         .nav-wrapper {
           display: grid;
-          grid-template-columns: repeat(4, 90px);
-          column-gap: 18px;
+          grid-template-columns: repeat(4, 50px);
+          column-gap: 8px;
+          .nav {
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
+      .navigation2 {
+        margin-left: 200px;
+        margin-right: 20px;
+        .nav-wrapper {
+          display: grid;
+          grid-template-columns: repeat(4, 50px);
+          column-gap: 8px;
           .nav {
             display: flex;
             align-items: center;

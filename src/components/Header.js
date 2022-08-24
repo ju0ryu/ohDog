@@ -47,11 +47,11 @@ const Header = () => {
   return (
     <div className="header">
       <div className="wrapper">
-        <nav className="navigation">
+        <nav className="navigation1">
           <ul className="nav-wrapper">
-            <Link to="/editMember">
+            <Link to="/myFeed">
               <li className="nav">
-                <img src={edits} alt="회원정보수정" />
+                <img src={myfeeds} alt="내피드" />
               </li>
             </Link>
             <Link to="/mainFeed">
@@ -59,14 +59,15 @@ const Header = () => {
                 <img src={mainfeeds} alt="전체피드" />
               </li>
             </Link>
-            <Link to="/myFeed">
-              <li className="nav">
-                <img src={myfeeds} alt="내피드" />
-              </li>
-            </Link>
+
             <Link to="/animal">
               <li className="nav">
                 <img src={pets} alt="동물" />
+              </li>
+            </Link>
+            <Link to="/calendar">
+              <li className="nav">
+                <img src={calendars} alt="캘린더" />
               </li>
             </Link>
           </ul>
@@ -78,21 +79,21 @@ const Header = () => {
             style={{ width: '100%', height: '100%' }}
           />
         </div>
-        <nav className="navigation">
+        <nav className="navigation2">
           <ul className="nav-wrapper">
             <Link to="/board">
               <li className="nav">
                 <img src={boards} alt="게시판" />
               </li>
             </Link>
-            <Link to="/calendar">
-              <li className="nav">
-                <img src={calendars} alt="캘린더" />
-              </li>
-            </Link>
             <Link to="/map">
               <li className="nav">
                 <img src={maps} alt="지도" />
+              </li>
+            </Link>
+            <Link to="/editMember">
+              <li className="nav">
+                <img src={edits} alt="회원정보수정" />
               </li>
             </Link>
             {visible && (

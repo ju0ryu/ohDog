@@ -73,11 +73,11 @@
           font-size: 20px;
           border-radius: 5px;
           border: 1px solid #ccc;
-          background-color: white;
+          background-color: rgba(152, 152, 255, 0.179);
           cursor: pointer;
           &:hover {
             background-color: rgb(0, 0, 255);
-            opacity: 0.7;
+            opacity: 0.5;
             color: white;
           }
           .popup {
