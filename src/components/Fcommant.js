@@ -4,11 +4,11 @@ const Fcommant = ({ article }) => {
   return (
     <div className="fcommant">
       <form id={article.fnum}>
-        <table>
+        <table className="fcommantlist" border="1" width="400px" align="center">
           <tr>
-            <td>{article.userid}</td>
-            <td>{article.fccontent}</td>
-            <td>{article.fcdate}</td>
+            <td width="20%">{article.userid}</td>
+            <td width="50%">{article.fccontent}</td>
+            <td width="30%">{article.fcdate}</td>
           </tr>
         </table>
       </form>

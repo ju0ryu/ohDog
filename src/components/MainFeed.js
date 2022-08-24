@@ -86,10 +86,12 @@ const MainFeed = () => {
         );
         if (mainlist.fnum == fnumstate) {
           return (
-            <div className="mainlistbox">
-              <table border="1" hight="200px" width="400px">
+            <div className="mainfeedbox" height="350px">
+              <table className="mainlistbox" border="1" width="400px">
                 <tr>
-                  <td colSpan="2">{mainlist.userid}</td>
+                  <td colSpan="2" align="left">
+                    {mainlist.userid}
+                  </td>
                 </tr>
                 <tr>
                   <td colSpan="2" align="center">
@@ -134,7 +136,7 @@ const MainFeed = () => {
                   </tr>
                 </table>
               </form>
-              <div>
+              <div className="fclist">
                 {fccontentlist.fccontentList.map((article) => {
                   return <Fcommant article={article} />;
                 })}
@@ -143,10 +145,12 @@ const MainFeed = () => {
           );
         } else {
           return (
-            <div className="mainlistbox">
-              <table border="1" hight="200px" width="400px">
+            <div className="mainfeedbox" height="350px">
+              <table className="mainlistbox" border="1" width="400px">
                 <tr>
-                  <td colSpan="2">{mainlist.userid}</td>
+                  <td colSpan="2" align="left">
+                    {mainlist.userid}
+                  </td>
                 </tr>
                 <tr>
                   <td colSpan="2" align="center">
