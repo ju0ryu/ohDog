@@ -15,7 +15,7 @@ import EditMember from './components/EditMember';
 import BoardDetail from './components/board/BoardDetail';
 import BoardWrite from './components/board/BoardWrite';
 import BoardUpdateForm from './components/board/BoardUpdateForm';
-
+import BoardList from './components/board/BoardList';
 const App = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState();
