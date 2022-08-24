@@ -83,7 +83,7 @@ app.post('/flist', (req, res) => {
   console.log('내피드', req.body);
   var userid = req.body.userid;
   const sqlQuery =
-    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m월%d일 %H:%i') AS fdate from feed where userid = ? order by date_format(fdate, '%m월%d일 %H:%i') desc;";
+    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m.%d. %H:%i') AS fdate from feed where userid = ? order by date_format(fdate, '%m월%d일 %H:%i') desc;";
   db.query(sqlQuery, [userid], (err, result) => {
     res.send(result);
   });
