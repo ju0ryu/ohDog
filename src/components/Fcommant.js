@@ -2,9 +2,9 @@ import '../css/Fcommant.scss';
 
 const Fcommant = ({ article }) => {
   return (
-    <div className="fcommant">
-      <form id={article.fnum}>
-        <table className="fcommantlist" width="400px" align="center">
+    <div className="fcommant" width="400px">
+      <form id={article.fnum} width="400px">
+        <table className="fcommantlist" width="400px">
           <tr>
             <td className="idbox" width="20%">
               {article.userid}

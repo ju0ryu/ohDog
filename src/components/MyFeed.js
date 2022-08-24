@@ -32,7 +32,7 @@ const MyFeed = () => {
   return (
     <div>
       <nav id="menu">
-        <h1>
+        <h3>
           <ul>
             <Link to="/myFeed">
               <li>
@@ -49,7 +49,7 @@ const MyFeed = () => {
               </li>
             </Link>
           </ul>
-        </h1>
+        </h3>
       </nav>
 
       <MyFeedWrite handlelist={getList}></MyFeedWrite>
