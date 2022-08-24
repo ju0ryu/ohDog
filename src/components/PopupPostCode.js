@@ -27,17 +27,17 @@ const PopupPostCode = (props) => {
   const postCodeStyle = {
     display: 'block',
     position: 'absolute',
-    top: '66%',
-    left: '34.8%',
-    width: '29.8%',
+    top: '720px',
+    left: '660px',
+    width: '570px',
     height: '500px',
     padding: '7px',
     borderRadius: '5px',
   };
   const cancelBtn = {
     position: 'absolute',
-    top: '72%',
-    right: '48%',
+    top: '780px',
+    right: '920px',
     backgroundColor: 'transparent',
     // fontFamily: 'Dongle',
     fontSize: '15px',
