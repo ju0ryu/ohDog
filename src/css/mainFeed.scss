@@ -11,18 +11,18 @@ background-color: rgb(248, 247, 247);
 
 .mainbox {
   display:flex;
-  margin:10px;
+  margin:20px;
   }
 
 .mainlistbox {
-  margin: 20px;
+  margin-right: 20px;
+  border-collapse: collapse;
 }
 
 .fcinput {
   margin-left: 40px;
+  border-radius: 10px;
 }
-
-.mainlistbox {border-collapse: collapse;}
 
 .fclist {
   height:100px;
