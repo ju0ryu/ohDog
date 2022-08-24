@@ -58,6 +58,12 @@ app.post('/member', (req, res) => {
   );
 });
 
+app.get('/memberlist', (req, res) => {
+  const sqlQuery = 'select userid,nickname from member;';
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
 //mainfeed req res 설정 시작
 
 app.get('/mainfeed', (req, res) => {
@@ -395,8 +401,7 @@ app.post('/eupdate', (req, res) => {
 // 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
   console.log('list!!!');
-  const sqlQuery =
-    "SELECT boardnum, category, btitle FROM board order by date_format(bdate, '%Y-%m-%d') desc;";
+  const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
