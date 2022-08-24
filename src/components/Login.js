@@ -37,6 +37,7 @@ const Login = () => {
           window.sessionStorage.setItem('id', idRef.current.value);
           navigate('/mainFeed');
         } else {
+          alert('등록되지않은 아이디입니다');
           navigate('/');
         }
       })
@@ -84,7 +85,7 @@ const Login = () => {
               &nbsp;
               <input
                 type="button"
-                value="회원등록"
+                value="회원가입"
                 onClick={handleMemberForm}
               ></input>
             </td>

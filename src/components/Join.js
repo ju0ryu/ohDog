@@ -2,8 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/login.scss';
+import PopupPostCode from './PopupPostCode';
+import PopupDom from './PopupDom';
 
 const Join = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [address, setAddress] = useState();
   const [gender, setGender] = useState();
   const idRef = useRef();
   const pwRef = useRef();
@@ -11,9 +15,40 @@ const Join = () => {
   const checkpwRef = useRef();
   const telRef = useRef();
   const addrRef = useRef();
+  const addr2Ref = useRef();
   const birthRef = useRef();
 
   const navigate = useNavigate();
+
+  const checkid = () => {
+    console.log('idref :', idRef.current.value);
+    axios
+      .get('http://localhost:8008/memberlist', {})
+      .then((res) => {
+        console.log(res);
+        const { data } = res;
+        console.log(data);
+        handleMember(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const checknickname = () => {
+    console.log('checknickname :', nicknameRef.current.value);
+    axios
+      .get('http://localhost:8008/memberlist', {})
+      .then((res) => {
+        console.log(res);
+        const { data } = res;
+        console.log(data);
+        handleMember(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     console.log(gender);
@@ -23,22 +58,39 @@ const Join = () => {
     setGender(e.target.value);
   };
 
-  const handleMember = () => {
+  const openPostCode = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePostCode = () => {
+    setIsPopupOpen(false);
+  };
+
+  const handleMember = (data) => {
     if (idRef.current.value === '' || idRef.current.value === undefined) {
       alert('아이디를 입력하세요!!!');
       idRef.current.focus();
       return false;
+    } else {
+      for (var i = 0; i < data.length; i++) {
+        console.log(i);
+        if (data[i].userid == idRef.current.value) {
+          alert('중복된 아이디입니다.');
+          idRef.current.focus();
+          return false;
+        }
+      }
+      if (1) {
+        alert('사용가능');
+      }
     }
     if (pwRef.current.value === '' || pwRef.current.value === undefined) {
-      alert('패스워드를 입력하세요!!!');
+      alert('패스워드를 입력하세요.');
       pwRef.current.focus();
       return false;
     }
-    if (
-      checkpwRef.current.value === '' ||
-      checkpwRef.current.value === undefined
-    ) {
-      alert('패스워드를 확인하세요!!!');
+    if (pwRef.current.value !== checkpwRef.current.value) {
+      alert('비밀번호가 일치하지않습니다.');
       checkpwRef.current.focus();
       return false;
     }
@@ -46,26 +98,36 @@ const Join = () => {
       nicknameRef.current.value === '' ||
       nicknameRef.current.value === undefined
     ) {
-      alert('닉네임을 입력하세요!!!');
+      alert('닉네임을 입력하세요.');
       nicknameRef.current.focus();
       return false;
+    } else {
+      for (var i = 0; i < data.length; i++) {
+        console.log(i);
+        if (data[i].nickname == nicknameRef.current.value) {
+          alert('중복된 닉네임입니다.');
+          nicknameRef.current.focus();
+          return false;
+        }
+      }
     }
     if (telRef.current.value === '' || telRef.current.value === undefined) {
-      alert('전화번호를 입력하세요!!!');
+      alert('전화번호를 입력하세요.');
       telRef.current.focus();
       return false;
     }
     if (addrRef.current.value === '' || addrRef.current.value === undefined) {
-      alert('주소를 입력하세요!!!');
+      alert('주소를 입력하세요.');
       addrRef.current.focus();
       return false;
     }
     if (birthRef.current.value === '' || birthRef.current.value === undefined) {
-      alert('생년월일을 입력하세요!!!');
+      alert('생년월일을 입력하세요.');
       birthRef.current.focus();
       return false;
     }
 
+    var updateAddress = addrRef.current.value + ' ' + addr2Ref.current.value;
     axios
       .post('http://localhost:8008/member', {
         id: idRef.current.value,
@@ -73,7 +135,7 @@ const Join = () => {
         checkpw: checkpwRef.current.value,
         nickname: nicknameRef.current.value,
         tel: telRef.current.value,
-        addr: addrRef.current.value,
+        addr: updateAddress,
         birth: birthRef.current.value,
         gender: gender,
       })
@@ -92,7 +154,7 @@ const Join = () => {
     <div>
       <p></p>
       <form>
-        <table border="1" width="300px" align="center">
+        <table border="1" width="400px" align="center">
           <tr>
             <td width="100px">아이디</td>
             <td align="left" width="200px">
@@ -104,6 +166,13 @@ const Join = () => {
                 ref={idRef}
                 placeholder="아이디를 입력하세요"
                 required
+              ></input>
+              <input
+                type="button"
+                value="중복확인"
+                width="20px"
+                align="right"
+                onClick={checkid}
               ></input>
             </td>
           </tr>
@@ -122,7 +191,7 @@ const Join = () => {
             </td>
           </tr>
           <tr>
-            <td width="100px">비밀번호 확인</td>
+            <td width="150px">비밀번호 확인</td>
             <td align="left" width="200px">
               <input
                 type="password"
@@ -147,6 +216,13 @@ const Join = () => {
                 placeholder="닉네임을 입력하세요"
                 required
               ></input>
+              <input
+                type="button"
+                value="중복확인"
+                width="20px"
+                align="right"
+                onClick={checknickname}
+              ></input>
             </td>
           </tr>
           <tr>
@@ -158,24 +234,33 @@ const Join = () => {
                 size="20"
                 defaultValue=""
                 ref={telRef}
-                placeholder="전화번호를 입력하세요"
+                placeholder="'-'를 빼고 입력하세요"
                 required
               ></input>
             </td>
           </tr>
           <tr>
             <td width="100px">주소</td>
-            <td align="left" width="200px">
-              <select id="addr" ref={addrRef}>
-                <option value="a">경기도</option>
-                <option value="b">강원도</option>
-                <option value="c">서울</option>
-                <option value="d">부산</option>
-                <option value="e">광주</option>
-                <option value="f">대구</option>
-                <option value="g">대전</option>
-                <option value="h">충청도</option>
-              </select>
+            <td>
+              <div id="popupDom">
+                {isPopupOpen && (
+                  <PopupDom>
+                    <PopupPostCode
+                      onClose={closePostCode}
+                      setAddress={setAddress}
+                    />
+                  </PopupDom>
+                )}
+              </div>
+              <label for="addr">주소 : </label>
+              <input ref={addrRef} type="text" name="addr" value={address} />
+              <button type="button" onClick={openPostCode}>
+                🔍
+              </button>
+              <div>
+                <label for="addrDetail">상세주소 : </label>
+                <input ref={addr2Ref} type="text" name="addrDetail" />
+              </div>
             </td>
           </tr>
           <tr>

@@ -58,6 +58,12 @@ app.post('/member', (req, res) => {
   );
 });
 
+app.get('/memberlist', (req, res) => {
+  const sqlQuery = 'select userid,nickname from member;';
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
 //mainfeed req res 설정 시작
 
 app.get('/mainfeed', (req, res) => {
