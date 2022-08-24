@@ -87,14 +87,14 @@ const MainFeed = () => {
         if (mainlist.fnum == fnumstate) {
           return (
             <div className="mainfeedbox" height="350px">
-              <table className="mainlistbox" border="1" width="400px">
+              <table className="mainlistbox" width="420px">
                 <tr>
                   <td colSpan="2" align="left">
                     {mainlist.userid}
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan="2" align="center">
+                  <td className="mainfcbox" colSpan="2" align="center">
                     {mainlist.fcomment}
                   </td>
                 </tr>
@@ -146,14 +146,14 @@ const MainFeed = () => {
         } else {
           return (
             <div className="mainfeedbox" height="350px">
-              <table className="mainlistbox" border="1" width="400px">
+              <table className="mainlistbox" width="420px">
                 <tr>
                   <td colSpan="2" align="left">
                     {mainlist.userid}
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan="2" align="center">
+                  <td className="mainfcbox" colSpan="2" align="center">
                     {mainlist.fcomment}
                   </td>
                 </tr>
