@@ -401,7 +401,8 @@ app.post('/eupdate', (req, res) => {
 // 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
   console.log('list!!!');
-  const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
+  const sqlQuery =
+    "SELECT boardnum, category, btitle FROM board order by date_format(bdate, '%Y-%m-%d') desc;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
