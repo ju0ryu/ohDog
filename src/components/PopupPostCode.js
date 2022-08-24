@@ -27,17 +27,33 @@ const PopupPostCode = (props) => {
   const postCodeStyle = {
     display: 'block',
     position: 'absolute',
-    top: '10%',
-    width: '600px',
-    height: '600px',
+    top: '66%',
+    left: '34.8%',
+    width: '29.8%',
+    height: '500px',
     padding: '7px',
+    borderRadius: '5px',
+  };
+  const cancelBtn = {
+    position: 'absolute',
+    top: '72%',
+    right: '48%',
+    backgroundColor: 'transparent',
+    // fontFamily: 'Dongle',
+    fontSize: '15px',
+    width: '60px',
+    border: '1px solid #ccc',
+    borderShadow: '10px 10px 10px 10px #ccc',
+    borderRadius: '3px',
+    cursor: 'pointer',
   };
 
   return (
     <div>
       <DaumPostcode style={postCodeStyle} onComplete={handlePostCode} />
       <input
-        value="X"
+        style={cancelBtn}
+        value="취소"
         type="button"
         onClick={() => {
           props.onClose();
