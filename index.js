@@ -83,7 +83,7 @@ app.post('/flist', (req, res) => {
   console.log('내피드', req.body);
   var userid = req.body.userid;
   const sqlQuery =
-    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m월%d일 %H:%i') AS fdate from feed where userid = ? order by date_format(fdate, '%m월%d일 %H:%i') desc;";
+    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m.%d. %H:%i') AS fdate from feed where userid = ? order by date_format(fdate, '%m월%d일 %H:%i') desc;";
   db.query(sqlQuery, [userid], (err, result) => {
     res.send(result);
   });
@@ -401,7 +401,8 @@ app.post('/eupdate', (req, res) => {
 // 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
   console.log('list!!!');
-  const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
+  const sqlQuery =
+    "SELECT boardnum, category, btitle FROM board order by date_format(bdate, '%Y-%m-%d') desc;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
