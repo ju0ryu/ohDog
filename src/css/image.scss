@@ -10,8 +10,64 @@
   color: rgb(41, 48, 233);
 }
 
-
-.div {
-  width: 100px;
-  height: 100px;
+.container{
+  // display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 30px;
+  width: 80%;
+  overflow: hidden;
+  // border: 1px solid black;
+  text-align: center;
+  margin: auto;
+  
 }
+
+
+.img {
+  width: 250px;
+  height: 250px;
+  object-fit: fill;
+   display: flex;
+   border-radius: 5px 5px 5px 5px;
+   
+}
+
+
+.out_img {
+  margin-top: 30px;
+  width: 300px;
+  height: 300px;
+  // border: 1px solid red;
+
+}
+
+.D_but {
+margin-right: 50px;
+// text-align: center;
+}
+
+
+
+// ==================================포토모달창=============================================
+
+.ImgBackGround {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.ImgBackGround2 {
+  background-color: white;
+  width: 80%;
+  height: 90%;
+}
+
+
+// ==================================포토모달창=============================================
