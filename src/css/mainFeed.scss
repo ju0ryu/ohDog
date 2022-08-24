@@ -1,7 +1,32 @@
+body {
+background-color: rgb(248, 247, 247);
+
 #root {
-  padding-top: 54px;
+  padding-top: 10px;
+}
+
+.fcinput{
+  background: transparent;
 }
 
 .mainbox {
-  align: center;
+  display:flex;
+  margin:10px;
+  }
+
+.mainlistbox {
+  margin: 20px;
+}
+
+.fcinput {
+  margin-left: 40px;
+}
+
+.mainlistbox {border-collapse: collapse;}
+
+.fclist {
+  height:100px;
+  overflow: auto;
+}
+
 }

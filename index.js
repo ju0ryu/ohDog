@@ -58,6 +58,12 @@ app.post('/member', (req, res) => {
   );
 });
 
+app.get('/memberlist', (req, res) => {
+  const sqlQuery = 'select userid,nickname from member;';
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
 //mainfeed req res 설정 시작
 
 app.get('/mainfeed', (req, res) => {
@@ -395,8 +401,33 @@ app.post('/eupdate', (req, res) => {
 // 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
   console.log('list!!!');
-  const sqlQuery = 'SELECT boardnum, category, btitle FROM board;';
+  const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
   db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
+// 게시판 게시글 검색조회
+app.post('/searchList', (req, res) => {
+  console.log('/searchList1', req.body);
+  var search = req.body.search;
+  console.log('/searchList2', search);
+  var querySearch = '%' + search + '%';
+  const sqlQuery =
+    "SELECT boardnum, category, btitle FROM board WHERE btitle LIKE ? order by date_format(bdate, '%Y-%m-%d') desc;";
+  db.query(sqlQuery, [querySearch], (err, result) => {
+    res.send(result);
+  });
+});
+
+// 게시판 카테고리 검색조회
+app.post('/searchCategoryList', (req, res) => {
+  console.log('/searchList1', req.body);
+  var category = req.body.category;
+
+  const sqlQuery =
+    "SELECT boardnum, category, btitle FROM board WHERE category LIKE ? order by date_format(bdate, '%Y-%m-%d') desc;";
+  db.query(sqlQuery, [category], (err, result) => {
     res.send(result);
   });
 });
@@ -449,7 +480,7 @@ app.post('/delete', (req, res) => {
   const num = req.body.num;
   console.log('/delete(id) => ', num);
 
-  const sqlQuery = 'DELETE FROM BOARD WHERE BOARDNUM = ?;';
+  const sqlQuery = 'DELETE FROM board WHERE boardnum = ?;';
   db.query(sqlQuery, [num], (err, result) => {
     console.log(err);
     res.send(result);
