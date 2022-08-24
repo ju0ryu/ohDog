@@ -1,12 +1,35 @@
 import { useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
+import axios from '../../../node_modules/axios/index';
+import { useNavigate } from '../../../node_modules/react-router-dom/index';
 
 const BoardDetail = () => {
   const { state } = useLocation();
-  console.log('state1:', state);
   const login_id = window.sessionStorage.getItem('id');
-  console.log('id:', login_id);
 
+  console.log('id:', login_id);
+  console.log('state 111:', state);
+
+  const navigate = useNavigate();
+
+  const handleUpdateForm = (e) => {
+    alert(e.target.id);
+    axios
+      .post('http://localhost:8008/detail', { num: e.target.id })
+      .then((res) => {
+        const { data } = res;
+        alert(data);
+        console.log('updatedetail2=>', data);
+        if (res.data.length > 0) {
+          moveToUpdate(data);
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+  const moveToUpdate = (updateDetail) => {
+    navigate('/update', { state: updateDetail });
+  };
   if (login_id === state[0].userid) {
     return (
       <div>
@@ -48,10 +71,12 @@ const BoardDetail = () => {
             <button>등록</button>
           </div>
           <div align="center">
-            <Link to="/update">
-              <input type="button" value="글 수정"></input>
-            </Link>
-            {/* 온클릭으로 해야함 */}
+            <input
+              type="button"
+              id={state[0].boardnum}
+              value="수정"
+              onClick={handleUpdateForm}
+            ></input>
           </div>
         </form>
       </div>

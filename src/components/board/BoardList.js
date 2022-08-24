@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import BoardArticle from './BoardArticle';
 
 const BoardList = ({ boardlist }) => {

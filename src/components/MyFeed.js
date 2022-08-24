@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import MyFeedWrite from './MyFeedWrite';
 import MyFeedList from './MyFeedList';
 import '../css/myFeed.scss';

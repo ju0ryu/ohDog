@@ -58,6 +58,12 @@ app.post('/member', (req, res) => {
   );
 });
 
+app.get('/memberlist', (req, res) => {
+  const sqlQuery = 'select userid,nickname from member;';
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
 //mainfeed req res 설정 시작
 
 app.get('/mainfeed', (req, res) => {
@@ -242,8 +248,8 @@ const upload = multer({
           iconv.decode(file.originalname, 'utf-8').toString(),
           ext,
         ) +
-        Date.now() +
-        ext,
+          Date.now() +
+          ext,
       );
     },
   }),
@@ -395,22 +401,22 @@ app.post('/eupdate', (req, res) => {
 // 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
   console.log('list!!!');
-  const sqlQuery = 'SELECT BOARDNUM, CATEGORY, BTITLE FROM BOARD;';
+  const sqlQuery = 'SELECT boardnum, category, btitle FROM board;';
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
 });
 
-// 게시판 게시글 입력 카테고리 넣어야함---------------------------------------------
+// 게시판 게시글 입력
 app.post('/insert', (req, res) => {
   console.log('/insert', req.body);
-  var writer = req.body.writer;
   var title = req.body.title;
+  var writer = req.body.writer;
   var content = req.body.content;
   var category = req.body.category;
 
   const sqlQuery =
-    'INSERT INTO BOARD (USERID, BTITLE, BCONTENT, CATEGORY) values (?,?,?,?);';
+    'INSERT INTO board (userid, btitle, bcontent, category) values (?,?,?,?);';
   db.query(sqlQuery, [writer, title, content, category], (err, result) => {
     res.send(result);
   });
@@ -422,8 +428,9 @@ app.post('/detail', (req, res) => {
   var num = parseInt(req.body.num);
 
   const sqlQuery =
-    "SELECT BOARDNUM, USERID, BTITLE, BCONTENT, DATE_FORMAT(BDATE, '%Y-%m-%d') AS BDATE FROM BOARD where BOARDNUM = ?;";
+    "SELECT boardnum, userid, btitle, bcontent, DATE_FORMAT(bdate, '%Y-%m-%d') AS bdate, category FROM board where boardnum = ?;";
   db.query(sqlQuery, [num], (err, result) => {
+    console.log('/datail(result)', result);
     res.send(result);
   });
 });
@@ -431,12 +438,12 @@ app.post('/detail', (req, res) => {
 //게시판 게시글 업데이트
 app.post('/update', (req, res) => {
   console.log('/update', req.body);
-  var title = req.body.article.board_title;
-  var content = req.body.article.board_content;
-  var num = req.body.article.board_num;
+  var title = req.body.data.btitle;
+  var content = req.body.data.bcontent;
+  var num = req.body.data.boardnum;
 
   const sqlQuery =
-    'update BOARD set BTITLE=?, BCONTENT=?, BDATE=now() where boardnum=?;';
+    'update board SET btitle=?, bcontent=?, bdate=now() WHERE boardnum=?;';
   db.query(sqlQuery, [title, content, num], (err, result) => {
     res.send(result);
     console.log('result=', result);
