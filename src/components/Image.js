@@ -1,27 +1,25 @@
-import React, { useRef, useState, useCallback, useEffect, Component } from 'react';
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  Component,
+} from 'react';
 // import Gallery from "react-photo-gallery";
 
 import Photos from './photo';
-import axios from "axios";
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../css/image.scss';
 
 // import './Style.css'
-
-
-
-
-
-
-
-
 
 const Image = ({ handlelist }) => {
   // const imageRef = useRef();
   const userid = window.sessionStorage.getItem('id');
   const imgurl = useRef();
   // const imgdataRef = useRef();
-  var secret = 'Y'
+  var secret = 'Y';
 
   // 공개비공개?
   const onChange = (e) => {
@@ -32,9 +30,7 @@ const Image = ({ handlelist }) => {
 
   // const image = [{ source: 'https://images.unsplash.com/photo-1594415156038-02d665441df2?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max' }]
 
-
-
-  const [image_name, setImage_name] = useState("");
+  const [image_name, setImage_name] = useState('');
   // 이미지 상태 추가??
 
   const [imagelist, setImagelist] = useState({
@@ -66,25 +62,20 @@ const Image = ({ handlelist }) => {
   }, []);
 
   const handleInsert = (e) => {
-    console.log("handleInsert =>", imgurl.current.value);
+    console.log('handleInsert =>', imgurl.current.value);
     e.preventDefault();
-    if (imgurl.current.value === "" || imgurl.current.value === undefined) {
-      alert("이미지를 선택하세요!!!");
+    if (imgurl.current.value === '' || imgurl.current.value === undefined) {
+      alert('이미지를 선택하세요!!!');
       return false;
     }
 
-
-
-
-
-
     const config = {
-      headers: { "Content-Type": "multipart/form-data" }
+      headers: { 'Content-Type': 'multipart/form-data' },
     };
 
     axios
       .post(
-        "http://localhost:8008/iinsert",
+        'http://localhost:8008/iinsert',
         // 위에 url 어떻게 연결 시켜야할지 모르겠음.
         {
           userid,
@@ -93,29 +84,24 @@ const Image = ({ handlelist }) => {
           // imgdata: imgdataRef.current.value,
           image: image_name,
         },
-        config
+        config,
       )
       .then((res) => {
-        console.log("handleInsert =>", res);
-        alert('업로드완료')
+        console.log('handleInsert =>', res);
+        alert('업로드완료');
 
-        imgurl.current.value = "";
+        imgurl.current.value = '';
       })
       .catch((e) => {
         console.error(e);
       });
-    window.location.reload()
-  }
+    window.location.reload();
+  };
   // const [currentImage, setCurrentImage] = useState(0);
   // const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
-
   // 모달 생성 안됨....ㅅㅂ
   // 모달 보내는법 알아야함.
-
-
-
-
 
   // const openPhoto = useCallback((event, { photo, index }) => {
   //   setCurrentImage(index);
@@ -130,13 +116,9 @@ const Image = ({ handlelist }) => {
   // console.log("imgnum", imagelist.imageList[2].imgnum);
 
   return (
-
-
-
     <div>
-
       <nav id="menu">
-        <h1>
+        <h3>
           <ul>
             <Link to="/myFeed">
               <li>
@@ -153,12 +135,10 @@ const Image = ({ handlelist }) => {
               </li>
             </Link>
           </ul>
-        </h1>
+        </h3>
       </nav>
 
-
       <table border="1" width="700px" align="center">
-
         <tr>
           <td>이미지</td>
           <td align="left">
@@ -195,22 +175,15 @@ const Image = ({ handlelist }) => {
             />
             <span>비공개</span>&nbsp;
           </td>
-
         </tr>
         <tr>
           <td colSpan="2" align="center">
-            <input
-              type="submit"
-              value="전송"
-              onClick={handleInsert}
-            ></input>
+            <input type="submit" value="전송" onClick={handleInsert}></input>
             &nbsp;
             <input type="reset" value="취소"></input>
           </td>
         </tr>
       </table>
-
-
 
       {/* 포토스 사용? */}
       {/* {
@@ -222,24 +195,18 @@ const Image = ({ handlelist }) => {
           );
         })
       } */}
-      <div className='container'>
+      <div className="container">
         {imagelist.imageList.map((article) => {
           return (
             <Photos
               userid={article.userid}
-              imgurl={"http://localhost:8008/uploads/" + article.imgurl}
+              imgurl={'http://localhost:8008/uploads/' + article.imgurl}
               imgnum={article.imgnum}
               secret={article.secret}
             />
-
-
-          )
+          );
         })}
-
       </div>
-
-
-
 
       {/* <h1 className="myheader">어떻게 연결 시키지????</h1> */}
 
@@ -247,7 +214,6 @@ const Image = ({ handlelist }) => {
 
       {/* Galeery가 밑에 사진 뿌려주는 역활 */}
       {/* <Gallery photos={photos} onClick={openPhoto}></Gallery> */}
-
 
       {/* <ModalGateway>
 
@@ -265,12 +231,8 @@ const Image = ({ handlelist }) => {
         ) : null}
 
       </ModalGateway> */}
-
-
-    </div >
-
+    </div>
   );
-}
+};
 
-export default Image
-
+export default Image;
