@@ -185,11 +185,17 @@ function Maps() {
               {info && info.content === marker.content && (
                 <div className="marker">
                   {/* {marker.content} */}
-                  <p className="mTitle">{marker.content.name}</p>
+                  <p className="mTitle">
+                    {marker.content.name ? marker.content.name : '주소 : '}
+                  </p>
                   <p className="mAddr">{marker.content.address}</p>
-                  <p className="mPhone">{marker.content.phone}</p>
+                  <p className="mPhone">
+                    {marker.content.phone
+                      ? 'tel : ' + marker.content.phone
+                      : 'tel :'}
+                  </p>
                   <a className="mURL" href={marker.content.url}>
-                    {marker.content.url}
+                    {/* {marker.content.url} */} 상세보기
                   </a>
                 </div>
               )}
