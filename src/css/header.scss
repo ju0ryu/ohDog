@@ -17,8 +17,8 @@
       background-color: white;
       img,
       .logout {
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
         color: #fff;
         &:hover {
           fill: blue;
@@ -34,7 +34,7 @@
         padding-left: 19%;
         .nav-wrapper {
           display: grid;
-          grid-template-columns: repeat(4, 50px);
+          grid-template-columns: repeat(4, 45px);
           column-gap: 0px;
           .nav {
             display: flex;
@@ -46,7 +46,7 @@
         padding-right: 19%;
         .nav-wrapper {
           display: grid;
-          grid-template-columns: repeat(4, 50px);
+          grid-template-columns: repeat(4, 45px);
           column-gap: 0px;
           .nav {
             display: flex;
