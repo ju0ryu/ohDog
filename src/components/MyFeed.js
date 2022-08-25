@@ -12,7 +12,7 @@ const MyFeed = () => {
 
   const userid = window.sessionStorage.getItem('id');
   // useEffect(() => {
-  //   console.log('세션확인 : ', userid);
+  //   console.log('세션확인 : ', userid); ㅈ
   // }, []);
 
   const getList = () => {
@@ -32,24 +32,22 @@ const MyFeed = () => {
   return (
     <div>
       <nav id="menu">
-        <h3>
-          <ul>
-            <Link to="/myFeed">
-              <li>
-                <a className="myfeedlink" href="#">
-                  MYFEED
-                </a>
-              </li>
-            </Link>
-            <Link to="/image">
-              <li>
-                <a className="myphotolink" href="#">
-                  MYPHOTO
-                </a>
-              </li>
-            </Link>
-          </ul>
-        </h3>
+        <ul>
+          <Link to="/myFeed">
+            <li>
+              <a className="myfeedlink" href="#">
+                <p className="changeTitle">내 피드</p>
+              </a>
+            </li>
+          </Link>
+          <Link to="/image">
+            <li>
+              <a className="myphotolink" href="#">
+                <p className="changeTitle">내 사진</p>
+              </a>
+            </li>
+          </Link>
+        </ul>
       </nav>
 
       <MyFeedWrite handlelist={getList}></MyFeedWrite>

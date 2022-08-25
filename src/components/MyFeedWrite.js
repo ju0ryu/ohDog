@@ -2,6 +2,7 @@ import './MyFeedWrite';
 import '../css/myFeedWrite.scss';
 import { useRef, useState } from 'react';
 import axios from 'axios';
+import inputbt from '../icon/write.svg';
 
 const MyFeedWrite = ({ handlelist }) => {
   const userid = window.sessionStorage.getItem('id');
@@ -45,21 +46,34 @@ const MyFeedWrite = ({ handlelist }) => {
   return (
     <div>
       <form>
-        <table border="1" width="700px" align="center">
+        <table
+          className="myfeedwrite"
+          height="100px"
+          width="700px"
+          align="center"
+        >
           <tr>
-            <td align="left" width="550px">
+            <td align="left" width="550px" align="center">
               <input
+                className="myfeedinput"
                 type="text"
                 name="writer"
                 size="65"
                 ref={writerRef}
                 placeholder="일상을 입력하세요"
-              ></input>{' '}
+              ></input>
+            </td>
+            <td>
               <input
-                type="button"
-                value="글쓰기"
+                className="inputbt"
+                type="image"
+                src={inputbt}
+                alt="글쓰기"
+                height="25px"
                 onClick={handleInsert}
               ></input>
+            </td>
+            <td>
               <input
                 type="radio"
                 name="cs_open"
