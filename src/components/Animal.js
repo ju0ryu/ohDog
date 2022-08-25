@@ -3,10 +3,12 @@ import '../css/animal.scss';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import noImg from '../icon/noimg.gif';
 
 const Animal = () => {
   const [insertForm, setInsertForm] = useState(false);
   const [image_name, setImage_name] = useState('');
+  const [renderImage, setRenderImage] = useState('');
   const [gender, setGender] = useState();
   const [alist, setAlist] = useState();
   const [article, setArticle] = useState({
@@ -53,6 +55,21 @@ const Animal = () => {
     setGender(e.target.value);
   };
 
+  const encodeFileToBase64 = (fileBlob) => {
+    setImage_name(fileBlob);
+    const reader = new FileReader();
+
+    reader.readAsDataURL(fileBlob);
+
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setRenderImage(reader.result);
+
+        resolve();
+      };
+    });
+  };
+
   function onImage(e) {
     setImage_name(e.target.files[0]);
   }
@@ -64,6 +81,7 @@ const Animal = () => {
   const formSubmit = (e) => {
     e.preventDefault();
     console.log(speciesRef.current.value);
+    console.log('사진', image_name);
     console.log(gender);
     const config = {
       headers: { 'Content-Type': 'multipart/form-data' },
@@ -133,7 +151,7 @@ const Animal = () => {
                     </tr>
                     <tr>
                       <td>성별 : </td>
-                      <td>{article.agender == 'M' ? '수컷' : '암컷'}</td>
+                      <td>{article.agender == 'M' ? '수컷 ♂' : '암컷 ♀'}</td>
                     </tr>
                     <tr>
                       <td>견종 : </td>
@@ -173,6 +191,13 @@ const Animal = () => {
         <>
           {/* <img src={onImage} alt="이미지" /> */}
           <form className="hoverForms" onSubmit={formSubmit}>
+            <div className="preview">
+              {image_name ? (
+                <img src={renderImage} alt="preview-img" />
+              ) : (
+                <img src={noImg} alt="preview-img" />
+              )}
+            </div>
             <table>
               {/* <div className="fileBox"> */}
               <tr className="fileBox">
@@ -182,7 +207,10 @@ const Animal = () => {
                     type="file"
                     id="imageUpload"
                     accept="image/*"
-                    onChange={onImage}
+                    // onChange={onImage}
+                    onChange={(e) => {
+                      encodeFileToBase64(e.target.files[0]);
+                    }}
                     ref={imgRef}
                   />
                 </td>
