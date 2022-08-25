@@ -18,28 +18,32 @@ const MyFeedArticle = ({ article, handlelist }) => {
   };
 
   return (
-    <div className="fcommantbox">
-      <table className="fclistbox" border="1" width="100%">
-        <td colSpan="2" align="right">
-          <input
-            type="image"
-            src={deleteR}
-            alt="삭제"
-            height="20px"
-            id={article.fnum}
-            onClick={handleDelete}
-          ></input>
-        </td>
+    <div className="fcommantbox" height="300px">
+      <table className="fclistbox">
         <tr>
-          <td className="userid" width="20%">
-            {article.userid}{' '}
+          <td colSpan="4" align="right">
+            <input
+              type="image"
+              src={deleteR}
+              alt="삭제"
+              height="20px"
+              id={article.fnum}
+              onClick={handleDelete}
+            ></input>
           </td>
-          <td className="fcomment"> {article.fcomment}</td>
+          <td width="10px"></td>
         </tr>
         <tr>
-          <td className="fdate" colSpan="2" align="right">
-            {article.fdate}
+          <td width="10px"></td>
+          <td className="userid">{article.userid} </td>
+          <td width="10px"></td>
+          <td className="fcomment">{article.fcomment}</td>
+        </tr>
+        <tr>
+          <td className="fdate" colSpan="4" align="right">
+            {article.fdate}&nbsp;
           </td>
+          <td width="10px"></td>
         </tr>
         <tr></tr>
       </table>

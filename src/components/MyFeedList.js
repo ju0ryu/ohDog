@@ -10,8 +10,8 @@ const MyFeedList = ({ myfeedlist, handlelist }) => {
     return <div></div>;
   } else {
     return (
-      <div>
-        <table width="700px" border="1" align="center">
+      <div className="myfeedlistbox">
+        <table width="700px" align="center">
           <tbody>
             {myfeedlist.myfeedList.map((article) => {
               return (

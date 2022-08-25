@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import '../css/mainFeed.scss';
 import axios from 'axios';
 import Fcommant from './Fcommant';
+import msgbt from '../icon/msg.svg';
 
 const MainFeed = () => {
   const userid = window.sessionStorage.getItem('id');
@@ -77,7 +78,11 @@ const MainFeed = () => {
 
   return (
     <div className="mainTitle">
-      <p>전체보기</p>
+      <p>전체피드</p>
+      <div className="imagebox">imagebox</div>
+      <div className="imagebox">imagebox</div>
+      <div className="imagebox">imagebox</div>
+
       <div className="mainbox">
         {mainfeedlist.mainfeedList.map((mainlist) => {
           console.log(
@@ -89,38 +94,42 @@ const MainFeed = () => {
           if (mainlist.fnum == fnumstate) {
             return (
               <div className="mainfeedbox" height="350px">
-                <table className="mainlistbox" width="420px">
+                <table className="mainlistbox" width="700px">
                   <tr>
-                    <td colSpan="2" align="left">
+                    <td width="10px"></td>
+                    <td className="mainuserid" width="100%" align="center">
                       {mainlist.userid}
                     </td>
+                    <td></td>
                   </tr>
                   <tr>
-                    <td className="mainfcbox" colSpan="2" align="center">
+                    <td className="mainfcbox" colSpan="3" align="center">
                       {mainlist.fcomment}
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan="2" align="right">
+                    <td className="mainfdate" colSpan="3" align="right">
                       {mainlist.fdate}
                     </td>
                   </tr>
-
                   <tr>
-                    <td colSpan="2" align="center">
+                    <td colSpan="3" align="center">
                       <input
+                        className="msgbt"
+                        type="image"
+                        src={msgbt}
+                        alt="댓글보기"
                         id={mainlist.fnum}
-                        type="button"
-                        value="댓글보기"
                         onClick={onClick}
+                        height="25px"
                       ></input>
                     </td>
                   </tr>
                 </table>
                 <form onSubmit={fcInsert} id={mainlist.fnum}>
-                  <table>
+                  <table className="fccommant" align="center">
                     <tr>
-                      <td align="right" colSpan="2">
+                      <td align="center" colSpan="2">
                         <input
                           className="fcinput"
                           type="text"
@@ -148,30 +157,34 @@ const MainFeed = () => {
           } else {
             return (
               <div className="mainfeedbox" height="350px">
-                <table className="mainlistbox" width="420px">
+                <table className="mainlistbox" width="700px">
                   <tr>
-                    <td colSpan="2" align="left">
+                    <td width="10px"></td>
+                    <td className="mainuserid" width="100%" align="center">
                       {mainlist.userid}
                     </td>
+                    <td></td>
                   </tr>
                   <tr>
-                    <td className="mainfcbox" colSpan="2" align="center">
+                    <td className="mainfcbox" colSpan="3" align="center">
                       {mainlist.fcomment}
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan="2" align="right">
+                    <td className="mainfdate" colSpan="3" align="right">
                       {mainlist.fdate}
                     </td>
                   </tr>
-
                   <tr>
-                    <td colSpan="2" align="center">
+                    <td colSpan="3" align="center">
                       <input
+                        className="msgbt"
+                        type="image"
+                        src={msgbt}
+                        alt="댓글보기"
                         id={mainlist.fnum}
-                        type="button"
-                        value="댓글보기"
                         onClick={onClick}
+                        height="25px"
                       ></input>
                     </td>
                   </tr>
