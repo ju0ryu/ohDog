@@ -1,4 +1,6 @@
 import axios from 'axios';
+import deleteR from '../icon/deleteR.svg';
+import '../css/myFeedArticle.scss';
 
 const MyFeedArticle = ({ article, handlelist }) => {
   const handleDelete = (e) => {
@@ -16,22 +18,26 @@ const MyFeedArticle = ({ article, handlelist }) => {
   };
 
   return (
-    <div>
-      <table border="1" width="100%">
+    <div className="fcommantbox">
+      <table className="fclistbox" border="1" width="100%">
         <td colSpan="2" align="right">
           <input
-            type="button"
-            value="삭제"
+            type="image"
+            src={deleteR}
+            alt="삭제"
+            height="20px"
             id={article.fnum}
             onClick={handleDelete}
           ></input>
         </td>
         <tr>
-          <td width="20%">{article.userid} </td>
-          <td> {article.fcomment}</td>
+          <td className="userid" width="20%">
+            {article.userid}{' '}
+          </td>
+          <td className="fcomment"> {article.fcomment}</td>
         </tr>
         <tr>
-          <td colSpan="2" align="right">
+          <td className="fdate" colSpan="2" align="right">
             {article.fdate}
           </td>
         </tr>

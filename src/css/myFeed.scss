@@ -2,25 +2,37 @@
   padding-top: 54px;
 }
 li {
+  margin: 0 auto;
   float: left;
   list-style: none;
 }
 
 a {
   text-decoration: none;
-  padding-right: 10px;
+  // padding-right: 10px;
   color: black;
 }
 
+// p {
+// margin-top: 0;
+// margin-bottom: 15px;
+// font-family: 'Dongle', sans-serif;
+// font-size: 40px;
+// }
+
 #menu {
-  font-size: 20px;
-  font-weight: bold;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  display: flex;
+    display: flex;
   justify-content: center;
+}
+.changeTitle{
+ margin: 0;
+ margin-top: 17px;
+font-family: 'Dongle', sans-serif;
+  font-size: 40px;
 }
 
 #menu li a {
+      // margin: 0 auto;
   margin-right: 92px;
 }
 

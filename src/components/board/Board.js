@@ -65,6 +65,7 @@ function Board() {
       });
   };
 
+  //조회기능
   useEffect(() => {
     axios
       .get('http://localhost:8008/list', {})

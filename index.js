@@ -221,6 +221,7 @@ app.post('/cdelete', (req, res) => {
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { log } = require('console');
 
 // 세가지 추가됨 멀터는 파일 추가 패스는 경로 fs 파일 다루를수 있음
 
@@ -485,6 +486,34 @@ app.post('/delete', (req, res) => {
   db.query(sqlQuery, [num], (err, result) => {
     console.log(err);
     res.send(result);
+  });
+});
+
+// 게시판 댓글조회
+app.post('/boardCommentList', (req, res) => {
+  var boardnum = parseInt(req.body.boardnum);
+  console.log('피드댓글(req.body)', req.body);
+  console.log('피드댓글(req.body.boardnum)', req.body.boardnum);
+  const sqlQuery =
+    "SELECT bcnum, userid, bccontent, DATE_FORMAT(bcdate, '%m월%d일 %H:%i') AS bcdate from bcomment where boardnum = ? order by bcdate desc;";
+  db.query(sqlQuery, [boardnum], (err, result) => {
+    console.log('피드댓글(result)', result);
+    res.send(result);
+  });
+});
+
+// 게시판 댓글넣기
+app.post('/boardCommentInsert', (req, res) => {
+  console.log('boardCommentInsert', req.body);
+  var userid = req.body.userid;
+  var bccontent = req.body.bccontent;
+  var boardnum = req.body.boardnum;
+
+  const sqlQuery =
+    'INSERT INTO bcomment (userid, bccontent, boardnum) values (?,?,?);';
+  db.query(sqlQuery, [userid, bccontent, boardnum], (err, result) => {
+    res.send(result);
+    console.log('boardCommentInsert2', result);
   });
 });
 
