@@ -2,9 +2,9 @@
   // padding-top: 50px;
   .calWrapper {
     margin: 0 auto;
+    z-index: 2;
 
     .calendar {
-      z-index: 1;
       margin: 0 auto;
       // background-color: rgb(248, 247, 247);
     }
@@ -22,6 +22,8 @@
       font-family: 'Dongle', sans-serif;
       font-size: 40px;
       margin: 0;
+      margin-top: 30px;
+      margin-bottom: 15px;
     }
     button {
       margin-top: 10px;
@@ -38,6 +40,7 @@
         opacity: 0.5;
         color: white;
         cursor: pointer;
+        transition: 0.5s ease-out;
       }
     }
   }
@@ -55,7 +58,7 @@
     left: 60%;
     margin-left: -20%; /* half of width */
     height: 280px;
-    top: 375px;
+    top: 400px;
     margin-top: -150px; /* half of height */
     overflow: auto;
     font-family: 'Dongle', sans-serif;
@@ -93,6 +96,7 @@
             opacity: 0.5;
             color: white;
             cursor: pointer;
+            transition: 0.5s ease-out;
           }
         }
         .cancelBtn {
@@ -102,6 +106,7 @@
             opacity: 0.5;
             color: white;
             cursor: pointer;
+            transition: 0.5s ease-out;
           }
         }
         .deleteBtn {
@@ -111,6 +116,7 @@
             opacity: 0.5;
             color: white;
             cursor: pointer;
+            transition: 0.5s ease-out;
           }
         }
       }

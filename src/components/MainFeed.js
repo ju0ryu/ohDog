@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import '../css/mainFeed.scss';
 import axios from 'axios';
 import Fcommant from './Fcommant';
+import msgbt from '../icon/msg.svg';
 
 const MainFeed = () => {
   const userid = window.sessionStorage.getItem('id');
@@ -76,114 +77,129 @@ const MainFeed = () => {
   console.log('fccontentlist.fccontentList =>', fccontentlist.fccontentList);
 
   return (
-    <div className="mainbox">
-      {mainfeedlist.mainfeedList.map((mainlist) => {
-        console.log(
-          'mainlist.fnum=',
-          mainlist.fnum,
-          ',  fnumstate=',
-          fnumstate,
-        );
-        if (mainlist.fnum == fnumstate) {
-          return (
-            <div className="mainfeedbox" height="350px">
-              <table className="mainlistbox" width="420px">
-                <tr>
-                  <td colSpan="2" align="left">
-                    {mainlist.userid}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="mainfcbox" colSpan="2" align="center">
-                    {mainlist.fcomment}
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan="2" align="right">
-                    {mainlist.fdate}
-                  </td>
-                </tr>
+    <div className="mainTitle">
+      <p>전체피드</p>
+      <div className="imagebox">imagebox</div>
+      <div className="imagebox">imagebox</div>
+      <div className="imagebox">imagebox</div>
 
-                <tr>
-                  <td colSpan="2" align="center">
-                    <input
-                      id={mainlist.fnum}
-                      type="button"
-                      value="댓글보기"
-                      onClick={onClick}
-                    ></input>
-                  </td>
-                </tr>
-              </table>
-              <form onSubmit={fcInsert} id={mainlist.fnum}>
-                <table>
+      <div className="mainbox">
+        {mainfeedlist.mainfeedList.map((mainlist) => {
+          console.log(
+            'mainlist.fnum=',
+            mainlist.fnum,
+            ',  fnumstate=',
+            fnumstate,
+          );
+          if (mainlist.fnum == fnumstate) {
+            return (
+              <div className="mainfeedbox" height="350px">
+                <table className="mainlistbox" width="700px">
                   <tr>
-                    <td align="right" colSpan="2">
-                      <input
-                        className="fcinput"
-                        type="text"
-                        name="comment"
-                        ref={fccontentRef}
-                        size="40"
-                        defaultValue=""
-                        placeholder="댓글달기"
-                        // onChange={onChange}
-                      />
+                    <td width="10px"></td>
+                    <td className="mainuserid" width="100%" align="center">
+                      {mainlist.userid}
                     </td>
-                    <td>
-                      <input type="submit" value="작성"></input>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td className="mainfcbox" colSpan="3" align="center">
+                      {mainlist.fcomment}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="mainfdate" colSpan="3" align="right">
+                      {mainlist.fdate}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="3" align="center">
+                      <input
+                        className="msgbt"
+                        type="image"
+                        src={msgbt}
+                        alt="댓글보기"
+                        id={mainlist.fnum}
+                        onClick={onClick}
+                        height="25px"
+                      ></input>
                     </td>
                   </tr>
                 </table>
-              </form>
-              <div className="fclist">
-                {fccontentlist.fccontentList.map((article) => {
-                  return <Fcommant article={article} />;
-                })}
+                <form onSubmit={fcInsert} id={mainlist.fnum}>
+                  <table className="fccommant" align="center">
+                    <tr>
+                      <td align="center" colSpan="2">
+                        <input
+                          className="fcinput"
+                          type="text"
+                          name="comment"
+                          ref={fccontentRef}
+                          size="40"
+                          defaultValue=""
+                          placeholder="댓글달기"
+                          // onChange={onChange}
+                        />
+                      </td>
+                      <td>
+                        <input type="submit" value="작성"></input>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+                <div className="fclist">
+                  {fccontentlist.fccontentList.map((article) => {
+                    return <Fcommant article={article} />;
+                  })}
+                </div>
               </div>
-            </div>
-          );
-        } else {
-          return (
-            <div className="mainfeedbox" height="350px">
-              <table className="mainlistbox" width="420px">
-                <tr>
-                  <td colSpan="2" align="left">
-                    {mainlist.userid}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="mainfcbox" colSpan="2" align="center">
-                    {mainlist.fcomment}
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan="2" align="right">
-                    {mainlist.fdate}
-                  </td>
-                </tr>
+            );
+          } else {
+            return (
+              <div className="mainfeedbox" height="350px">
+                <table className="mainlistbox" width="700px">
+                  <tr>
+                    <td width="10px"></td>
+                    <td className="mainuserid" width="100%" align="center">
+                      {mainlist.userid}
+                    </td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td className="mainfcbox" colSpan="3" align="center">
+                      {mainlist.fcomment}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="mainfdate" colSpan="3" align="right">
+                      {mainlist.fdate}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="3" align="center">
+                      <input
+                        className="msgbt"
+                        type="image"
+                        src={msgbt}
+                        alt="댓글보기"
+                        id={mainlist.fnum}
+                        onClick={onClick}
+                        height="25px"
+                      ></input>
+                    </td>
+                  </tr>
+                </table>
 
-                <tr>
-                  <td colSpan="2" align="center">
-                    <input
-                      id={mainlist.fnum}
-                      type="button"
-                      value="댓글보기"
-                      onClick={onClick}
-                    ></input>
-                  </td>
-                </tr>
-              </table>
-
-              {/* <div>
+                {/* <div>
                  {fccontentlist.fccontentList.map((article) => {
                    return <Fcommant article={article} />;
                  })}
                </div> */}
-            </div>
-          );
-        }
-      })}
+              </div>
+            );
+          }
+        })}
+      </div>
     </div>
   );
 };

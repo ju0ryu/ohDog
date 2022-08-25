@@ -19,31 +19,55 @@ const Join = () => {
   const birthRef = useRef();
 
   const navigate = useNavigate();
+  const [checkId, setCheckId] = useState(true);
+  const [checkNickname, setCheckNickname] = useState(true);
 
-  const checkid = () => {
-    console.log('idref :', idRef.current.value);
+  const checkid = (e) => {
+    setCheckId(false);
     axios
       .get('http://localhost:8008/memberlist', {})
       .then((res) => {
         console.log(res);
         const { data } = res;
         console.log(data);
-        handleMember(data);
+        console.log('idref :', idRef.current.value);
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].userid == idRef.current.value) {
+            alert('중복된 아이디입니다.');
+            idRef.current.focus();
+            return false;
+          } else {
+            if (i == data.length - 1) {
+              alert('사용가능한 아이디입니다.');
+            }
+          }
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const checknickname = () => {
+  const checknickname = (e) => {
     console.log('checknickname :', nicknameRef.current.value);
+    setCheckNickname(false);
     axios
       .get('http://localhost:8008/memberlist', {})
       .then((res) => {
         console.log(res);
         const { data } = res;
         console.log(data);
-        handleMember(data);
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].userid == idRef.current.value) {
+            alert('중복된 닉네임입니다.');
+            idRef.current.focus();
+            return false;
+          } else {
+            if (i == data.length - 1) {
+              alert('사용가능한 닉네임입니다.');
+            }
+          }
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -68,21 +92,9 @@ const Join = () => {
 
   const handleMember = (data) => {
     if (idRef.current.value === '' || idRef.current.value === undefined) {
-      alert('아이디를 입력하세요!!!');
+      alert('아이디를 입력하세요.');
       idRef.current.focus();
       return false;
-    } else {
-      for (var i = 0; i < data.length; i++) {
-        console.log(i);
-        if (data[i].userid == idRef.current.value) {
-          alert('중복된 아이디입니다.');
-          idRef.current.focus();
-          return false;
-        }
-      }
-      if (1) {
-        alert('사용가능');
-      }
     }
     if (pwRef.current.value === '' || pwRef.current.value === undefined) {
       alert('패스워드를 입력하세요.');
@@ -101,15 +113,6 @@ const Join = () => {
       alert('닉네임을 입력하세요.');
       nicknameRef.current.focus();
       return false;
-    } else {
-      for (var i = 0; i < data.length; i++) {
-        console.log(i);
-        if (data[i].nickname == nicknameRef.current.value) {
-          alert('중복된 닉네임입니다.');
-          nicknameRef.current.focus();
-          return false;
-        }
-      }
     }
     if (telRef.current.value === '' || telRef.current.value === undefined) {
       alert('전화번호를 입력하세요.');
@@ -124,6 +127,17 @@ const Join = () => {
     if (birthRef.current.value === '' || birthRef.current.value === undefined) {
       alert('생년월일을 입력하세요.');
       birthRef.current.focus();
+      return false;
+    }
+    if (checkId) {
+      alert('아이디 중복확인 해주세요.');
+      idRef.current.focus();
+      return false;
+    }
+
+    if (checkNickname) {
+      alert('닉네임 중복확인 해주세요.');
+      nicknameRef.current.focus();
       return false;
     }
 
