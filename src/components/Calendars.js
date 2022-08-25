@@ -166,9 +166,7 @@ const Calendars = () => {
     setVisible(!visible);
   };
   return (
-    <div
-      className={visible || updateVisible ? 'blur calWrapper' : 'calWrapper'}
-    >
+    <>
       <div className="visibleBtn">
         <p>일정등록</p>
         <button onClick={ChangeVisible}>
@@ -344,38 +342,42 @@ const Calendars = () => {
           </form>
         )}
       </div>
-      <div className="calendar" style={{ margin: '25px 25px' }}>
-        <FullCalendar
-          plugins={[dayGridPlugin]}
-          locale="ko"
-          eventClick={function (arg) {
-            updateDetail(arg);
-            console.log(arg.event.id);
-          }}
-          events={cList.list.map((item) => {
-            return {
-              id: item.cnum,
-              title: item.ctitle,
-              start: item.startdate,
-              end: item.enddate,
-              backgroundColor: item.ccolor,
-              borderColor: item.ccolor,
-              editable: true,
-            };
-          })}
-          // events={[
-          //   {
-          //     title: eventTitle,
-          //     date: eventStartDate,
-          //     end: eventEndDate,
-          //     backgroundColor: eventColor,
-          //     borderColor: eventColor,
-          //     editable: true,
-          //   },
-          // ]}
-        />
+      <div
+        className={visible || updateVisible ? 'blur calWrapper' : 'calWrapper'}
+      >
+        <div className="calendar" style={{ margin: '25px 25px' }}>
+          <FullCalendar
+            plugins={[dayGridPlugin]}
+            locale="ko"
+            eventClick={function (arg) {
+              updateDetail(arg);
+              console.log(arg.event.id);
+            }}
+            events={cList.list.map((item) => {
+              return {
+                id: item.cnum,
+                title: item.ctitle,
+                start: item.startdate,
+                end: item.enddate,
+                backgroundColor: item.ccolor,
+                borderColor: item.ccolor,
+                editable: true,
+              };
+            })}
+            // events={[
+            //   {
+            //     title: eventTitle,
+            //     date: eventStartDate,
+            //     end: eventEndDate,
+            //     backgroundColor: eventColor,
+            //     borderColor: eventColor,
+            //     editable: true,
+            //   },
+            // ]}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

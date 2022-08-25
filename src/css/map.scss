@@ -1,9 +1,4 @@
 #root {
-  height: 1000px;
-  padding-top: 54px;
-
-  margin-top: 30px;
-  background-color: rgb(248, 247, 247);
   .maps {
     margin: 0 auto;
     width: 80%;
@@ -66,12 +61,12 @@
         height: 40px;
         border-radius: 5px;
         border: 0.5px solid #ccc;
-        background-color: #fff;
+        background-color: rgba(152, 152, 255, 0.179);
         margin-right: 5px;
         cursor: pointer;
         &:hover {
           background-color: rgb(0, 0, 255);
-          opacity: 0.7;
+          opacity: 0.4;
           color: white;
         }
       }

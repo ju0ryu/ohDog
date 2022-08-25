@@ -16,6 +16,7 @@ import BoardDetail from './components/board/BoardDetail';
 import BoardWrite from './components/board/BoardWrite';
 import BoardUpdateForm from './components/board/BoardUpdateForm';
 import BoardList from './components/board/BoardList';
+import './App.css';
 const App = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState();
@@ -37,7 +38,7 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <div className="App">
       {window.sessionStorage.getItem('id') != null && <Header />}
       <Routes>
         <Route index element={<Login />} /> {/*로그인 : d현호*/}
@@ -58,7 +59,7 @@ const App = () => {
         <Route path="/editMember" element={<EditMember />} />
         {/*회원정보수정 페이지*/}
       </Routes>
-    </>
+    </div>
   );
 };
 

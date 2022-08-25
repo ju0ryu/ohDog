@@ -113,24 +113,16 @@ const Animal = () => {
       <div className="animalTitle">
         <p>마이펫 등록</p>
       </div>
-      <div>
+      <div className={insertForm ? 'blur' : ''}>
         {article.Article.length != 0 ? (
           <div className="updateDataWrapper">
             {article.Article.map((article) => {
               return (
                 <div className="updateData">
+                  <div className="animalName">
+                    <p>{article.aname}</p>
+                  </div>
                   <table>
-                    <tr>
-                      <td colSpan="2" align="right">
-                        <input
-                          className="deleteData"
-                          type="button"
-                          value="❌"
-                          id={article.anum}
-                          onClick={deleteArticle}
-                        />
-                      </td>
-                    </tr>
                     <tr>
                       <td colSpan="2">
                         <img
@@ -138,10 +130,6 @@ const Animal = () => {
                           alt=""
                         />
                       </td>
-                    </tr>
-                    <tr colSpan="2">
-                      <td>이름 : </td>
-                      <td>{article.aname}</td>
                     </tr>
                     <tr>
                       <td>성별 : </td>
@@ -154,6 +142,17 @@ const Animal = () => {
                     <tr>
                       <td>나이 : </td>
                       <td>{`${article.aage} 살`}</td>
+                    </tr>
+                    <tr>
+                      <td colSpan="2">
+                        <input
+                          className="deleteBtn"
+                          type="button"
+                          value="삭제"
+                          id={article.anum}
+                          onClick={deleteArticle}
+                        />
+                      </td>
                     </tr>
                   </table>
                 </div>
@@ -169,25 +168,26 @@ const Animal = () => {
           </div>
         )}
       </div>
-      <div>
-        {insertForm && (
-          <>
-            {/* <img src={onImage} alt="이미지" /> */}
-            <form className="hoverForm" onSubmit={formSubmit}>
-              <div className="fileBox">
-                <tr>
-                  <td colSpan="2">
-                    <label for="imageUpload">사진선택</label>
-                    <input
-                      type="file"
-                      id="imageUpload"
-                      accept="image/*"
-                      onChange={onImage}
-                      ref={imgRef}
-                    />
-                  </td>
-                </tr>
-              </div>
+      {/* <div> */}
+      {insertForm && (
+        <>
+          {/* <img src={onImage} alt="이미지" /> */}
+          <form className="hoverForms" onSubmit={formSubmit}>
+            <table>
+              {/* <div className="fileBox"> */}
+              <tr className="fileBox">
+                <td colSpan="2">
+                  <label for="imageUpload">사진선택</label>
+                  <input
+                    type="file"
+                    id="imageUpload"
+                    accept="image/*"
+                    onChange={onImage}
+                    ref={imgRef}
+                  />
+                </td>
+              </tr>
+              {/* </div> */}
               <tr>
                 <td>
                   <label for="inputName">이름 : </label>
@@ -281,10 +281,11 @@ const Animal = () => {
                   />
                 </td>
               </tr>
-            </form>
-          </>
-        )}
-      </div>
+            </table>
+          </form>
+        </>
+      )}
+      {/* </div> */}
     </div>
   );
 };
