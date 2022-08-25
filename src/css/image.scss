@@ -10,20 +10,21 @@
   color: rgb(41, 48, 233);
 }
 
+// image + 
 .container{
   // display: flex;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr  1fr;
   gap: 30px;
   width: 80%;
   overflow: hidden;
-  // border: 1px solid black;
+  // border: 5px solid black;
   text-align: center;
   margin: auto;
-  
+
 }
 
-
+// photo
 .img {
   width: 250px;
   height: 250px;
@@ -33,7 +34,7 @@
    
 }
 
-
+// photo
 .out_img {
   margin-top: 30px;
   width: 300px;
@@ -42,6 +43,7 @@
 
 }
 
+// image +
 .D_but {
 margin-right: 50px;
 // text-align: center;

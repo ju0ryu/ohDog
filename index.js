@@ -248,8 +248,8 @@ const upload = multer({
           iconv.decode(file.originalname, 'utf-8').toString(),
           ext,
         ) +
-          Date.now() +
-          ext,
+        Date.now() +
+        ext,
       );
     },
   }),
@@ -315,7 +315,34 @@ app.use(
   }),
 );
 
+
+
 // ================================사진 끝===========================
+
+// ==============================메인피드 이미지===================================
+
+
+
+
+app.post('/main_ilist', (req, res) => {
+  var imgnum = parseInt(req.body.imgnum);
+  console.log('main_ilist(req.body)', req.body);
+  console.log('main_ilist(req.body.main_ilist)', req.body.imgnum);
+  const sqlQuery =
+    "SELECT imgnum, userid, imgurl, imgdate, secret from image where secret = 'Y';";
+  db.query(sqlQuery, [imgnum], (err, result) => {
+    console.log('main_ilist(result)', result);
+    res.send(result);
+  });
+});
+
+
+
+
+// ==============================메인피드 이미지===================================
+
+
+
 // ================================동물
 app.post('/ainsert', upload.single('image'), (req, res) => {
   console.log('/ainsert', req.file, req.body);
