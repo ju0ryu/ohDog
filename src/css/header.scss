@@ -1,11 +1,14 @@
 #root {
+  // position: absolute;
   .header {
-    position: fixed;
-    top: 0;
-    left: 19%;
-    right: 19%;
-    z-index: 30;
     .wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      margin: 0 auto;
       text-align: center;
       height: 80px;
       display: flex;
@@ -28,12 +31,11 @@
         align-items: center;
       }
       .navigation1 {
-        margin-right: 200px;
-
+        padding-left: 19%;
         .nav-wrapper {
           display: grid;
           grid-template-columns: repeat(4, 50px);
-          column-gap: 8px;
+          column-gap: 0px;
           .nav {
             display: flex;
             align-items: center;
@@ -41,12 +43,11 @@
         }
       }
       .navigation2 {
-        margin-left: 200px;
-        margin-right: 20px;
+        padding-right: 19%;
         .nav-wrapper {
           display: grid;
           grid-template-columns: repeat(4, 50px);
-          column-gap: 8px;
+          column-gap: 0px;
           .nav {
             display: flex;
             align-items: center;

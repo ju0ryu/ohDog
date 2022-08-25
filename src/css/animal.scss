@@ -1,12 +1,18 @@
 #root {
-  padding-top: 54px;
+  margin-top: 54px;
   .animalTitle {
     margin: 0 auto;
     p {
-      margin: 0px;
+      margin-top: 0px;
+      margin-bottom: 10px;
       font-family: 'Dongle', sans-serif;
       font-size: 40px;
     }
+  }
+  .blur {
+    z-index: 1;
+    box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, 0.5);
+    filter: blur(8px);
   }
 
   .updateDataWrapper {
@@ -16,8 +22,24 @@
     .updateData {
       margin-left: 20px;
 
+      .animalName {
+        text-align: center;
+        font-size: 45px;
+        height: 50px;
+        p {
+          width: 50px;
+          margin-bottom: 0;
+          margin-top: 0;
+          margin-left: 90px;
+          // margin-left: 90px;
+          // margin-top: 0;
+          // margin-bottom: 0px;
+          // margin: 0;
+        }
+      }
       table {
-        width: 250px;
+        margin-right: 20px;
+        width: 200px;
         border: 1px solid rgb(180, 179, 179);
         border-radius: 10px;
         font-family: 'Dongle', sans-serif;
@@ -28,18 +50,27 @@
             margin: 0;
             padding-left: 10px;
             padding-right: 10px;
-            .deleteData {
-              padding: 0;
-              background-color: transparent;
-              text-decoration: none;
-              font-size: 18px;
-              transition: 0.25s;
-              border: none;
-              cursor: pointer;
+            .deleteBtn {
+              margin-bottom: 10px;
+              font-size: 20px;
+              font-family: 'Dongle', sans-serif;
+              padding: 0 15px;
+              width: 100px;
+              height: 30px;
+              border: 1px solid #ccc;
+              background-color: rgba(152, 152, 255, 0.179);
+              border-radius: 3px;
+              &:hover {
+                background-color: red;
+                opacity: 0.5;
+                color: white;
+                cursor: pointer;
+              }
             }
             img {
-              width: 250px;
-              height: 250px;
+              margin-top: 10px;
+              width: 200px;
+              height: 200px;
               border-radius: 10px;
               border: 1px solid #ccc;
             }
@@ -48,11 +79,11 @@
       }
     }
     .addForm {
-      // margin-top: 180px;
+      margin-top: 50px;
       margin-left: 20px;
       input {
-        width: 250px;
-        height: 475px;
+        width: 200px;
+        height: 400px;
         border: 1px solid rgb(180, 179, 179);
         border-radius: 10px;
         font-family: 'Dongle', sans-serif;
@@ -66,157 +97,150 @@
       }
     }
   }
-  .hoverForm {
-    padding-top: 20px;
-    padding-left: 50px;
+  .hoverForms {
+    padding: 20px;
     border-radius: 15px;
     z-index: 2;
     background-color: #fff;
     position: fixed;
-    width: 290px;
+    width: 400px;
     left: 60%;
-    margin-left: -20%; /* half of width */
-    height: 360px;
+    margin-left: -22%; /* half of width */
+    height: 380px;
     top: 375px;
-    margin-top: -150px; /* half of height */
+    margin-top: -190px; /* half of height */
     overflow: auto;
     font-family: 'Dongle', sans-serif;
     // box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, 0.5);
     box-shadow: 0px 1px 0px 0px #ccc;
-
-    tr {
-      width: 100px;
-      td {
-        margin-bottom: 5px;
-        text-align: center;
-        label {
-          font-family: 'Dongle', sans-serif;
-          font-size: 20px;
+    table {
+      margin: 0 auto;
+      tr {
+        width: 100px;
+        td {
+          margin-bottom: 5px;
+          text-align: center;
+          label {
+            font-family: 'Dongle', sans-serif;
+            font-size: 20px;
+          }
+          input {
+            margin-right: 0;
+            margin-left: 10px;
+            font-size: 20px;
+            font-family: 'Dongle', sans-serif;
+            padding: 0 15px;
+            width: 150px;
+            height: 30px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+          }
+          .colorInput {
+            width: 182px;
+          }
+          .submitBtn {
+            margin-left: 30px;
+            margin-top: 20px;
+            background-color: rgba(152, 152, 255, 0.179);
+            &:hover {
+              background-color: rgb(0, 0, 255);
+              opacity: 0.5;
+              color: white;
+              cursor: pointer;
+            }
+          }
+          .cancelBtn {
+            margin-left: 30px;
+            background-color: rgba(152, 152, 255, 0.179);
+            &:hover {
+              background-color: orange;
+              opacity: 0.5;
+              color: white;
+              cursor: pointer;
+            }
+          }
         }
-        input {
-          margin-right: 0;
+        .select {
+          padding: 15px 10px;
+          margin-right: -11px;
+        }
+        .select input[type='radio'] {
+          display: none;
+        }
+        .select input[type='radio'] + label {
+          display: inline-block;
+          cursor: pointer;
+          height: 28px;
+          width: 87px;
+          border: 1px solid #ccc;
+          line-height: 30px;
+          text-align: center;
+          font-size: 18px;
+          border-radius: 3px;
+        }
+        .select input[type='radio'] + label {
+          background-color: #fff;
+          color: #333;
+        }
+        .select input[type='radio']:checked + label {
+          background-color: rgb(0, 0, 255);
+          opacity: 0.5;
+          color: white;
+        }
+        .selectSpecies {
           margin-left: 10px;
+          margin-bottom: 12px;
           font-size: 20px;
           font-family: 'Dongle', sans-serif;
           padding: 0 15px;
-          width: 150px;
-          height: 30px;
+          width: 182px;
+          height: 33px;
           border: 1px solid #ccc;
           border-radius: 3px;
-        }
-        .colorInput {
-          width: 182px;
-        }
-        .submitBtn {
-          margin-left: 30px;
-          margin-top: 20px;
-          &:hover {
-            background-color: rgb(0, 0, 255);
-            opacity: 0.7;
-            color: white;
-            cursor: pointer;
-          }
-        }
-        .cancelBtn {
-          margin-left: 30px;
-          &:hover {
-            background-color: orange;
-            opacity: 0.7;
-            color: white;
-            cursor: pointer;
-          }
-        }
-        .deleteBtn {
-          margin-left: 35px;
-          &:hover {
-            background-color: red;
-            opacity: 0.7;
-            color: white;
-            cursor: pointer;
-          }
-        }
-      }
-      .select {
-        padding: 15px 10px;
-        margin-right: -15px;
-      }
-      .select input[type='radio'] {
-        display: none;
-      }
-      .select input[type='radio'] + label {
-        display: inline-block;
-        cursor: pointer;
-        height: 28px;
-        width: 89px;
-        border: 1px solid #ccc;
-        line-height: 30px;
-        text-align: center;
-        font-size: 18px;
-        border-radius: 3px;
-      }
-      .select input[type='radio'] + label {
-        background-color: #fff;
-        color: #333;
-      }
-      .select input[type='radio']:checked + label {
-        background-color: rgb(0, 0, 255);
-        opacity: 0.7;
-        color: white;
-      }
-      .selectSpecies {
-        margin-left: 10px;
-        margin-bottom: 12px;
-        font-size: 20px;
-        font-family: 'Dongle', sans-serif;
-        padding: 0 15px;
-        width: 182px;
-        height: 33px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        cursor: pointer;
-      }
-      .nameLabel {
-        text-align: right;
-      }
-    }
-    .fileBox {
-      margin-top: 15px;
-      padding-left: 40px;
-      margin-bottom: 15px;
-      label {
-        text-align: center;
-        display: inline-block;
-        padding: 0.5em 0.75em;
-        font-size: 20px;
-        line-height: 20px;
-        vertical-align: middle;
-        background-color: #fdfdfd;
-        cursor: pointer;
-        border: 1px solid #ebebeb;
-        border-bottom-color: #e2e2e2;
-        border-radius: 0.25em;
-        width: 150px;
-        height: 15px;
-        &:hover {
-          background-color: rgb(0, 0, 255);
-          opacity: 0.7;
-          color: white;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
           cursor: pointer;
         }
+        .nameLabel {
+          text-align: right;
+        }
       }
-      input[type='file'] {
-        /* 파일 필드 숨기기 */
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
+      .fileBox {
+        label {
+          margin-left: 43px;
+          margin-bottom: 10px;
+          text-align: center;
+          display: inline-block;
+          padding: 0.5em 0.75em;
+          font-size: 20px;
+          line-height: 20px;
+          vertical-align: middle;
+          background-color: rgba(152, 152, 255, 0.179);
+          cursor: pointer;
+          border: 1px solid #ebebeb;
+          border-bottom-color: #e2e2e2;
+          border-radius: 0.25em;
+          width: 150px;
+          height: 15px;
+          &:hover {
+            background-color: rgb(0, 0, 255);
+            opacity: 0.5;
+            color: white;
+            cursor: pointer;
+          }
+        }
+        input[type='file'] {
+          /* 파일 필드 숨기기 */
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          border: 0;
+        }
       }
     }
   }
