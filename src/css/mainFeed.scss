@@ -5,6 +5,13 @@ background-color: rgb(248, 247, 247);
   padding-top: 10px;
 }
 
+p {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-family: 'Dongle', sans-serif;
+  font-size: 40px;
+}
+
 .fcinput{
   background: transparent;
 }
@@ -17,8 +24,27 @@ display: inline-block;
   overflow: auto;
   }
 
-.mainfeedbox {
+        .mainbox::-webkit-scrollbar {
+      width: 10px;
+      /* 스크롤바의 너비 */
+    }
+  
+        .mainbox::-webkit-scrollbar-thumb {
+      height: 30%;
+      /* 스크롤바의 길이 */
+      background: #217af4;
+      /* 스크롤바의 색상 */
+  
+      border-radius: 10px;
+    }
+  
+     .mainbox::-webkit-scrollbar-track {
+      background: rgba(33, 122, 244, .1);
+      /*스크롤바 뒷 배경 색상*/
+    }
 
+.mainfeedbox {
+ margin-bottom: 40px;
 }
 
 .mainlistbox {
@@ -39,6 +65,26 @@ display: inline-block;
   width:420px;
   overflow: auto;
 }
+
+.fclist::-webkit-scrollbar {
+  width: 10px;
+  /* 스크롤바의 너비 */
+}
+
+.fclist::-webkit-scrollbar-thumb {
+  height: 30%;
+  /* 스크롤바의 길이 */
+  background: #217af4;
+  /* 스크롤바의 색상 */
+
+  border-radius: 10px;
+}
+
+.fclist::-webkit-scrollbar-track {
+  background: rgba(33, 122, 244, .1);
+  /*스크롤바 뒷 배경 색상*/
+}
+
 
 .mainfcbox {
   border: 1px solid black;
