@@ -36,14 +36,14 @@ const MyFeed = () => {
           <Link to="/myFeed">
             <li>
               <a className="myfeedlink" href="#">
-                <p>내 피드</p>
+                <p className="changeTitle">내 피드</p>
               </a>
             </li>
           </Link>
           <Link to="/image">
             <li>
               <a className="myphotolink" href="#">
-                <p>내 사진</p>
+                <p className="changeTitle">내 사진</p>
               </a>
             </li>
           </Link>

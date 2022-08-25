@@ -46,9 +46,14 @@ const MyFeedWrite = ({ handlelist }) => {
   return (
     <div>
       <form>
-        <table className="myfeedwrite" width="700px" align="center">
+        <table
+          className="myfeedwrite"
+          height="100px"
+          width="700px"
+          align="center"
+        >
           <tr>
-            <td align="left" width="550px">
+            <td align="left" width="550px" align="center">
               <input
                 className="myfeedinput"
                 type="text"
@@ -57,13 +62,18 @@ const MyFeedWrite = ({ handlelist }) => {
                 ref={writerRef}
                 placeholder="일상을 입력하세요"
               ></input>{' '}
+            </td>
+            <td>
               <input
+                className="inputbt"
                 type="image"
                 src={inputbt}
                 alt="글쓰기"
-                height="20px"
+                height="25px"
                 onClick={handleInsert}
               ></input>
+            </td>
+            <td>
               <input
                 type="radio"
                 name="cs_open"
