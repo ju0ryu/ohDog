@@ -1,6 +1,12 @@
-import React from 'react';
 import '../css/member.scss';
+import { useState } from 'react';
+import React, { useRef } from 'react';
+import axios from 'axios';
+import { useNavigate } from '../../node_modules/react-router-dom/index';
+import e from 'express';
+
 const Member = () => {
+  axios.get('http://localhost:8008/memberlist', { num: e.target.id }).then();
   return (
     <div>
       <table width="900px" border="1" align="center">
