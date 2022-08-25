@@ -1,18 +1,26 @@
+import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import axios from '../../../node_modules/axios/index';
 import { useNavigate } from '../../../node_modules/react-router-dom/index';
+import BoardComment from './BoardComment';
 
 const BoardDetail = () => {
   const { state } = useLocation();
   const login_id = window.sessionStorage.getItem('id');
+  const boardCommentRef = useRef();
 
   console.log('id:', login_id);
   console.log('state 111:', state);
 
   const navigate = useNavigate();
 
+  const [boardComment, setBoardComment] = useState({
+    BoardComment: [],
+  });
+
   //업데이트폼으로 넘겨주기
   const handleUpdateForm = (e) => {
+    console.log('handleUpdateForm', e.target.id);
     axios
       .post('http://localhost:8008/detail', { num: e.target.id })
       .then((res) => {
@@ -29,6 +37,71 @@ const BoardDetail = () => {
   const moveToUpdate = (updateDetail) => {
     navigate('/update', { state: updateDetail });
   };
+
+  //댓글 조회기능
+  useEffect(() => {
+    axios
+      .post('http://localhost:8008/boardCommentList', {
+        boardnum: state[0].boardnum,
+      })
+      .then((res) => {
+        console.log('res ==>', res);
+        const { data } = res;
+        console.log('data ==>', data);
+        setBoardComment({
+          BoardComment: data,
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, []);
+
+  //댓글조회함수
+  const onClick = () => {
+    // e.preventDefault();
+    console.log('e.target.id =>', state[0].boardnum);
+    axios
+      .post('http://localhost:8008/boardCommentList', {
+        boardnum: state[0].boardnum,
+      })
+      .then((res) => {
+        const { data } = res;
+        console.log('data(boardCommentList) : ', data);
+        // setFnumstate(e.target.id);
+        setBoardComment({
+          BoardComment: data,
+        });
+        console.log('댓글조회데이터', data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  //댓글기능
+  const boardInsert = (e) => {
+    // e.preventDefault();
+    console.log('e ::::', e);
+    console.log('확인', boardCommentRef.current.value);
+    console.log(e.target.id);
+    axios
+      .post('http://localhost:8008/boardCommentInsert', {
+        boardnum: state[0].boardnum,
+        userid: login_id,
+        bccontent: boardCommentRef.current.value,
+      })
+      .then((res) => {
+        console.log('boardCommentInsert3=>', res);
+        boardCommentRef.current.value = '';
+        onClick(e);
+        console.log('오류 ', boardComment.BoardComment);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   if (login_id === state[0].userid) {
     return (
       <div>
@@ -65,10 +138,20 @@ const BoardDetail = () => {
               </td>
             </tr>
           </table>
-          <div align="center">
-            <input type="text" placeholder=" 댓글을 남겨주세요"></input>
-            <button>등록</button>
-          </div>
+          <form>
+            <div align="center">
+              <input
+                className="fcinput"
+                type="text"
+                name="comment"
+                ref={boardCommentRef}
+                size="40"
+                defaultValue=""
+                placeholder="댓글을 남겨주세요"
+              />
+              <input type="button" onClick={boardInsert} value="등록"></input>
+            </div>
+          </form>
           <div align="center">
             <input
               type="button"
@@ -78,6 +161,11 @@ const BoardDetail = () => {
             ></input>
           </div>
         </form>
+        <div align="center" className="fclist">
+          {boardComment.BoardComment.map((article) => {
+            return <BoardComment article={article} />;
+          })}
+        </div>
       </div>
     );
   } else {
@@ -117,10 +205,23 @@ const BoardDetail = () => {
             </tr>
           </table>
           <div align="center">
-            <input type="text" placeholder=" 댓글을 남겨주세요"></input>
-            <button>등록</button>
+            <input
+              className="fcinput"
+              type="text"
+              name="comment"
+              ref={boardCommentRef}
+              size="40"
+              defaultValue=""
+              placeholder="댓글을 남겨주세요"
+            />
+            <input type="button" bonClick={boardInsert} value="등록"></input>
           </div>
         </form>
+        <div align="center" className="fclist">
+          {boardComment.BoardComment.map((article) => {
+            return <BoardComment article={article} />;
+          })}
+        </div>
       </div>
     );
   }
