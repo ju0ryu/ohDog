@@ -10,30 +10,31 @@
   color: rgb(41, 48, 233);
 }
 
+// image + 
 .container{
   // display: flex;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr ;
   gap: 30px;
   width: 80%;
   overflow: hidden;
-  // border: 1px solid black;
+  // border: 5px solid black;
   text-align: center;
   margin: auto;
-  
+
 }
 
-
+// photo
 .img {
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
   object-fit: fill;
    display: flex;
    border-radius: 5px 5px 5px 5px;
    
 }
 
-
+// photo
 .out_img {
   margin-top: 30px;
   width: 300px;
@@ -42,14 +43,30 @@
 
 }
 
-.D_but {
-margin-right: 50px;
-// text-align: center;
+// photo.js +
+.D_but { 
+  margin-right: 50px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-family: 'Dongle', sans-serif;
+  padding: 0 15px;
+  width: 100px;
+  height: 30px;
+  border: 1px solid #ccc;
+  background-color: rgba(152, 152, 255, 0.179);
+  border-radius: 3px;
+  &:hover {
+    background-color: red;
+    opacity: 0.5;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s ease-out;
+  }
 }
 
 
 
-// ==================================포토모달창=============================================
+// ==================================배경=============================================
 
 .ImgBackGround {
   position: fixed;
@@ -66,8 +83,62 @@ margin-right: 50px;
 .ImgBackGround2 {
   background-color: white;
   width: 80%;
-  height: 90%;
+  height: 100%;
 }
 
 
-// ==================================포토모달창=============================================
+// ==================================배경=============================================
+
+
+
+// =================================(image.js)테이블 삽입창========================================
+
+.imgtable {
+
+  border-radius: 10px;
+              background-color: #fff;
+
+
+                            
+              
+              .imgUpload{
+                margin-left: 35px;
+                margin-top: 10px;
+                &:hover {
+                  background-color: rgb(0, 0, 255);
+                  opacity: 0.5;
+                  color: white;
+                  cursor: pointer;
+                  transition: 0.5s ease-out;
+                }
+              }
+
+              
+
+}
+
+// =================================(image.js)테이블 삽입창========================================
+
+// ================================전송버튼==================================
+.send_but {
+  margin-left: 35px;
+  margin-top: 10px;
+  &:hover {
+    background-color: rgb(0, 0, 255);
+    opacity: 0.5;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s ease-out;
+  }
+}
+// ================================취소버튼=======================================
+.cancel_but{
+  margin-left: 35px;
+  &:hover {
+    background-color: red;
+    opacity: 0.5;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s ease-out;
+  }
+}
