@@ -13,7 +13,7 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
     const images = [
         imgurl
     ];
-    // let [ModalItem, setModalItem] = useState(false);
+    let [ModalItem, setModalItem] = useState(false);
 
     const handleDelete = (e) => {
         if (window.confirm('삭제하시겠습니까?')) {
@@ -35,6 +35,7 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
             .reload()
 
     };
+
 
     console.log("url", imgurl);
 

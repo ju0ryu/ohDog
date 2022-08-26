@@ -8,12 +8,14 @@ import '../css/image.scss';
 
 // import './Style.css'
 
-const Image = ({ handlelist, imgnum }) => {
+const Image = ({ handlelist }) => {
+  // console.log("imgurl!!!!!!!!!!!!!!!!!!!!!", imgurl);
   // const imageRef = useRef();
   const userid = window
     .sessionStorage
     .getItem('id');
   const imgurl = useRef();
+  const imgnum = useRef();
   // const imgdataRef = useRef();
   var secret = 'Y';
 
@@ -36,6 +38,7 @@ const Image = ({ handlelist, imgnum }) => {
   const handleDelete = (e) => {
     if (window.confirm('삭제하시겠습니까?')) {
       console.log("handleDelete(imgnum) =>", imgnum);
+      console.log("e.target.id::::::::", e.target.id);
       axios
         .post("http://localhost:8008/idelete", { imgnum: e.target.id })
         .then((res) => {
@@ -141,11 +144,12 @@ const Image = ({ handlelist, imgnum }) => {
         </h3>
       </nav>
 
-      <table border="1" width="700px" align="center">
+      <table className='imgtable' border="1" width="700px" align="center">
         <tr>
           <td>이미지</td>
           <td align="left">
             <input
+              className='imgUpload'
               type="file"
               name="imageUpload"
               ref={imgurl}
@@ -173,9 +177,9 @@ const Image = ({ handlelist, imgnum }) => {
         </tr>
         <tr>
           <td colSpan="2" align="center">
-            <input type="submit" value="전송" onClick={handleInsert}></input>
+            <button className='send_but' type="submit" value="전송" onClick={handleInsert}>업로드</button>
             &nbsp;
-            <input type="reset" value="취소"></input>
+            <button className='cancel_but' type="reset" value="취소">취소</button>
           </td>
         </tr>
       </table>
@@ -199,12 +203,14 @@ const Image = ({ handlelist, imgnum }) => {
                     }
                     secret={
                       article.secret
-                    } /> <input
-                      className='D_but'
-                      id={imgnum}
-                      type="button"
-                      value="삭제"
-                      onClick={handleDelete}></input>
+                    } />
+
+                  <input
+                    className='D_but'
+                    id={article.imgnum}
+                    type="button"
+                    value="삭제"
+                    onClick={handleDelete}></input>
                 </div>
               );
             })

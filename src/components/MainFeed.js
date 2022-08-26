@@ -3,7 +3,13 @@ import '../css/mainFeed.scss';
 import axios from 'axios';
 import Fcommant from './Fcommant';
 import Photos from './photo';
-
+// 스와이프 넘기기
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "../css/swiper-styles.css";
 
 const MainFeed = () => {
   const userid = window.sessionStorage.getItem('id');
@@ -19,12 +25,7 @@ const MainFeed = () => {
   });
 
   const [fnumstate, setFnumstate] = useState(-1);
-  // =================================캐러셀방법====================================
-  var React = require('react');
-  var ReactDOM = require('react-dom');
-  var Carousel = require('react-responsive-carousel').Carousel;
 
-  // =================================캐러셀방법====================================
   // =============================이미지===================================
   const [imagelist, setImagelist] = useState({
     imageList: [],
@@ -89,6 +90,9 @@ const MainFeed = () => {
       });
   }, []);
   console.log('fccontentlist.fccontentList =>', fccontentlist.fccontentList);
+
+
+
   // ========================이미지==============================
   useEffect(() => {
     axios
@@ -110,21 +114,49 @@ const MainFeed = () => {
 
   return (
     <>
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={30}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper"
+      >
+        {/* // ========================이미지============================== */}
 
-      {/* // ========================이미지============================== */}
-      <div className="container">
-        {imagelist.imageList.map((article) => {
-          return (
-            <Photos
-              userid={article.userid}
-              imgurl={'http://localhost:8008/uploads/' + article.imgurl}
-              imgnum={article.imgnum}
-              secret={article.secret}
-            />
-          );
-        })}
-      </div>
+        <div className="container">
+          {imagelist.imageList.map((article) => {
+            return (
+              <SwiperSlide>
+                <Photos
+                  userid={article.userid}
+                  imgurl={'http://localhost:8008/uploads/' + article.imgurl}
+                  imgnum={article.imgnum}
+                  secret={article.secret}
+                />
+              </SwiperSlide>
+            );
+          })}
+        </div>
 
+
+
+        {/* <SwiperSlide>1</SwiperSlide>
+        <SwiperSlide>2</SwiperSlide>
+        <SwiperSlide>3</SwiperSlide>
+        <SwiperSlide>4</SwiperSlide>
+        <SwiperSlide>5</SwiperSlide>
+        <SwiperSlide>6</SwiperSlide> */}
+
+
+      </Swiper>
       {/* // ========================이미지============================== */}
       <div className="mainbox">
         {mainfeedlist.mainfeedList.map((mainlist) => {
