@@ -115,17 +115,27 @@ function Board() {
               size="5"
               ref={searchCategoryRef}
             >
-              <option value="자유">자유게시판</option>
-              <option value="리뷰">리뷰게시판</option>
-              <option value="분양">분양게시판</option>
-              <option value="분실">분실게시판</option>
-              <option value="질문">Q&amp;A게시판</option>
+              <option onClick={handlecategorySearch} value="자유">
+                자유게시판
+              </option>
+              <option onClick={handlecategorySearch} value="리뷰">
+                리뷰게시판
+              </option>
+              <option onClick={handlecategorySearch} value="분양">
+                분양게시판
+              </option>
+              <option onClick={handlecategorySearch} value="분실">
+                분실게시판
+              </option>
+              <option onClick={handlecategorySearch} value="질문">
+                Q&amp;A게시판
+              </option>
             </select>
-            <input
+            {/* <input
               className="searchCategoryList"
               type="submit"
               value="카테고리검색"
-            ></input>
+            ></input> */}
           </form>
 
           <button onClick={allList} className="searchCategoryList">

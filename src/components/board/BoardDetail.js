@@ -57,7 +57,7 @@ const BoardDetail = () => {
       });
   }, []);
 
-  //댓글조회함수
+  //댓글조회
   const onClick = () => {
     // e.preventDefault();
     console.log('e.target.id =>', state[0].boardnum);
@@ -216,7 +216,7 @@ const BoardDetail = () => {
               defaultValue=""
               placeholder="댓글을 남겨주세요"
             />
-            <input type="button" bonClick={boardInsert} value="등록"></input>
+            <input type="button" onClick={boardInsert} value="등록"></input>
           </div>
         </form>
         <div align="center" className="fclist">
