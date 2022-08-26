@@ -1,5 +1,7 @@
 import '../css/member.scss';
 import { useState } from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
 const Member = () => {
   const [memberlist, setMemberlist] = useState({
