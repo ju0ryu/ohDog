@@ -13,7 +13,7 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
     const images = [
         imgurl
     ];
-    // let [ModalItem, setModalItem] = useState(false);
+    let [ModalItem, setModalItem] = useState(false);
 
     const handleDelete = (e) => {
         if (window.confirm('삭제하시겠습니까?')) {
@@ -36,6 +36,7 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
 
     };
 
+
     console.log("url", imgurl);
 
     const openImageViewer = useCallback((imgnum) => {
@@ -53,27 +54,6 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
     // const image = "http://localhost:8008/uploads/" + imgurl;
     return (
         <div className="out_img">
-
-            {/* <img className="img" src={imgurl} /> */}
-
-
-
-            {/* 밑에 버튼누르면 보였다 안보였다하기 */}
-
-            {/* <Modal /> */}
-            {/* <button
-        onClick={() => {
-          setModalItem(!ModalItem)
-        }}>버튼</button> */}
-
-            {/* 밑에 삼항연산자 */}
-            {/* {
-        ModalItem === true
-          ? <ModalItem />
-          : null
-      } */}
-            {/* <ModalItem /> */}
-
             <div className='img'>
                 {images.map((imgurl, imgnum) => (
                     <img
@@ -97,22 +77,10 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
                     />
                 )}
             </div>
-            <input className='D_but' id={imgnum} type="button" value="삭제"
-                // id={imgurl}
-                onClick={handleDelete}></input>
         </div >
 
     )
 }
 
-// const ModalItem = () => {
-//   return (
-//     <div className='ImgBackGround'>
-//       <div className='ImgBackGround2'>
-//         <h1>하이요</h1>
-//       </div>
-//     </div>
-//   )
-// }
 
 export default Photos;

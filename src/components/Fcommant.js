@@ -2,17 +2,18 @@ import '../css/Fcommant.scss';
 
 const Fcommant = ({ article }) => {
   return (
-    <div className="fcommant" width="400px">
-      <form id={article.fnum} width="400px">
-        <table className="fcommantlist" width="400px">
+    <div className="fcommant" width="700px">
+      <form align="center" id={article.fnum}>
+        <table className="fcommantlist" width="500px" align="center">
           <tr>
-            <td className="idbox" width="20%">
-              {article.userid}
-            </td>
-            <td className="fccbox" width="50%">
+            <td className="idbox">{article.userid}</td>
+            <td width="20px"></td>
+            <td className="fccbox" align="left">
               {article.fccontent}
             </td>
-            <td width="30%">{article.fcdate}</td>
+            <td className="fcdbox" align="right">
+              {article.fcdate}
+            </td>
           </tr>
         </table>
       </form>

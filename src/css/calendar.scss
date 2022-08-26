@@ -40,6 +40,7 @@
         opacity: 0.5;
         color: white;
         cursor: pointer;
+        transition: 0.5s ease-out;
       }
     }
   }
@@ -95,6 +96,7 @@
             opacity: 0.5;
             color: white;
             cursor: pointer;
+            transition: 0.5s ease-out;
           }
         }
         .cancelBtn {
@@ -104,6 +106,7 @@
             opacity: 0.5;
             color: white;
             cursor: pointer;
+            transition: 0.5s ease-out;
           }
         }
         .deleteBtn {
@@ -113,6 +116,7 @@
             opacity: 0.5;
             color: white;
             cursor: pointer;
+            transition: 0.5s ease-out;
           }
         }
       }

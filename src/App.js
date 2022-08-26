@@ -41,7 +41,7 @@ const App = () => {
     <div className="App">
       {window.sessionStorage.getItem('id') != null && <Header />}
       <Routes>
-        <Route index element={<Login />} /> {/*로그인 : d현호*/}
+        <Route index element={<Login />} /> {/*로그인 : 현호*/}
         <Route path="/join" element={<Join />} /> {/*회원가입 : 현호*/}
         <Route path="/member" element={<Member />} /> {/*회원관리 : 현호*/}
         <Route path="/mainFeed" element={<MainFeed />} /> {/* 전체피드 : 수호*/}
