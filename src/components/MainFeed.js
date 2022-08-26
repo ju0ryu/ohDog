@@ -2,6 +2,14 @@ import React, { useEffect, useState, useRef } from 'react';
 import '../css/mainFeed.scss';
 import axios from 'axios';
 import Fcommant from './Fcommant';
+import Photos from './photo';
+// 스와이프 넘기기
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "../css/swiper-styles.css";
 
 const MainFeed = () => {
   const userid = window.sessionStorage.getItem('id');
@@ -17,6 +25,14 @@ const MainFeed = () => {
   });
 
   const [fnumstate, setFnumstate] = useState(-1);
+
+  // =============================이미지===================================
+  const [imagelist, setImagelist] = useState({
+    imageList: [],
+  });
+  // =============================이미지===================================
+
+
 
   const onClick = (e) => {
     console.log('e.target.id =>', e.target.id);
@@ -75,9 +91,73 @@ const MainFeed = () => {
   }, []);
   console.log('fccontentlist.fccontentList =>', fccontentlist.fccontentList);
 
+
+
+  // ========================이미지==============================
+  useEffect(() => {
+    axios
+      .post('http://localhost:8008/main_ilist', { userid })
+      .then((res) => {
+        console.log('res ==>', res);
+        const { data } = res;
+        console.log('main_data ==>', data);
+        setImagelist({
+          imageList: data,
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, []);
+  // ========================이미지==============================
+
+
   return (
-    <div className="mainTitle">
-      <p>전체보기</p>
+    <>
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={30}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper"
+      >
+        {/* // ========================이미지============================== */}
+
+        <div className="container">
+          {imagelist.imageList.map((article) => {
+            return (
+              <SwiperSlide>
+                <Photos
+                  userid={article.userid}
+                  imgurl={'http://localhost:8008/uploads/' + article.imgurl}
+                  imgnum={article.imgnum}
+                  secret={article.secret}
+                />
+              </SwiperSlide>
+            );
+          })}
+        </div>
+
+
+
+        {/* <SwiperSlide>1</SwiperSlide>
+        <SwiperSlide>2</SwiperSlide>
+        <SwiperSlide>3</SwiperSlide>
+        <SwiperSlide>4</SwiperSlide>
+        <SwiperSlide>5</SwiperSlide>
+        <SwiperSlide>6</SwiperSlide> */}
+
+
+      </Swiper>
+      {/* // ========================이미지============================== */}
       <div className="mainbox">
         {mainfeedlist.mainfeedList.map((mainlist) => {
           console.log(
@@ -129,7 +209,7 @@ const MainFeed = () => {
                           size="40"
                           defaultValue=""
                           placeholder="댓글달기"
-                          // onChange={onChange}
+                        // onChange={onChange}
                         />
                       </td>
                       <td>
@@ -187,7 +267,7 @@ const MainFeed = () => {
           }
         })}
       </div>
-    </div>
+    </>
   );
 };
 

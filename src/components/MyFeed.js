@@ -12,7 +12,7 @@ const MyFeed = () => {
 
   const userid = window.sessionStorage.getItem('id');
   // useEffect(() => {
-  //   console.log('세션확인 : ', userid);
+  //   console.log('세션확인 : ', userid); ㅈ
   // }, []);
 
   const getList = () => {

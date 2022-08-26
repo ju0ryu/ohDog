@@ -61,7 +61,7 @@ const MyFeedWrite = ({ handlelist }) => {
                 size="65"
                 ref={writerRef}
                 placeholder="일상을 입력하세요"
-              ></input>{' '}
+              ></input>
             </td>
             <td>
               <input

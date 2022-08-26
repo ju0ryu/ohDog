@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useState,
-  useCallback,
-  useEffect,
-  Component,
-} from 'react';
+import React, { useRef, useState, useCallback, useEffect, Component } from 'react';
 // import Gallery from "react-photo-gallery";
 
 import Photos from './photo';
@@ -15,9 +9,13 @@ import '../css/image.scss';
 // import './Style.css'
 
 const Image = ({ handlelist }) => {
+  // console.log("imgurl!!!!!!!!!!!!!!!!!!!!!", imgurl);
   // const imageRef = useRef();
-  const userid = window.sessionStorage.getItem('id');
+  const userid = window
+    .sessionStorage
+    .getItem('id');
   const imgurl = useRef();
+  const imgnum = useRef();
   // const imgdataRef = useRef();
   var secret = 'Y';
 
@@ -28,23 +26,44 @@ const Image = ({ handlelist }) => {
     console.log(secret);
   };
 
-  // const image = [{ source: 'https://images.unsplash.com/photo-1594415156038-02d665441df2?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max' }]
+  // const image = [{ source:
+  // 'https://images.unsplash.com/photo-1594415156038-02d665441df2?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max'
+  // }]
 
   const [image_name, setImage_name] = useState('');
   // 이미지 상태 추가??
 
-  const [imagelist, setImagelist] = useState({
-    imageList: [],
-  });
+  const [imagelist, setImagelist] = useState({ imageList: [] });
 
-  // const [imgBase64, setImgBase64] = useState("");
-  // 이미지 미리보기?
+  const handleDelete = (e) => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      console.log("handleDelete(imgnum) =>", imgnum);
+      console.log("e.target.id::::::::", e.target.id);
+      axios
+        .post("http://localhost:8008/idelete", { imgnum: e.target.id })
+        .then((res) => {
+          alert('삭제되었습니다')
+          console.log(res)
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else {
+      alert('삭제가 취소되었습니다')
+    }
+    window
+      .location
+      .reload()
+
+  };
+
+  // const [imgBase64, setImgBase64] = useState(""); 이미지 미리보기?
 
   function onImage(e) {
     setImage_name(e.target.files[0]);
   }
 
-  // 글목록
+  // 이미지 목록
   useEffect(() => {
     axios
       .post('http://localhost:8008/ilist', { userid })
@@ -52,9 +71,7 @@ const Image = ({ handlelist }) => {
         console.log('res ==>', res);
         const { data } = res;
         console.log('data ==>', data);
-        setImagelist({
-          imageList: data,
-        });
+        setImagelist({ imageList: data });
       })
       .catch((e) => {
         console.error(e);
@@ -70,22 +87,19 @@ const Image = ({ handlelist }) => {
     }
 
     const config = {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     };
 
     axios
-      .post(
-        'http://localhost:8008/iinsert',
+      .post('http://localhost:8008/iinsert',
         // 위에 url 어떻게 연결 시켜야할지 모르겠음.
         {
-          userid,
-          secret,
-          // imgurl: imgurlRef.current.value,
-          // imgdata: imgdataRef.current.value,
-          image: image_name,
-        },
-        config,
-      )
+          userid, secret,
+          // imgurl: imgurlRef.current.value, imgdata: imgdataRef.current.value,
+          image: image_name
+        }, config)
       .then((res) => {
         console.log('handleInsert =>', res);
         alert('업로드완료');
@@ -95,25 +109,17 @@ const Image = ({ handlelist }) => {
       .catch((e) => {
         console.error(e);
       });
-    window.location.reload();
+    window
+      .location
+      .reload();
   };
-  // const [currentImage, setCurrentImage] = useState(0);
-  // const [viewerIsOpen, setViewerIsOpen] = useState(false);
-
-  // 모달 생성 안됨....ㅅㅂ
-  // 모달 보내는법 알아야함.
-
-  // const openPhoto = useCallback((event, { photo, index }) => {
-  //   setCurrentImage(index);
-  //   setViewerIsOpen(true);
-  // }, []);
-  // const closeImage = () => {
-  //   setCurrentImage(0);
-  //   setViewerIsOpen(false);
-  // };
-  // var aa = "http://localhost:8008/uploads/" + imagelist.imageList[33].imgurl;
-  // console.log(aa);
-  // console.log("imgnum", imagelist.imageList[2].imgnum);
+  // const [currentImage, setCurrentImage] = useState(0); const [viewerIsOpen,
+  // setViewerIsOpen] = useState(false); 모달 생성 안됨....ㅅㅂ 모달 보내는법 알아야함. const
+  // openPhoto = useCallback((event, { photo, index }) => {
+  // setCurrentImage(index);   setViewerIsOpen(true); }, []); const closeImage =
+  // () => {   setCurrentImage(0);   setViewerIsOpen(false); }; var aa =
+  // "http://localhost:8008/uploads/" + imagelist.imageList[33].imgurl;
+  // console.log(aa); console.log("imgnum", imagelist.imageList[2].imgnum);
 
   return (
     <div>
@@ -138,23 +144,18 @@ const Image = ({ handlelist }) => {
         </h3>
       </nav>
 
-      <table border="1" width="700px" align="center">
+      <table className='imgtable' border="1" width="700px" align="center">
         <tr>
           <td>이미지</td>
           <td align="left">
             <input
+              className='imgUpload'
               type="file"
               name="imageUpload"
               ref={imgurl}
               accept="image/*"
-              onChange={onImage}
-            />
+              onChange={onImage} />
           </td>
-          {/* 이미지 추가된 내용 */}
-          {/* <div>
-            {image_name && <img src={image_name} alt={onImage} />}
-
-          </div> */}
           <td>
             <input
               type="radio"
@@ -162,8 +163,7 @@ const Image = ({ handlelist }) => {
               id="cs_open"
               value="Y"
               class="radio"
-              onChange={onChange}
-            ></input>
+              onChange={onChange}></input>
             <span>공개</span>&nbsp;&nbsp;
             <input
               type="radio"
@@ -171,66 +171,53 @@ const Image = ({ handlelist }) => {
               id="cs_open"
               value="N"
               class="radio"
-              onChange={onChange}
-            />
+              onChange={onChange} />
             <span>비공개</span>&nbsp;
           </td>
         </tr>
         <tr>
           <td colSpan="2" align="center">
-            <input type="submit" value="전송" onClick={handleInsert}></input>
+            <button className='send_but' type="submit" value="전송" onClick={handleInsert}>업로드</button>
             &nbsp;
-            <input type="reset" value="취소"></input>
+            <button className='cancel_but' type="reset" value="취소">취소</button>
           </td>
         </tr>
       </table>
 
-      {/* 포토스 사용? */}
-      {/* {
-     <   photos.imageList.map((article) => {
-          return (
-            <태그
-              이름={article}
-            />>
-          );
-        })
-      } */}
       <div className="container">
-        {imagelist.imageList.map((article) => {
-          return (
-            <Photos
-              userid={article.userid}
-              imgurl={'http://localhost:8008/uploads/' + article.imgurl}
-              imgnum={article.imgnum}
-              secret={article.secret}
-            />
-          );
-        })}
+
+        {
+          imagelist
+            .imageList
+            .map((article) => {
+              return (
+                <div>
+                  < Photos userid={
+                    article.userid
+                  }
+                    imgurl={
+                      'http://localhost:8008/uploads/' + article.imgurl
+                    }
+                    imgnum={
+                      article.imgnum
+                    }
+                    secret={
+                      article.secret
+                    } />
+
+                  <input
+                    className='D_but'
+                    id={article.imgnum}
+                    type="button"
+                    value="삭제"
+                    onClick={handleDelete}></input>
+                </div>
+              );
+            })
+        }
+
       </div>
 
-      {/* <h1 className="myheader">어떻게 연결 시키지????</h1> */}
-
-      {/* <div className='div'><img src={aa} /> </div> */}
-
-      {/* Galeery가 밑에 사진 뿌려주는 역활 */}
-      {/* <Gallery photos={photos} onClick={openPhoto}></Gallery> */}
-
-      {/* <ModalGateway>
-
-
-        {viewerIsOpen ? (
-          <Modal onClose={closeImage}>
-            <Carousel
-              currentIndex={currentImage}
-              views={photos.map(x => ({
-                ...x,
-
-              }))}
-            />
-          </Modal>
-        ) : null}
-
-      </ModalGateway> */}
     </div>
   );
 };
