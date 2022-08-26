@@ -57,13 +57,32 @@ app.post('/member', (req, res) => {
     },
   );
 });
-
+// ID,닉네임 중복확인
 app.get('/memberlist', (req, res) => {
   const sqlQuery = 'select userid,nickname from member;';
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
 });
+// 관리자모드 회원정보 조회
+app.get('/admin', (req, res) => {
+  const sqlQuery =
+    'SELECT usernum,userid, userpw, nickname,tel,addr,birth,gender FROM member;';
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
+// 관리자모드 회원정보 삭제
+app.post('/admindelete', (req, res) => {
+  console.log('삭제', req.body);
+  var usernum = req.body.usernum;
+  const sqlQuery = 'delete from member where usernum = ?;';
+  db.query(sqlQuery, [usernum], (err, result) => {
+    res.send(result);
+  });
+});
+
 //mainfeed req res 설정 시작
 
 app.get('/mainfeed', (req, res) => {
