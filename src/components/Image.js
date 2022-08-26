@@ -37,12 +37,28 @@ const Image = ({ handlelist }) => {
   const [image_name, setImage_name] = useState('');
   // 이미지 상태 추가??
 
-  const [imagelist, setImagelist] = useState({
-    imageList: [],
-  });
+  const [imagelist, setImagelist] = useState({ imageList: [] });
 
-  // const [imgBase64, setImgBase64] = useState("");
-  // 이미지 미리보기?
+  const handleDelete = (e) => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      console.log('handleDelete(imgnum) =>', imgnum);
+      console.log('e.target.id::::::::', e.target.id);
+      axios
+        .post('http://localhost:8008/idelete', { imgnum: e.target.id })
+        .then((res) => {
+          alert('삭제되었습니다');
+          console.log(res);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    } else {
+      alert('삭제가 취소되었습니다');
+    }
+    window.location.reload();
+  };
+
+  // const [imgBase64, setImgBase64] = useState(""); 이미지 미리보기?
 
   function onImage(e) {
     setImage_name(e.target.files[0]);
@@ -72,7 +88,9 @@ const Image = ({ handlelist }) => {
     }
 
     const config = {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     };
 
     axios
@@ -82,8 +100,7 @@ const Image = ({ handlelist }) => {
         {
           userid,
           secret,
-          // imgurl: imgurlRef.current.value,
-          // imgdata: imgdataRef.current.value,
+          // imgurl: imgurlRef.current.value, imgdata: imgdataRef.current.value,
           image: image_name,
         },
         config,
@@ -128,11 +145,12 @@ const Image = ({ handlelist }) => {
         </ul>
       </nav>
 
-      <table border="1" width="700px" align="center">
+      <table className="imgtable" border="1" width="700px" align="center">
         <tr>
           <td>이미지</td>
           <td align="left">
             <input
+              className="imgUpload"
               type="file"
               name="imageUpload"
               ref={imgurl}
@@ -163,59 +181,44 @@ const Image = ({ handlelist }) => {
         </tr>
         <tr>
           <td colSpan="2" align="center">
-            <input type="submit" value="전송" onClick={handleInsert}></input>
+            <button
+              className="send_but"
+              type="submit"
+              value="전송"
+              onClick={handleInsert}
+            >
+              업로드
+            </button>
             &nbsp;
-            <input type="reset" value="취소"></input>
+            <button className="cancel_but" type="reset" value="취소">
+              취소
+            </button>
           </td>
         </tr>
       </table>
 
-      {/* 포토스 사용? */}
-      {/* {
-     <   photos.imageList.map((article) => {
-          return (
-            <태그
-              이름={article}
-            />>
-          );
-        })
-      } */}
       <div className="container">
         {imagelist.imageList.map((article) => {
           return (
-            <Photos
-              userid={article.userid}
-              imgurl={'http://localhost:8008/uploads/' + article.imgurl}
-              imgnum={article.imgnum}
-              secret={article.secret}
-            />
+            <div>
+              <Photos
+                userid={article.userid}
+                imgurl={'http://localhost:8008/uploads/' + article.imgurl}
+                imgnum={article.imgnum}
+                secret={article.secret}
+              />
+
+              <input
+                className="D_but"
+                id={article.imgnum}
+                type="button"
+                value="삭제"
+                onClick={handleDelete}
+              ></input>
+            </div>
           );
         })}
       </div>
-
-      {/* <h1 className="myheader">어떻게 연결 시키지????</h1> */}
-
-      {/* <div className='div'><img src={aa} /> </div> */}
-
-      {/* Galeery가 밑에 사진 뿌려주는 역활 */}
-      {/* <Gallery photos={photos} onClick={openPhoto}></Gallery> */}
-
-      {/* <ModalGateway>
-
-
-        {viewerIsOpen ? (
-          <Modal onClose={closeImage}>
-            <Carousel
-              currentIndex={currentImage}
-              views={photos.map(x => ({
-                ...x,
-
-              }))}
-            />
-          </Modal>
-        ) : null}
-
-      </ModalGateway> */}
     </div>
   );
 };

@@ -3,6 +3,16 @@ import '../css/mainFeed.scss';
 import axios from 'axios';
 import Fcommant from './Fcommant';
 import msgbt from '../icon/msg.svg';
+import Photos from './photo';
+import inputbt from '../icon/write.svg';
+
+// 스와이프 넘기기
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import '../css/swiper-styles.css';
 
 const MainFeed = () => {
   const userid = window.sessionStorage.getItem('id');
@@ -18,6 +28,12 @@ const MainFeed = () => {
   });
 
   const [fnumstate, setFnumstate] = useState(-1);
+
+  // =============================이미지===================================
+  const [imagelist, setImagelist] = useState({
+    imageList: [],
+  });
+  // =============================이미지===================================
 
   const onClick = (e) => {
     console.log('e.target.id =>', e.target.id);
@@ -76,13 +92,67 @@ const MainFeed = () => {
   }, []);
   console.log('fccontentlist.fccontentList =>', fccontentlist.fccontentList);
 
+  // ========================이미지==============================
+  useEffect(() => {
+    axios
+      .post('http://localhost:8008/main_ilist', { userid })
+      .then((res) => {
+        console.log('res ==>', res);
+        const { data } = res;
+        console.log('main_data ==>', data);
+        setImagelist({
+          imageList: data,
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, []);
+  // ========================이미지==============================
+
   return (
     <div className="mainTitle">
       <p>전체피드</p>
-      <div className="imagebox">imagebox</div>
-      <div className="imagebox">imagebox</div>
-      <div className="imagebox">imagebox</div>
+      <Swiper
+        slidesPerView={3}
+        spaceBetween={30}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper"
+      >
+        {/* // ========================이미지============================== */}
 
+        <div className="container">
+          {imagelist.imageList.map((article) => {
+            return (
+              <SwiperSlide>
+                <Photos
+                  userid={article.userid}
+                  imgurl={'http://localhost:8008/uploads/' + article.imgurl}
+                  imgnum={article.imgnum}
+                  secret={article.secret}
+                />
+              </SwiperSlide>
+            );
+          })}
+        </div>
+
+        {/* <SwiperSlide>1</SwiperSlide>
+        <SwiperSlide>2</SwiperSlide>
+        <SwiperSlide>3</SwiperSlide>
+        <SwiperSlide>4</SwiperSlide>
+        <SwiperSlide>5</SwiperSlide>
+        <SwiperSlide>6</SwiperSlide> */}
+      </Swiper>
+      {/* // ========================이미지============================== */}
       <div className="mainbox">
         {mainfeedlist.mainfeedList.map((mainlist) => {
           console.log(
@@ -94,39 +164,43 @@ const MainFeed = () => {
           if (mainlist.fnum == fnumstate) {
             return (
               <div className="mainfeedbox" height="350px">
-                <table className="mainlistbox" width="420px">
+                <table className="mainlistbox" width="700px">
                   <tr>
-                    <td colSpan="2" align="left">
+                    <td width="10px"></td>
+                    <td className="mainuserid" width="100%" align="center">
                       {mainlist.userid}
                     </td>
+                    <td></td>
                   </tr>
                   <tr>
-                    <td className="mainfcbox" colSpan="2" align="center">
+                    <td className="mainfcbox" colSpan="3" align="center">
                       {mainlist.fcomment}
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan="2" align="right">
+                    <td className="mainfdate" colSpan="3" align="right">
                       {mainlist.fdate}
                     </td>
                     <td width="10px"></td>
                   </tr>
-
                   <tr>
-                    <td colSpan="2" align="center">
+                    <td colSpan="3" align="center">
                       <input
+                        className="msgbt"
+                        type="image"
+                        src={msgbt}
+                        alt="댓글보기"
                         id={mainlist.fnum}
-                        type="button"
-                        value="댓글보기"
                         onClick={onClick}
+                        height="25px"
                       ></input>
                     </td>
                   </tr>
                 </table>
                 <form onSubmit={fcInsert} id={mainlist.fnum}>
-                  <table className="fccommant" align="center">
+                  <table className="fccommant" align="center" width="705px">
                     <tr>
-                      <td align="center" colSpan="2">
+                      <td align="center">
                         <input
                           className="fcinput"
                           type="text"
@@ -135,7 +209,7 @@ const MainFeed = () => {
                           size="60"
                           defaultValue=""
                           placeholder="댓글달기"
-                        // onChange={onChange}
+                          // onChange={onChange}
                         />
                         <input
                           className="inputbt"
@@ -159,30 +233,36 @@ const MainFeed = () => {
               <div className="mainfeedbox" height="350px">
                 <table className="mainlistbox" width="700px">
                   <tr>
+                    <td height="10px"></td>
+                  </tr>
+                  <tr>
                     <td width="10px"></td>
                     <td className="mainuserid" width="100%" align="center">
                       {mainlist.userid}
                     </td>
+                    <td></td>
                   </tr>
                   <tr>
-                    <td className="mainfcbox" colSpan="2" align="center">
+                    <td className="mainfcbox" colSpan="3" align="center">
                       {mainlist.fcomment}
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan="2" align="right">
+                    <td className="mainfdate" colSpan="3" align="right">
                       {mainlist.fdate}
                     </td>
                     <td width="10px"></td>
                   </tr>
-
                   <tr>
-                    <td colSpan="2" align="center">
+                    <td colSpan="3" align="center">
                       <input
+                        className="msgbt"
+                        type="image"
+                        src={msgbt}
+                        alt="댓글보기"
                         id={mainlist.fnum}
-                        type="button"
-                        value="댓글보기"
                         onClick={onClick}
+                        height="25px"
                       ></input>
                     </td>
                   </tr>
@@ -198,7 +278,7 @@ const MainFeed = () => {
           }
         })}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -25,11 +25,7 @@ body {
 .swiper-slide {
     text-align: center;
     font-size: 18px;
-<<<<<<< HEAD
     /* background: #fff; */
-=======
-    background: #fff;
->>>>>>> d9554c2e101ccd619b196dd6f2a5ea3b761607cd
 
     /* Center slide text vertically */
     display: -webkit-box;
@@ -49,12 +45,7 @@ body {
 .swiper-slide img {
     display: block;
     /* object-fit: fill; */
-<<<<<<< HEAD
     width: 180px;
     height: 240px;
-=======
-    width: 100%;
-    height: 100%;
->>>>>>> d9554c2e101ccd619b196dd6f2a5ea3b761607cd
     object-fit: cover;
 }
