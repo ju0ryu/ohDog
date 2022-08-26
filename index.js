@@ -121,7 +121,7 @@ app.post('/fccontentlist', (req, res) => {
   console.log('피드댓글(req.body)', req.body);
   console.log('피드댓글(req.body.funm)', req.body.fnum);
   const sqlQuery =
-    "SELECT fcnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fcdate from fcomment where fnum = ? order by fcdate desc;";
+    "SELECT fcnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fcdate from fcomment where fnum = ? order by date_format(fcdate, '%m월%d일 %H:%i') desc;";
   db.query(sqlQuery, [fnum], (err, result) => {
     console.log('피드댓글(result)', result);
     res.send(result);
