@@ -7,9 +7,6 @@ const BoardUpdateForm = () => {
   const { state } = useLocation();
   console.log('updateState:', state);
 
-  const login_id = window.sessionStorage.getItem('id');
-  console.log('id:', login_id);
-
   const navigate = useNavigate();
 
   const [data, setData] = useState({
@@ -31,7 +28,7 @@ const BoardUpdateForm = () => {
   //삭제기능
   const handleDelete = (e) => {
     if (window.confirm('삭제하시겠습니까?')) {
-      console.log('handleDelete(boardnum) =>', e.target.id);
+      console.log('handleDelete(e.target.id) =>', e.target.id);
       axios
         .post('http://localhost:8008/delete', {
           num: e.target.id,
@@ -51,14 +48,17 @@ const BoardUpdateForm = () => {
   //업데이트기능
   const handleUpdate = () => {
     if (window.confirm('수정하시겠습니까?')) {
-      console.log('handleUpdate =>', data);
+      console.log('handleUpdate(data) =>', data);
       axios
         .post('http://localhost:8008/update', {
           data: data,
         })
         .then((res) => {
           alert('수정되었습니다.');
-          console.log('handleUpdate( changedRows) =>', res.data.changedRows);
+          console.log(
+            'handleUpdate(res.data.changedRows) =>',
+            res.data.changedRows,
+          );
           navigate('/board');
         })
         .catch((e) => {

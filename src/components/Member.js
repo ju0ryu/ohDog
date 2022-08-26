@@ -1,6 +1,4 @@
 import '../css/member.scss';
-import React, { useEffect } from 'react';
-import axios from 'axios';
 import { useState } from 'react';
 
 const Member = () => {

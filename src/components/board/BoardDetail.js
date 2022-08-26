@@ -9,8 +9,8 @@ const BoardDetail = () => {
   const login_id = window.sessionStorage.getItem('id');
   const boardCommentRef = useRef();
 
-  console.log('id:', login_id);
-  console.log('state 111:', state);
+  console.log('login_id:', login_id);
+  console.log('BoardDetail(state)', state);
 
   const navigate = useNavigate();
 
@@ -22,10 +22,10 @@ const BoardDetail = () => {
   const handleUpdateForm = (e) => {
     console.log('handleUpdateForm', e.target.id);
     axios
-      .post('http://localhost:8008/detail', { num: e.target.id })
+      .post('http://localhost:8008/detail', { boardnum: e.target.id })
       .then((res) => {
         const { data } = res;
-        console.log('updatedetail2=>', data);
+        console.log('handleUpdateForm(data)', data);
         if (res.data.length > 0) {
           moveToUpdate(data);
         }
@@ -67,12 +67,11 @@ const BoardDetail = () => {
       })
       .then((res) => {
         const { data } = res;
-        console.log('data(boardCommentList) : ', data);
-        // setFnumstate(e.target.id);
+        console.log('boardCommentList(data) : ', data);
         setBoardComment({
           BoardComment: data,
         });
-        console.log('댓글조회데이터', data);
+        console.log('useState(boardComment)', boardComment);
       })
       .catch((e) => {
         console.error(e);
@@ -82,8 +81,11 @@ const BoardDetail = () => {
   //댓글기능
   const boardInsert = (e) => {
     // e.preventDefault();
-    console.log('e ::::', e);
-    console.log('확인', boardCommentRef.current.value);
+    console.log('boardInsert(e)', e);
+    console.log(
+      'boardInsert(boardCommentRef.current.value)',
+      boardCommentRef.current.value,
+    );
     console.log(e.target.id);
     axios
       .post('http://localhost:8008/boardCommentInsert', {
@@ -92,10 +94,10 @@ const BoardDetail = () => {
         bccontent: boardCommentRef.current.value,
       })
       .then((res) => {
-        console.log('boardCommentInsert3=>', res);
+        console.log('boardInsert(res)', res);
         boardCommentRef.current.value = '';
         onClick(e);
-        console.log('오류 ', boardComment.BoardComment);
+        console.log('boardComment.BoardComment', boardComment.BoardComment);
       })
       .catch((e) => {
         console.error(e);

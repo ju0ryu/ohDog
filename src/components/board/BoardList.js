@@ -4,18 +4,21 @@ import Pagination from 'react-js-pagination';
 import styled from 'styled-components';
 
 const BoardList = ({ boardlist }) => {
-  // 페이지 넘기기
+  // 페이지 넘기기 기능
   const [page, setPage] = useState(1);
   const [items, setItems] = useState(5);
 
   const handlePageChange = (page) => {
     setPage(page);
   };
+
   const itemChange = (e) => {
     setItems(Number(e.target.value));
   };
-  console.log(items * (page - 1), items * (page - 1) + items);
 
+  console.log('itemspage', items * (page - 1), items * (page - 1) + items);
+
+  // 리턴값
   if (boardlist.boardList.length === 0) {
     return (
       <div>
@@ -51,7 +54,7 @@ const BoardList = ({ boardlist }) => {
                 <th width="100">카테고리</th>
                 <th width="300">제목</th>
                 <th width="60">좋아요</th>
-                <th width="60">미정</th>
+                <th width="60">조회수</th>
               </tr>
             </thead>
             <tbody>
@@ -65,19 +68,23 @@ const BoardList = ({ boardlist }) => {
             </tbody>
           </table>
         </div>
-        <PaginationBox>
-          <Pagination
-            activePage={page}
-            itemsCountPerPage={items}
-            totalItemsCount={boardlist.boardList.length - 1}
-            pageRangeDisplayed={5}
-            onChange={handlePageChange}
-          ></Pagination>
-        </PaginationBox>
+        <div>
+          <PaginationBox>
+            <Pagination
+              activePage={page}
+              itemsCountPerPage={items}
+              totalItemsCount={boardlist.boardList.length - 1}
+              pageRangeDisplayed={5}
+              onChange={handlePageChange}
+            ></Pagination>
+          </PaginationBox>
+        </div>
       </div>
     );
   }
 };
+
+//페이지 넘기기 스타일
 const PaginationBox = styled.div`
   .pagination {
     display: flex;
