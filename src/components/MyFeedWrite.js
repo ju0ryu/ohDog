@@ -53,18 +53,18 @@ const MyFeedWrite = ({ handlelist }) => {
           align="center"
         >
           <tr>
-            <td align="left" width="550px" align="center">
+            <td width="550px" align="center">
               <input
                 className="myfeedinput"
                 type="text"
                 name="writer"
-                size="65"
+                size="70"
                 ref={writerRef}
                 placeholder="일상을 입력하세요"
-              ></input>
-            </td>
-            <td>
+              ></input>{' '}
+              &nbsp;
               <input
+                align="center"
                 className="inputbt"
                 type="image"
                 src={inputbt}
@@ -82,7 +82,7 @@ const MyFeedWrite = ({ handlelist }) => {
                 class="radio"
                 onChange={onChange}
               ></input>
-              <span>공개</span>&nbsp;&nbsp;
+              <span>공개</span>&nbsp;
               <input
                 type="radio"
                 name="cs_open"
@@ -91,7 +91,7 @@ const MyFeedWrite = ({ handlelist }) => {
                 class="radio"
                 onChange={onChange}
               />
-              <span>비공개</span>&nbsp;
+              <span>비공개</span>
             </td>
           </tr>
         </table>
