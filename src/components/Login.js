@@ -32,10 +32,12 @@ const Login = () => {
         pw: pwRef.current.value,
       })
       .then((res) => {
-        console.log('handleLogin =>', res);
-        if (res.data[0].cnt === 1) {
+        if (idRef.current.value === 'admin' && res.data[0].cnt === 1) {
           window.sessionStorage.setItem('id', idRef.current.value);
-          navigate('/mainFeed');
+          navigate('/member');
+        } else if (res.data[0].cnt === 1) {
+          window.sessionStorage.setItem('id', idRef.current.value);
+          navigate('/mainfeed');
         } else {
           alert('등록되지않은 아이디입니다');
           navigate('/');

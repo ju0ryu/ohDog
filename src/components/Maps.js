@@ -125,10 +125,11 @@ function Maps() {
           <p>주변시설 찾기</p>
         </div>
         <div className="searchInput">
-          <input onChange={handleSearchAddress}></input>
-          <button placeholder="현재 위치를 입력하여 주세요" onClick={SearchMap}>
-            검색
-          </button>
+          <input
+            placeholder="현재 위치를 입력하여 주세요"
+            onChange={handleSearchAddress}
+          ></input>
+          <button onClick={SearchMap}>검색</button>
         </div>
         <div className="category">
           <input

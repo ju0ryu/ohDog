@@ -1,7 +1,79 @@
 #root {
-  padding-top: 54px;
+  .boardTop {
+    margin: 0 auto;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    .headers {
+      margin-top: 40px;
+      margin-bottom: 15px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      font-family: 'Dongle', sans-serif;
+      font-size: 40px;
+    }
+    .boardSearch {
+      display: flex;
+      padding: 10px 10px;
+      align-items: center;
+      justify-content: center;
+      input {
+        font-size: 30px;
+        font-family: 'Dongle', sans-serif;
+        padding: 0 15px;
+        width: 300px;
+        height: 40px;
+        border-left: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        border-right: none;
+        border-radius: 5px 0px 0px 5px;
+      }
+      .searchSubmit {
+        font-family: 'Dongle', sans-serif;
+        font-size: x-large;
+        width: 60px;
+        height: 42px;
+        border-radius: 0 5px 5px 0;
+        border-left: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        background-color: white;
+        cursor: pointer;
+        &:hover {
+          background-color: rgb(0, 0, 255);
+          opacity: 0.7;
+          color: white;
+          transition: 0.5s ease-out;
+        }
+      }
+    }
+    .searchCategory {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      .searchCategoryList {
+        font-family: 'Dongle', sans-serif;
+        font-size: x-large;
+        width: 100px;
+        height: 40px;
+        border-radius: 5px;
+        border: 0.5px solid #ccc;
+        background-color: rgba(152, 152, 255, 0.179);
+        margin-right: 5px;
+        cursor: pointer;
+        &:hover {
+          background-color: rgb(0, 0, 255);
+          opacity: 0.4;
+          color: white;
+          transition: 0.5s ease-out;
+        }
+      }
+    }
+  }
 }
-
-// .search {
-//   width: 200px;
-// }
