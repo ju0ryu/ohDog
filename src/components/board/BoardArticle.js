@@ -7,13 +7,14 @@ const BoardArticle = ({ article }) => {
 
   //상세보기로 넘겨주기
   const handleDetail = (e) => {
-    console.log('handleDetail(e.target.id)', e.target.id);
-    console.log('handleDetail(article.views)', article.views);
+    console.log('e.target.id', e.target.id);
+    console.log('article.views', article.views);
 
     axios
       .all([
         axios.post('http://localhost:8008/boardUpdate', {
           boardnum: e.target.id,
+          // views: article.views,
         }),
         axios.post('http://localhost:8008/detail', {
           boardnum: e.target.id,
@@ -23,10 +24,13 @@ const BoardArticle = ({ article }) => {
         axios.spread((res1, res2) => {
           console.log('res1개', res1, 'res2개', res2);
           const a = res1.data;
-          console.log('첫번째데이터res1.data', a);
+          console.log('첫번째데이터', a);
 
           const b = res2.data;
-          console.log('두번째데이터res2.data =>', b);
+          console.log('두번째데이터 =>', b);
+          // if (b.length > 0) {
+          // }
+          // moveToDetail(b);
           navigate('/detail', { state: b });
         }),
       )
@@ -35,6 +39,9 @@ const BoardArticle = ({ article }) => {
       });
   };
 
+  const moveToDetail = (detail) => {
+    navigate('/detail', { state: detail });
+  };
   return (
     <tr>
       <td>{article.boardnum}</td>

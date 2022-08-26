@@ -1,4 +1,10 @@
-import React, { useRef, useState, useCallback, useEffect, Component } from 'react';
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  Component,
+} from 'react';
 // import Gallery from "react-photo-gallery";
 
 import Photos from './photo';
@@ -11,9 +17,7 @@ import '../css/image.scss';
 const Image = ({ handlelist }) => {
   // console.log("imgurl!!!!!!!!!!!!!!!!!!!!!", imgurl);
   // const imageRef = useRef();
-  const userid = window
-    .sessionStorage
-    .getItem('id');
+  const userid = window.sessionStorage.getItem('id');
   const imgurl = useRef();
   const imgnum = useRef();
   // const imgdataRef = useRef();
@@ -37,24 +41,21 @@ const Image = ({ handlelist }) => {
 
   const handleDelete = (e) => {
     if (window.confirm('삭제하시겠습니까?')) {
-      console.log("handleDelete(imgnum) =>", imgnum);
-      console.log("e.target.id::::::::", e.target.id);
+      console.log('handleDelete(imgnum) =>', imgnum);
+      console.log('e.target.id::::::::', e.target.id);
       axios
-        .post("http://localhost:8008/idelete", { imgnum: e.target.id })
+        .post('http://localhost:8008/idelete', { imgnum: e.target.id })
         .then((res) => {
-          alert('삭제되었습니다')
-          console.log(res)
+          alert('삭제되었습니다');
+          console.log(res);
         })
         .catch((e) => {
           console.error(e);
         });
     } else {
-      alert('삭제가 취소되었습니다')
+      alert('삭제가 취소되었습니다');
     }
-    window
-      .location
-      .reload()
-
+    window.location.reload();
   };
 
   // const [imgBase64, setImgBase64] = useState(""); 이미지 미리보기?
@@ -88,18 +89,22 @@ const Image = ({ handlelist }) => {
 
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        'Content-Type': 'multipart/form-data',
+      },
     };
 
     axios
-      .post('http://localhost:8008/iinsert',
+      .post(
+        'http://localhost:8008/iinsert',
         // 위에 url 어떻게 연결 시켜야할지 모르겠음.
         {
-          userid, secret,
+          userid,
+          secret,
           // imgurl: imgurlRef.current.value, imgdata: imgdataRef.current.value,
-          image: image_name
-        }, config)
+          image: image_name,
+        },
+        config,
+      )
       .then((res) => {
         console.log('handleInsert =>', res);
         alert('업로드완료');
@@ -109,9 +114,7 @@ const Image = ({ handlelist }) => {
       .catch((e) => {
         console.error(e);
       });
-    window
-      .location
-      .reload();
+    window.location.reload();
   };
   // const [currentImage, setCurrentImage] = useState(0); const [viewerIsOpen,
   // setViewerIsOpen] = useState(false); 모달 생성 안됨....ㅅㅂ 모달 보내는법 알아야함. const
@@ -124,37 +127,36 @@ const Image = ({ handlelist }) => {
   return (
     <div>
       <nav id="menu">
-        <h3>
-          <ul>
-            <Link to="/myFeed">
-              <li>
-                <a class="feedlink" href="#">
-                  MYFEED
-                </a>
-              </li>
-            </Link>
-            <Link to="/image">
-              <li>
-                <a class="photolink" href="#">
-                  MYPHOTO
-                </a>
-              </li>
-            </Link>
-          </ul>
-        </h3>
+        <ul>
+          <Link to="/myFeed">
+            <li>
+              <a className="myfeedlink" href="#">
+                <p className="changeTitle">내 피드</p>
+              </a>
+            </li>
+          </Link>
+          <Link to="/image">
+            <li>
+              <a className="myphotolink" href="#">
+                <p className="changeTitle">내 사진</p>
+              </a>
+            </li>
+          </Link>
+        </ul>
       </nav>
 
-      <table className='imgtable' border="1" width="700px" align="center">
+      <table className="imgtable" border="1" width="700px" align="center">
         <tr>
           <td>이미지</td>
           <td align="left">
             <input
-              className='imgUpload'
+              className="imgUpload"
               type="file"
               name="imageUpload"
               ref={imgurl}
               accept="image/*"
-              onChange={onImage} />
+              onChange={onImage}
+            />
           </td>
           <td>
             <input
@@ -163,7 +165,8 @@ const Image = ({ handlelist }) => {
               id="cs_open"
               value="Y"
               class="radio"
-              onChange={onChange}></input>
+              onChange={onChange}
+            ></input>
             <span>공개</span>&nbsp;&nbsp;
             <input
               type="radio"
@@ -171,53 +174,51 @@ const Image = ({ handlelist }) => {
               id="cs_open"
               value="N"
               class="radio"
-              onChange={onChange} />
+              onChange={onChange}
+            />
             <span>비공개</span>&nbsp;
           </td>
         </tr>
         <tr>
           <td colSpan="2" align="center">
-            <button className='send_but' type="submit" value="전송" onClick={handleInsert}>업로드</button>
+            <button
+              className="send_but"
+              type="submit"
+              value="전송"
+              onClick={handleInsert}
+            >
+              업로드
+            </button>
             &nbsp;
-            <button className='cancel_but' type="reset" value="취소">취소</button>
+            <button className="cancel_but" type="reset" value="취소">
+              취소
+            </button>
           </td>
         </tr>
       </table>
 
       <div className="container">
+        {imagelist.imageList.map((article) => {
+          return (
+            <div>
+              <Photos
+                userid={article.userid}
+                imgurl={'http://localhost:8008/uploads/' + article.imgurl}
+                imgnum={article.imgnum}
+                secret={article.secret}
+              />
 
-        {
-          imagelist
-            .imageList
-            .map((article) => {
-              return (
-                <div>
-                  < Photos userid={
-                    article.userid
-                  }
-                    imgurl={
-                      'http://localhost:8008/uploads/' + article.imgurl
-                    }
-                    imgnum={
-                      article.imgnum
-                    }
-                    secret={
-                      article.secret
-                    } />
-
-                  <input
-                    className='D_but'
-                    id={article.imgnum}
-                    type="button"
-                    value="삭제"
-                    onClick={handleDelete}></input>
-                </div>
-              );
-            })
-        }
-
+              <input
+                className="D_but"
+                id={article.imgnum}
+                type="button"
+                value="삭제"
+                onClick={handleDelete}
+              ></input>
+            </div>
+          );
+        })}
       </div>
-
     </div>
   );
 };
