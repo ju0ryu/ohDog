@@ -9,30 +9,39 @@ function Board() {
   const [boardlist, setBoardlist] = useState({
     boardList: [],
   });
+
   const searchCategoryRef = useRef();
-  // const [article, setArticle] = useState({
-  //   boardnum: 0,
-  //   userid: '',
-  //   btitle: '',
-  //   bcontent: '',
-  //   bdate: '',
-  //   category: '',
-  // });
+
+  //전체글보기 버튼기능
+  const allList = () => {
+    axios
+      .get('http://localhost:8008/list', {})
+      .then((res) => {
+        console.log('list(res) ==>', res);
+        const { data } = res;
+        console.log('list(data) ==>', data);
+        setBoardlist({
+          boardList: data,
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
 
   // 글검색기능
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log('search ====', e.target[0].value);
+    console.log('handleSearch(e.target[0].value)', e.target[0].value);
 
     axios
       .post('http://localhost:8008/searchList', {
         search: e.target[0].value,
       })
       .then((res) => {
-        console.log('search1 ==>', res);
+        console.log('handleSearch(res) ==>', res);
         const { data } = res;
-        console.log('search2 ==>', data);
-        // moveToSearch(data);
+        console.log('handleSearch(data) ==>', data);
         setBoardlist({
           boardList: data,
         });
@@ -52,9 +61,9 @@ function Board() {
         category: searchCategoryRef.current.value,
       })
       .then((res) => {
-        console.log('search1 ==>', res);
+        console.log('handlecategorySearch(res) ==>', res);
         const { data } = res;
-        console.log('search2 ==>', data);
+        console.log('handlecategorySearch2(data) ==>', data);
 
         setBoardlist({
           boardList: data,
@@ -70,9 +79,9 @@ function Board() {
     axios
       .get('http://localhost:8008/list', {})
       .then((res) => {
-        console.log('res ==>', res);
+        console.log('list(res) ==>', res);
         const { data } = res;
-        console.log('data ==>', data);
+        console.log('list(data) ==>', data);
         setBoardlist({
           boardList: data,
         });
@@ -84,36 +93,52 @@ function Board() {
 
   return (
     <>
-      <div align="center">
-        <form onSubmit={handlecategorySearch}>
-          <select name="board" size="6" ref={searchCategoryRef}>
-            <option value="자유">자유게시판</option>
-            <option value="리뷰">리뷰게시판</option>
-            <option value="분양">분양게시판</option>
-            <option value="분실">분실게시판</option>
-            <option value="질문">Q&amp;A게시판</option>
-          </select>
-          <input classname="search" type="submit" value="카테고리검색"></input>
-        </form>
+      <div className="boardTop">
+        <div className="headers">
+          <p>게시판</p>
+        </div>
+        <div className="boardSearch">
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="관심있는 내용을 검색해보세요!"
+              size="64"
+            ></input>
+            <input className="searchSubmit" type="submit" value="검색"></input>
+          </form>
+        </div>
+        <div className="searchCategory">
+          <form onSubmit={handlecategorySearch}>
+            <select
+              className="searchCategoryList"
+              name="board"
+              size="5"
+              ref={searchCategoryRef}
+            >
+              <option value="자유">자유게시판</option>
+              <option value="리뷰">리뷰게시판</option>
+              <option value="분양">분양게시판</option>
+              <option value="분실">분실게시판</option>
+              <option value="질문">Q&amp;A게시판</option>
+            </select>
+            <input
+              className="searchCategoryList"
+              type="submit"
+              value="카테고리검색"
+            ></input>
+          </form>
+
+          <button onClick={allList} className="searchCategoryList">
+            전체글보기
+          </button>
+
+          <Link to="/insert">
+            <button className="searchCategoryList">글쓰기</button>
+          </Link>
+        </div>
       </div>
       <div>
         <BoardList boardlist={boardlist}></BoardList>
-      </div>
-      <div align="center">
-        <form onSubmit={handleSearch}>
-          <input
-            classname="search"
-            type="text"
-            placeholder="관심있는 내용을 검색해보세요!"
-            size="64"
-          ></input>
-          <input classname="search" type="submit" value="검색"></input>
-        </form>
-      </div>
-      <div align="center">
-        <Link to="/insert">
-          <button>글쓰기</button>
-        </Link>
       </div>
     </>
   );

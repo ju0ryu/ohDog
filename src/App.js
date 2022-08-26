@@ -15,8 +15,8 @@ import EditMember from './components/EditMember';
 import BoardDetail from './components/board/BoardDetail';
 import BoardWrite from './components/board/BoardWrite';
 import BoardUpdateForm from './components/board/BoardUpdateForm';
-import BoardList from './components/board/BoardList';
 import './App.css';
+
 const App = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState();
@@ -32,7 +32,7 @@ const App = () => {
     if (window.sessionStorage.getItem('id') != null) {
       console.log('로그인확인');
     } else {
-      // alert('로그인 후 이용하여 주세요');
+      // alert('로그인 후 이용해 주세요');
       navigate('/');
     }
   }, []);
@@ -41,19 +41,19 @@ const App = () => {
     <div className="App">
       {window.sessionStorage.getItem('id') != null && <Header />}
       <Routes>
-        <Route index element={<Login />} /> {/*로그인 : d현호*/}
+        <Route index element={<Login />} /> {/*로그인 : 현호*/}
         <Route path="/join" element={<Join />} /> {/*회원가입 : 현호*/}
         <Route path="/member" element={<Member />} /> {/*회원관리 : 현호*/}
         <Route path="/mainFeed" element={<MainFeed />} /> {/* 전체피드 : 수호*/}
         <Route path="/myFeed" element={<MyFeed />} /> {/*나의 피드 : 수호*/}
         <Route path="/image" element={<Image />} /> {/*이미지 : 태용*/}
         <Route path="/calendar" element={<Calendars />} /> {/*캘린더 : 주영*/}
+        <Route path="/map" element={<Maps />} /> {/*지도 : 주영*/}
         <Route path="/board" element={<Board />} /> {/*게시판 : 종현*/}
         <Route path="/detail" element={<BoardDetail />} /> {/*게시판 : 종현*/}
         <Route path="/insert" element={<BoardWrite />} /> {/*게시판 : 종현*/}
         <Route path="/update" element={<BoardUpdateForm />} />
         {/*게시판 : 종현*/}
-        <Route path="/map" element={<Maps />} /> {/*지도 : 주영*/}
         <Route path="/animal" element={<Animal />} />
         {/*애완동물 등록페이지*/}
         <Route path="/editMember" element={<EditMember />} />

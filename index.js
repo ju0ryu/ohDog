@@ -397,13 +397,13 @@ app.post('/eupdate', (req, res) => {
   );
 });
 
-// ********************게시판 코드 시작 ********************
+// ******************** 게시판 코드 시작 ********************
 
 // 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
-  console.log('list!!!');
+  console.log('게시판 게시글 전체조회');
   const sqlQuery =
-    "SELECT boardnum, category, btitle,views FROM board order by date_format(bdate, '%Y-%m-%d') desc;";
+    "SELECT boardnum, btitle, category, views FROM board order by DATE_FORMAT(bdate, '%m-%d-%H-%i') desc;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
@@ -411,25 +411,25 @@ app.get('/list', (req, res) => {
 
 // 게시판 게시글 검색조회
 app.post('/searchList', (req, res) => {
-  console.log('/searchList1', req.body);
+  console.log('/searchList1(req.body)', req.body);
   var search = req.body.search;
-  console.log('/searchList2', search);
+  console.log('/searchList2(search)', search);
   var querySearch = '%' + search + '%';
   const sqlQuery =
-    "SELECT boardnum, category, btitle, views FROM board WHERE btitle LIKE ? order by date_format(bdate, '%Y-%m-%d') desc;";
+    "SELECT boardnum, btitle, category, views FROM board WHERE btitle LIKE ? order by date_format(bdate, '%Y-%m-%d') desc;";
   db.query(sqlQuery, [querySearch], (err, result) => {
     res.send(result);
-    console.log('/searchList3', result);
+    console.log('/searchList3(result)', result);
   });
 });
 
 // 게시판 카테고리 검색조회
 app.post('/searchCategoryList', (req, res) => {
-  console.log('/searchList1', req.body);
+  console.log('/searchCategoryList1(req.body)', req.body);
   var category = req.body.category;
 
   const sqlQuery =
-    "SELECT boardnum, category, btitle,views FROM board WHERE category LIKE ? order by date_format(bdate, '%Y-%m-%d') desc;";
+    "SELECT boardnum, btitle, category, views FROM board WHERE category LIKE ? order by date_format(bdate, '%Y-%m-%d') desc;";
   db.query(sqlQuery, [category], (err, result) => {
     res.send(result);
   });
@@ -437,7 +437,7 @@ app.post('/searchCategoryList', (req, res) => {
 
 // 게시판 게시글 입력
 app.post('/insert', (req, res) => {
-  console.log('/insert', req.body);
+  console.log('/insert1(req.body)', req.body);
   var title = req.body.title;
   var writer = req.body.writer;
   var content = req.body.content;
@@ -452,29 +452,29 @@ app.post('/insert', (req, res) => {
 
 //게시판 게시글 상세보기
 app.post('/detail', (req, res) => {
-  console.log('/detail', req.body);
+  console.log('/detail1(req.body)', req.body);
   var num = parseInt(req.body.boardnum);
 
   const sqlQuery =
-    "SELECT boardnum, userid, btitle, bcontent, DATE_FORMAT(bdate, '%Y-%m-%d') AS bdate, category FROM board where boardnum = ?;";
+    "SELECT boardnum, userid, btitle, bcontent, DATE_FORMAT(bdate, '%Y-%m-%d') AS bdate, category FROM board WHERE boardnum = ?;";
   db.query(sqlQuery, [num], (err, result) => {
-    console.log('/datail(result)', result);
+    console.log('/datail2(result)', result);
     res.send(result);
   });
 });
 
 //게시판 게시글 업데이트
 app.post('/update', (req, res) => {
-  console.log('/update', req.body);
+  console.log('/update(req.body)', req.body);
   var title = req.body.data.btitle;
   var content = req.body.data.bcontent;
   var num = req.body.data.boardnum;
 
   const sqlQuery =
-    'update board SET btitle=?, bcontent=?, bdate=now() WHERE boardnum=?;';
+    'UPDATE board SET btitle=?, bcontent=?, bdate=now() WHERE boardnum=?;';
   db.query(sqlQuery, [title, content, num], (err, result) => {
+    console.log('update(result)', result);
     res.send(result);
-    console.log('result=', result);
   });
 });
 
@@ -485,7 +485,6 @@ app.post('/delete', (req, res) => {
 
   const sqlQuery = 'DELETE FROM board WHERE boardnum = ?;';
   db.query(sqlQuery, [num], (err, result) => {
-    console.log(err);
     res.send(result);
   });
 });
@@ -493,19 +492,19 @@ app.post('/delete', (req, res) => {
 // 게시판 댓글조회
 app.post('/boardCommentList', (req, res) => {
   var boardnum = parseInt(req.body.boardnum);
-  console.log('피드댓글(req.body)', req.body);
-  console.log('피드댓글(req.body.boardnum)', req.body.boardnum);
+  console.log('boardCommentList(req.body)', req.body);
+  console.log('boardCommentList(req.body.boardnum)', boardnum);
   const sqlQuery =
-    "SELECT bcnum, userid, bccontent, DATE_FORMAT(bcdate, '%m월%d일 %H:%i') AS bcdate from bcomment where boardnum = ? order by bcdate desc;";
+    "SELECT bcnum, userid, bccontent, DATE_FORMAT(bcdate, '%m월%d일 %H:%i') AS bcdate FROM bcomment WHERE boardnum = ? order by bcdate desc;";
   db.query(sqlQuery, [boardnum], (err, result) => {
-    console.log('피드댓글(result)', result);
+    console.log('boardCommentList(result)', result);
     res.send(result);
   });
 });
 
 // 게시판 댓글넣기
 app.post('/boardCommentInsert', (req, res) => {
-  console.log('boardCommentInsert', req.body);
+  console.log('boardCommentInsert(req.body))', req.body);
   var userid = req.body.userid;
   var bccontent = req.body.bccontent;
   var boardnum = req.body.boardnum;
@@ -514,22 +513,21 @@ app.post('/boardCommentInsert', (req, res) => {
     'INSERT INTO bcomment (userid, bccontent, boardnum) values (?,?,?);';
   db.query(sqlQuery, [userid, bccontent, boardnum], (err, result) => {
     res.send(result);
-    console.log('boardCommentInsert2', result);
+    console.log('boardCommentInsert(result)', result);
   });
 });
 
 //게시판 조회수넣기
 app.post('/boardUpdate', (req, res) => {
-  console.log('/boardUpdate', req.body);
+  console.log('/boardUpdate(req.body)', req.body);
 
   var num = parseInt(req.body.boardnum);
-  // var views = req.body.views;
 
   const sqlQuery =
-    'update board SET views = views + 1, bdate=now() WHERE boardnum=?;';
+    'UPDATE board SET views = views + 1, bdate=now() WHERE boardnum=?;';
   db.query(sqlQuery, [num], (err, result) => {
+    console.log('/boardUpdate(result)', result);
     res.send(result);
-    console.log('result=', result);
   });
 });
 
