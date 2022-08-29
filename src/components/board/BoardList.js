@@ -8,6 +8,7 @@ const BoardList = ({ boardlist }) => {
   // 페이지 넘기기 기능
   const [page, setPage] = useState(1);
   const [items, setItems] = useState(15);
+  console.log('boardlist 확인 : ', boardlist);
 
   const handlePageChange = (page) => {
     setPage(page);
