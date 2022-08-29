@@ -268,8 +268,8 @@ const upload = multer({
           iconv.decode(file.originalname, 'utf-8').toString(),
           ext,
         ) +
-        Date.now() +
-        ext,
+          Date.now() +
+          ext,
       );
     },
   }),
