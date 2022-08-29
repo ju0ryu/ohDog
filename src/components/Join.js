@@ -241,7 +241,7 @@ const Join = () => {
                       중복확인
                     </button>
                     <input
-                      type="tel"
+                      type="number"
                       name="tel"
                       placeholder="전화번호를 입력하세요"
                       required="required"
@@ -250,7 +250,7 @@ const Join = () => {
                     />
 
                     <tr>
-                      <td className="abc">주소</td>
+                      <td className="abc">&nbsp;주소</td>
                       <td className="addr">
                         {/* <label for="addr">주소 : </label> */}
                         <input
@@ -267,7 +267,7 @@ const Join = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="abc">상세주소</td>
+                      <td className="abc">&nbsp;상세주소</td>
                       <td className="def">
                         <div>
                           <input
@@ -280,7 +280,7 @@ const Join = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="abc">생년월일</td>
+                      <td className="abc">&nbsp;생년월일</td>
                       <td className="def">
                         <input
                           type="date"
@@ -294,7 +294,7 @@ const Join = () => {
                       </td>
                     </tr>
                     <div className="select">
-                      <td className="abc">&nbsp;&nbsp;성별</td>
+                      <td className="abc">&nbsp;&nbsp;&nbsp;&nbsp;성별</td>
                       <td className="def">
                         <input
                           className="l"
