@@ -56,7 +56,7 @@ const BoardArticle = ({ article }) => {
           {article.btitle}
         </a>
       </td>
-      <td>{article.userid}</td>
+      <td className="articleId">{article.userid}</td>
       <td className="boardLike" onClick={likeChange}>
         {boardLike ? '♥' : '♡'}
       </td>

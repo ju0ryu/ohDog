@@ -260,8 +260,12 @@ const Join = () => {
                           value={address}
                         />
                       </td>
-                      <td>
-                        <button type="button" onClick={openPostCode}>
+                      <td className="joinSearchTd">
+                        <button
+                          className="joinSearch"
+                          type="button"
+                          onClick={openPostCode}
+                        >
                           🔍
                         </button>
                       </td>
