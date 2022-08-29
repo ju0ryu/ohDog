@@ -21,15 +21,16 @@
   .updateDataWrapper {
     display: flex;
     flex-flow: row wrap;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 60px;
+    // padding-right: 40px;
     .updateData {
       margin-left: 20px;
+      margin-bottom: 40px;
 
       .animalName {
         text-align: center;
         font-size: 30px;
-        height: 0px;
+        height: 5px;
         p {
           width: 200px;
           margin-bottom: 0;
@@ -45,7 +46,7 @@
       table {
         margin-right: 20px;
         width: 200px;
-        border: 1px solid rgb(180, 179, 179);
+        // border: 1px solid rgb(180, 179, 179);
         border-radius: 10px;
         font-family: 'Dongle', sans-serif;
         font-size: 25px;
@@ -91,7 +92,8 @@
       input {
         width: 220px;
         height: 430px;
-        border: 1px solid rgb(180, 179, 179);
+        border: none;
+        // border: 1px solid rgb(180, 179, 179);
         border-radius: 10px;
         font-family: 'Dongle', sans-serif;
         font-size: 35px;

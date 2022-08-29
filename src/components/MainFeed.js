@@ -2,14 +2,17 @@ import React, { useEffect, useState, useRef } from 'react';
 import '../css/mainFeed.scss';
 import axios from 'axios';
 import Fcommant from './Fcommant';
+import msgbt from '../icon/msg.svg';
 import Photos from './photo';
+import inputbt from '../icon/write.svg';
+
 // 스와이프 넘기기
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import "../css/swiper-styles.css";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import '../css/swiper-styles.css';
 
 const MainFeed = () => {
   const userid = window.sessionStorage.getItem('id');
@@ -31,8 +34,6 @@ const MainFeed = () => {
     imageList: [],
   });
   // =============================이미지===================================
-
-
 
   const onClick = (e) => {
     console.log('e.target.id =>', e.target.id);
@@ -91,8 +92,6 @@ const MainFeed = () => {
   }, []);
   console.log('fccontentlist.fccontentList =>', fccontentlist.fccontentList);
 
-
-
   // ========================이미지==============================
   useEffect(() => {
     axios
@@ -111,13 +110,13 @@ const MainFeed = () => {
   }, []);
   // ========================이미지==============================
 
-
   return (
-    <>
+    <div className="mainTitle">
+      <p>전체피드</p>
       <Swiper
-        slidesPerView={1}
+        slidesPerView={3}
         spaceBetween={30}
-        centeredSlides={true}
+        centeredSlides={false}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
@@ -132,6 +131,7 @@ const MainFeed = () => {
         {/* // ========================이미지============================== */}
 
         <div className="container">
+
           {imagelist.imageList.map((article) => {
             return (
               <SwiperSlide>
@@ -146,16 +146,6 @@ const MainFeed = () => {
           })}
         </div>
 
-
-
-        {/* <SwiperSlide>1</SwiperSlide>
-        <SwiperSlide>2</SwiperSlide>
-        <SwiperSlide>3</SwiperSlide>
-        <SwiperSlide>4</SwiperSlide>
-        <SwiperSlide>5</SwiperSlide>
-        <SwiperSlide>6</SwiperSlide> */}
-
-
       </Swiper>
       {/* // ========================이미지============================== */}
       <div className="mainbox">
@@ -168,106 +158,139 @@ const MainFeed = () => {
           );
           if (mainlist.fnum == fnumstate) {
             return (
-              <div className="mainfeedbox" height="350px">
-                <table className="mainlistbox" width="420px">
-                  <tr>
-                    <td colSpan="2" align="left">
-                      {mainlist.userid}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="mainfcbox" colSpan="2" align="center">
-                      {mainlist.fcomment}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan="2" align="right">
-                      {mainlist.fdate}
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td colSpan="2" align="center">
-                      <input
-                        id={mainlist.fnum}
-                        type="button"
-                        value="댓글보기"
-                        onClick={onClick}
-                      ></input>
-                    </td>
-                  </tr>
-                </table>
-                <form onSubmit={fcInsert} id={mainlist.fnum}>
-                  <table>
+              <div>
+                <div className="mainfeedbox" height="700px">
+                  <table className="mainlistbox" width="700px">
                     <tr>
-                      <td align="right" colSpan="2">
-                        <input
-                          className="fcinput"
-                          type="text"
-                          name="comment"
-                          ref={fccontentRef}
-                          size="40"
-                          defaultValue=""
-                          placeholder="댓글달기"
-                        // onChange={onChange}
-                        />
+                      <td width="10px"></td>
+                      <td className="mainuserid" width="100%" align="center">
+                        {mainlist.userid}
                       </td>
-                      <td>
-                        <input type="submit" value="작성"></input>
+                      <td></td>
+
+                      <td className="mainfcbox" colSpan="4" align="center">
+                        {mainlist.fcomment}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="mainfdate" colSpan="4" align="right">
+                        {mainlist.fdate}
+                      </td>
+                      <td width="10px"></td>
+                    </tr>
+                    <tr>
+                      <td colSpan="4" align="center">
+                        <input
+                          className="msgbt"
+                          type="image"
+                          src={msgbt}
+                          alt="댓글보기"
+                          id={mainlist.fnum}
+                          onClick={onClick}
+                          height="25px"
+                        ></input>
                       </td>
                     </tr>
                   </table>
-                </form>
-                <div className="fclist">
-                  {fccontentlist.fccontentList.map((article) => {
-                    return <Fcommant article={article} />;
-                  })}
+                  <form onSubmit={fcInsert} id={mainlist.fnum}>
+                    <table className="fccommant" align="center" width="700px">
+                      <tr>
+                        <td align="center">
+                          <input
+                            className="fcinput"
+                            type="text"
+                            name="comment"
+                            ref={fccontentRef}
+                            size="60"
+                            defaultValue=""
+                            placeholder="댓글달기"
+                          // onChange={onChange}
+                          />
+                          <input
+                            className="inputbt"
+                            type="image"
+                            src={inputbt}
+                            alt="댓글달기"
+                          ></input>
+                        </td>
+                      </tr>
+                    </table>
+                  </form>
+                  <div className="fclist">
+                    {fccontentlist.fccontentList.map((article) => {
+                      return <Fcommant article={article} />;
+                    })}
+                  </div>
                 </div>
               </div>
             );
           } else {
             return (
-              <div className="mainfeedbox" height="350px">
-                <table className="mainlistbox" width="420px">
-                  <tr>
-                    <td colSpan="2" align="left">
-                      {mainlist.userid}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="mainfcbox" colSpan="2" align="center">
-                      {mainlist.fcomment}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan="2" align="right">
-                      {mainlist.fdate}
-                    </td>
-                  </tr>
+              <div>
+                <div className="mainfeedbox" height="700px">
+                  <table className="mainlistbox" width="700px">
+                    <tr>
+                      <td width="10px"></td>
+                      <td className="mainuserid" width="100%" align="center">
+                        {mainlist.userid}
+                      </td>
+                      <td></td>
 
-                  <tr>
-                    <td colSpan="2" align="center">
-                      <input
-                        id={mainlist.fnum}
-                        type="button"
-                        value="댓글보기"
-                        onClick={onClick}
-                      ></input>
-                    </td>
-                  </tr>
-                </table>
-
-                {/* <div>
-                 {fccontentlist.fccontentList.map((article) => {
-                   return <Fcommant article={article} />;
-                 })}
-               </div> */}
+                      <td className="mainfcbox" colSpan="4" align="center">
+                        {mainlist.fcomment}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="mainfdate" colSpan="4" align="right">
+                        {mainlist.fdate}
+                      </td>
+                      <td width="10px"></td>
+                    </tr>
+                    <tr>
+                      <td colSpan="4" align="center">
+                        <input
+                          className="msgbt"
+                          type="image"
+                          src={msgbt}
+                          alt="댓글보기"
+                          id={mainlist.fnum}
+                          onClick={onClick}
+                          height="25px"
+                        ></input>
+                      </td>
+                    </tr>
+                  </table>
+                  <form onSubmit={fcInsert} id={mainlist.fnum}>
+                    <table className="fccommant" align="center" width="700px">
+                      <tr>
+                        <td align="center">
+                          <input
+                            className="fcinput"
+                            type="text"
+                            name="comment"
+                            ref={fccontentRef}
+                            size="60"
+                            defaultValue=""
+                            placeholder="댓글달기"
+                          // onChange={onChange}
+                          />
+                          <input
+                            className="inputbt"
+                            type="image"
+                            src={inputbt}
+                            alt="댓글달기"
+                          ></input>
+                        </td>
+                      </tr>
+                    </table>
+                  </form>
+                </div>
               </div>
             );
           }
         })}
       </div>
-    </>
+    </div>
   );
 };
 

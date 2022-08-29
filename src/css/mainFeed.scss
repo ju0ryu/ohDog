@@ -1,65 +1,73 @@
 body {
-background-color: rgb(248, 247, 247);
+// background-color: rgb(248, 247, 247);
 
 #root {
   padding-top: 10px;
 }
 
 p {
-  margin-top: 30px;
   margin-bottom: 10px;
   font-family: 'Dongle', sans-serif;
   font-size: 40px;
 }
-
-.imagebox {
-  display: inline-block;
-  margin: 10px;
-  border: 1px solid black;
-  height:260px;
-  width:180px;
+.fccommant {
+  background-color: #fff;
+  // margin-left: -5px;
 }
 
 .fcinput{
-  background: transparent;
+  margin-bottom: 10px;
+  // background: transparent;
+  border-radius: 10px;
+  background-color: rgb(248, 245, 245);
+  text-align: center;
+  border: 0px solid black;
+  font-size: 15px;
+}
+
+.inputbt {
+  height: 25px;
 }
 
 .mainbox {
-display: inline-block;
-  margin:20px;
-  width: 710px;
-  height: 200px;
-  overflow: auto;
+// display: block;
+  // margin:20px;
+  margin: auto;
+  width: 700px;
+  // height: 200px;
+  // overflow: auto;
   }
 
-        .mainbox::-webkit-scrollbar {
-      width: 10px;
-      /* 스크롤바의 너비 */
-    }
+    //     .mainbox::-webkit-scrollbar {
+    //   width: 0px;
+    //   /* 스크롤바의 너비 */
+    // }
   
-        .mainbox::-webkit-scrollbar-thumb {
-      height: 30%;
-      /* 스크롤바의 길이 */
-      background: rgb(248, 245, 245);
-      /* 스크롤바의 색상 */
+    //     .mainbox::-webkit-scrollbar-thumb {
+    //   height: 30%;
+    //   /* 스크롤바의 길이 */
+    //   background: rgb(248, 245, 245);
+    //   /* 스크롤바의 색상 */
   
-      border-radius: 10px;
-    }
+    //   border-radius: 10px;
+    // }
   
-     .mainbox::-webkit-scrollbar-track {
-      background: rgb(248, 245, 245);
-      /*스크롤바 뒷 배경 색상*/
-    }
+    //  .mainbox::-webkit-scrollbar-track {
+    //   background: rgb(248, 245, 245);
+    //   /*스크롤바 뒷 배경 색상*/
+    // }
 
 .mainfeedbox {
+  display: inline-block;
  margin-bottom: 40px;
 }
 
 .mainlistbox {
-  margin-right: 20px;
+  // margin-right: 20px;
+  // padding-right: 10px;
   // border: 1px solid black;
   background-color: #fff;
-  border-radius: 10px;
+  // border-radius: 10px;
   // border-collapse: collapse;
 }
 
@@ -73,39 +81,34 @@ display: inline-block;
 .mainfcbox {
           border: none;
 }
-.fccommant {
 
-}
-
-.fcinput {
-  border-radius: 10px;
-
-}
 
 .fclist {
-  height:100px;
-  width:650px;
-  overflow: auto;
+  // margin-left: 20px;
+  display:block;
+  // height:100px;
+  width:100%;
+  // overflow: auto;
 }
 
-.fclist::-webkit-scrollbar {
-  width: 10px;
-  /* 스크롤바의 너비 */
-}
+// .fclist::-webkit-scrollbar {
+//   width:0px;
+//   /* 스크롤바의 너비 */
+// }
 
-.fclist::-webkit-scrollbar-thumb {
-  height: 30%;
-  /* 스크롤바의 길이 */
-  background: rgb(248, 245, 245);;
-  /* 스크롤바의 색상 */
+// .fclist::-webkit-scrollbar-thumb {
+//   height: 30%;
+//   /* 스크롤바의 길이 */
+//   background: rgb(248, 245, 245);;
+//   /* 스크롤바의 색상 */
 
-  border-radius: 10px;
-}
+//   border-radius: 10px;
+// }
 
-.fclist::-webkit-scrollbar-track {
-  background: rgb(248, 245, 245);;
-  /*스크롤바 뒷 배경 색상*/
-}
+// .fclist::-webkit-scrollbar-track {
+//   background: rgb(248, 245, 245);;
+//   /*스크롤바 뒷 배경 색상*/
+// }
 
 
 
