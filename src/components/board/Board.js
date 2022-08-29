@@ -117,7 +117,7 @@ function Board() {
   return (
     <>
       <div className="boardTop">
-        <div className="headers">
+        <div className="boardheaders">
           <p>게시판</p>
         </div>
         <div className="boardSearch">
