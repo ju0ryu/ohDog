@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useState,
-  useCallback,
-  useEffect,
-  Component,
-} from 'react';
+import React, { useRef, useState, useCallback, useEffect, Component } from 'react';
 // import Gallery from "react-photo-gallery";
 
 import Photos from './photo';
@@ -12,16 +6,25 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../css/image.scss';
 
+// noImg 사진삽입되기전 이미지 올려주는거??인듯
+import noImg from '../icon/noimg.gif';
+
 // import './Style.css'
 
 const Image = ({ handlelist }) => {
-  // console.log("imgurl!!!!!!!!!!!!!!!!!!!!!", imgurl);
-  // const imageRef = useRef();
-  const userid = window.sessionStorage.getItem('id');
+  // console.log("imgurl!!!!!!!!!!!!!!!!!!!!!", imgurl); const imageRef =
+  // useRef();
+  const userid = window
+    .sessionStorage
+    .getItem('id');
   const imgurl = useRef();
   const imgnum = useRef();
   // const imgdataRef = useRef();
   var secret = 'Y';
+  //
+
+  // 이미지 이름 const [image_name, setImage_name] = useState(''); 이미지 미리보기
+  const [renderImage, setRenderImage] = useState('');
 
   // 공개비공개?
   const onChange = (e) => {
@@ -55,7 +58,9 @@ const Image = ({ handlelist }) => {
     } else {
       alert('삭제가 취소되었습니다');
     }
-    window.location.reload();
+    window
+      .location
+      .reload();
   };
 
   // const [imgBase64, setImgBase64] = useState(""); 이미지 미리보기?
@@ -63,6 +68,8 @@ const Image = ({ handlelist }) => {
   function onImage(e) {
     setImage_name(e.target.files[0]);
   }
+
+
 
   // 이미지 목록
   useEffect(() => {
@@ -79,6 +86,7 @@ const Image = ({ handlelist }) => {
       });
   }, []);
 
+  // 이미지 저장 input
   const handleInsert = (e) => {
     console.log('handleInsert =>', imgurl.current.value);
     e.preventDefault();
@@ -87,24 +95,26 @@ const Image = ({ handlelist }) => {
       return false;
     }
 
+    // const handleCancel = () => {
+    //   window
+    //     .location
+    //     .reload();
+    // }
+
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+        'Content-Type': 'multipart/form-data'
+      }
     };
 
     axios
-      .post(
-        'http://localhost:8008/iinsert',
+      .post('http://localhost:8008/iinsert',
         // 위에 url 어떻게 연결 시켜야할지 모르겠음.
         {
-          userid,
-          secret,
+          userid, secret,
           // imgurl: imgurlRef.current.value, imgdata: imgdataRef.current.value,
-          image: image_name,
-        },
-        config,
-      )
+          image: image_name
+        }, config)
       .then((res) => {
         console.log('handleInsert =>', res);
         alert('업로드완료');
@@ -114,7 +124,9 @@ const Image = ({ handlelist }) => {
       .catch((e) => {
         console.error(e);
       });
-    window.location.reload();
+    window
+      .location
+      .reload();
   };
   // const [currentImage, setCurrentImage] = useState(0); const [viewerIsOpen,
   // setViewerIsOpen] = useState(false); 모달 생성 안됨....ㅅㅂ 모달 보내는법 알아야함. const
@@ -123,6 +135,21 @@ const Image = ({ handlelist }) => {
   // () => {   setCurrentImage(0);   setViewerIsOpen(false); }; var aa =
   // "http://localhost:8008/uploads/" + imagelist.imageList[33].imgurl;
   // console.log(aa); console.log("imgnum", imagelist.imageList[2].imgnum);
+
+  const encodeFileToBase64 = (fileBlob) => {
+    setImage_name(fileBlob);
+    const reader = new FileReader();
+
+    reader.readAsDataURL(fileBlob);
+
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setRenderImage(reader.result);
+
+        resolve();
+      };
+    });
+  };
 
   return (
     <div>
@@ -144,82 +171,118 @@ const Image = ({ handlelist }) => {
           </Link>
         </ul>
       </nav>
+      <form>
+        <table className="imgtable" border="1" width="700px" align="center">
+          <tr>
 
-      <table className="imgtable" border="1" width="700px" align="center">
-        <tr>
-          <td>이미지</td>
-          <td align="left">
-            <input
-              className="imgUpload"
-              type="file"
-              name="imageUpload"
-              ref={imgurl}
-              accept="image/*"
-              onChange={onImage}
-            />
-          </td>
-          <td>
-            <input
-              type="radio"
-              name="cs_open"
-              id="cs_open"
-              value="Y"
-              class="radio"
-              onChange={onChange}
-            ></input>
-            <span>공개</span>&nbsp;&nbsp;
-            <input
-              type="radio"
-              name="cs_open"
-              id="cs_open"
-              value="N"
-              class="radio"
-              onChange={onChange}
-            />
-            <span>비공개</span>&nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td colSpan="2" align="center">
-            <button
-              className="send_but"
-              type="submit"
-              value="전송"
-              onClick={handleInsert}
-            >
-              업로드
-            </button>
-            &nbsp;
-            <button className="cancel_but" type="reset" value="취소">
-              취소
-            </button>
-          </td>
-        </tr>
-      </table>
+            <td>
+
+              {/* 이미지 사진출력해주는거*/}
+
+              <div className="img-preview">
+                {
+                  image_name
+                    ? (<img src={renderImage} alt="비어있음" />)
+                    : (<img src={noImg} alt="preview-img" />)
+                }
+              </div>
+            </td>
+            {/* 이미지 인풋 라벨 연결할떄 인풋을 아이디로 바꿔줘야함 네임 */}
+            {/* <tr > */}
+            <td className='fileBox'>
+              <div className='fileBox_box1'>
+                <label for="imgUpload">사진선택</label>
+                {/* <td align="left"> */}
+                <input className="imgUpload" type="file" id="imgUpload" ref={imgurl} accept="image/*"
+                  // onChange={onImage}
+                  onChange={(e) => {
+                    encodeFileToBase64(e.target.files[0]);
+                  }} />
+              </div>
+              {/* </td> */}
+              {/* </td> */}
+              {/* </tr> */}
+              {/* <td> */}
+              <div className='fileBox_box2'>
+                <input
+                  type="radio"
+                  name="cs_open"
+                  id="cs_open"
+                  value="Y"
+                  class="radio"
+                  onChange={onChange}></input>
+                &nbsp;&nbsp;<span>공개</span>&nbsp;&nbsp;
+                <input
+                  type="radio"
+                  name="cs_open"
+                  id="cs_open"
+                  value="N"
+                  class="radio"
+                  onChange={onChange} />
+                &nbsp;&nbsp;<span>비공개</span>&nbsp;
+              </div>
+
+              <div className='fileBox_box3'>
+                <button className="send_but" type="submit" value="전송" onClick={handleInsert}>
+                  업로드
+                </button>
+                &nbsp;
+                <button className="cancel_but" type="reset" value="취소"  >
+                  취소
+                </button>
+              </div>
+            </td>
+          </tr>
+          {/* <tr> */}
+          {/* <td colSpan="4" align="center"> */}
+
+
+
+          {/* <label for="send_but">
+            <input className='send_but' id="send_but" type="submit" value="업로드" onClick={handleInsert}></input>
+          </label>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <label for="cancel_but"></label>
+          <input className='cancel_but' id="cancel_but" type="reset" value="취소" onClick={setRenderImage}></input> */}
+
+
+
+          {/* </td> */}
+          {/* </tr> */}
+        </table>
+      </form>
+
+
+
+
+
+
 
       <div className="container">
-        {imagelist.imageList.map((article) => {
-          return (
-            <div>
-              <Photos
-                userid={article.userid}
-                imgurl={'http://localhost:8008/uploads/' + article.imgurl}
-                imgnum={article.imgnum}
-                secret={article.secret}
-              />
+        {
+          imagelist
+            .imageList
+            .map((article) => {
+              return (
+                <div>
+                  <Photos
+                    userid={article.userid}
+                    imgurl={'http://localhost:8008/uploads/' + article.imgurl}
+                    imgnum={article.imgnum}
+                    secret={article.secret} />
 
-              <input
-                className="D_but"
-                id={article.imgnum}
-                type="button"
-                value="삭제"
-                onClick={handleDelete}
-              ></input>
-            </div>
-          );
-        })}
+                  <input
+                    className="D_but"
+                    id={article.imgnum}
+                    type="button"
+                    value="삭제"
+                    onClick={handleDelete}></input>
+                </div>
+              );
+            })
+        }
       </div>
-    </div>
+    </div >
   );
 };
 

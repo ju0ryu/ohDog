@@ -13,7 +13,7 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
     const images = [
         imgurl
     ];
-    let [ModalItem, setModalItem] = useState(false);
+    // let [ModalItem, setModalItem] = useState(false);
 
     const handleDelete = (e) => {
         if (window.confirm('삭제하시겠습니까?')) {
@@ -37,10 +37,11 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
     };
 
 
-    console.log("url", imgurl);
+    // console.log("url", imgurl);
 
-    const openImageViewer = useCallback((imgnum) => {
-        setCurrentImage(imgnum);
+    // 이미지 창 확대하고 줄이는거
+    const openImageViewer = useCallback((index) => {
+        setCurrentImage(index);
         setIsViewerOpen(true);
     }, []);
 
@@ -52,6 +53,7 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
 
 
     // const image = "http://localhost:8008/uploads/" + imgurl;
+    // 개인피드 뿌려주는곳
     return (
         <div className="out_img">
             <div className='img'>
@@ -61,8 +63,8 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
                         onClick={() => openImageViewer(imgnum)}
                         width="250"
                         height="250"
-                        key={imgnum}
-                        // style={{ margin: '50px' }}
+                        key={imgurl}
+                        style={{ margin: '5px' }}
                         alt=""
                     />
                 ))}
@@ -72,6 +74,10 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
                         src={images}
                         currentIndex={currentImage}
                         disableScroll={false}
+                        backgroundStyle={{
+                            backgroundColor: "rgba(255, 255, 255, 0.5)"
+                        }}
+
                         closeOnClickOutside={true}
                         onClose={closeImageViewer}
                     />

@@ -1,144 +1,227 @@
 #root {
-  padding-top: 54px;
+    padding-top: 54px;
 }
 
 .feedlink {
-  color:black;
+    color: black;
 }
 
 .photolink {
-  color: rgb(41, 48, 233);
+    color: rgb(41, 48, 233);
 }
 
 // image + 
-.container{
-  // display: flex;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr ;
-  gap: 30px;
-  width: 80%;
-  overflow: hidden;
-  // border: 5px solid black;
-  text-align: center;
-  margin: auto;
+.container {
+    // display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    width: 80%;
+    overflow: hidden;
+    // border: 5px solid black;
+    text-align: center;
+    margin: auto;
 
 }
 
 // photo
 .img {
-  width: 300px;
-  height: 300px;
-  object-fit: fill;
-   display: flex;
-   border-radius: 5px 5px 5px 5px;
-   
+    width: 300px;
+    height: 300px;
+    object-fit: fill;
+    display: flex;
+    border-radius: 15px 15px 15px 15px;
+
 }
 
 // photo
 .out_img {
-  margin-top: 30px;
-  width: 300px;
-  height: 300px;
-  // border: 1px solid red;
+    margin-top: 30px;
+    width: 300px;
+    height: 300px;
+    // border: 1px solid red;
 
 }
 
 // photo.js +
-.D_but { 
-  margin-right: 50px;
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-family: 'Dongle', sans-serif;
-  padding: 0 15px;
-  width: 100px;
-  height: 30px;
-  border: 1px solid #ccc;
-  background-color: rgba(152, 152, 255, 0.179);
-  border-radius: 3px;
-  &:hover {
-    background-color: red;
-    opacity: 0.5;
-    color: white;
-    cursor: pointer;
-    transition: 0.5s ease-out;
-  }
+.D_but {
+    margin-right: 50px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-family: 'Dongle', sans-serif;
+    padding: 0 15px;
+    width: 100px;
+    height: 30px;
+    border: 1px solid #ccc;
+    background-color: rgba(152, 152, 255, 0.179);
+    border-radius: 3px;
+    &:hover {
+        background-color: red;
+        opacity: 0.5;
+        color: white;
+        cursor: pointer;
+        transition: 0.5s ease-out;
+    }
 }
 
+.img-preview {
+    margin-left: 10px;
+    img {
+        border-radius: 5px;
+        width: 260px;
+        height: 250px;
+        object-fit: cover;
+    }
+}
 
+// 업로드버튼????
+.fileBox {
+    label {
+
+        // margin-right: 40px;
+        margin-bottom: 10px;
+        text-align: center;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        font-size: 20px;
+        line-height: 15px;
+        vertical-align: middle;
+        background-color: rgba(152, 152, 255, 0.179);
+        cursor: pointer;
+        border: 1px solid #ebebeb;
+        border-bottom-color: #e2e2e2;
+        border-radius: 0.25em;
+        width: 50px;
+        height: 10px;
+        &:hover {
+            background-color: rgb(0, 0, 255);
+            opacity: 0.5;
+            color: white;
+            cursor: pointer;
+            transition: 0.5s ease-out;
+        }
+    }
+    input[type='file'] {
+        /* 파일 필드 숨기기 */
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+
+    fileBox_box1 {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    fileBox_box2{
+        text-align: center;
+    }
+    fileBox_box3{
+        text-align: center;
+        margin-left: -140px;
+    }
+}
+
+// 박스 선 숨기기
+td,
+th {
+    // border: none;
+}
 
 // ==================================배경=============================================
 
-.ImgBackGround {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-}
+// .ImgBackGround {
+//     position: fixed;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     background-color: rgba(0,0,0,0.5);
+// }
 
-.ImgBackGround2 {
-  background-color: white;
-  width: 80%;
-  height: 100%;
-}
-
+// .ImgBackGround2 {
+//     background-color: white;
+//     width: 80%;
+//     height: 100%;
+// }
 
 // ==================================배경=============================================
-
-
 
 // =================================(image.js)테이블 삽입창========================================
 
 .imgtable {
 
-  border-radius: 10px;
-              background-color: #fff;
+    border-radius: 10px;
+    background-color: #fff;
+
+    .imgUpload {
+        margin-left: 35px;
+        margin-top: 10px;
+        &:hover {
+            background-color: rgb(0, 0, 255);
+            opacity: 0.5;
+            color: white;
+            cursor: pointer;
+            transition: 0.5s ease-out;
+        }
+    }
+    .send_but {
+        // margin-left: 35px;
+        margin-top: 10px;
+        &:hover {
+            background-color: rgb(0, 0, 255);
+            opacity: 0.5;
+            color: white;
+            cursor: pointer;
+            transition: 0.5s ease-out;
+        }
+    }
+
+    .cancel_but {
+        margin-left: 35px;
+        &:hover {
+            background-color: red;
+            opacity: 0.5;
+            color: white;
+            cursor: pointer;
+            transition: 0.5s ease-out;
+        }
+    }
 
 
-                            
-              
-              .imgUpload{
-                margin-left: 35px;
-                margin-top: 10px;
-                &:hover {
-                  background-color: rgb(0, 0, 255);
-                  opacity: 0.5;
-                  color: white;
-                  cursor: pointer;
-                  transition: 0.5s ease-out;
-                }
-              }
-
-              
 
 }
 
 // =================================(image.js)테이블 삽입창========================================
 
 // ================================전송버튼==================================
-.send_but {
-  margin-left: 35px;
-  margin-top: 10px;
-  &:hover {
-    background-color: rgb(0, 0, 255);
-    opacity: 0.5;
-    color: white;
-    cursor: pointer;
-    transition: 0.5s ease-out;
-  }
-}
+// .send_but {
+//     margin-left: 35px;
+//     margin-top: 10px;
+//     &:hover {
+//         background-color: rgb(0, 0, 255);
+//         opacity: 0.5;
+//         color: white;
+//         cursor: pointer;
+//         transition: 0.5s ease-out;
+//     }
+// }
 // ================================취소버튼=======================================
-.cancel_but{
-  margin-left: 35px;
-  &:hover {
-    background-color: red;
-    opacity: 0.5;
-    color: white;
-    cursor: pointer;
-    transition: 0.5s ease-out;
-  }
-}
+// .cancel_but {
+//     margin-left: 35px;
+//     &:hover {
+//         background-color: red;
+//         opacity: 0.5;
+//         color: white;
+//         cursor: pointer;
+//         transition: 0.5s ease-out;
+//     }
+// }
