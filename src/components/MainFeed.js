@@ -29,12 +29,19 @@ const MainFeed = () => {
 
   const [fnumstate, setFnumstate] = useState(-1);
 
+  const [visible, setVisible] = useState(true);
+
   // =============================이미지===================================
   const [imagelist, setImagelist] = useState({
     imageList: [],
   });
   // =============================이미지===================================
 
+  const commentVisible = (e) => {
+    setVisible(!visible);
+    onClick(e);
+    console.log('visible :', visible);
+  };
   const onClick = (e) => {
     console.log('e.target.id =>', e.target.id);
     axios
@@ -54,6 +61,7 @@ const MainFeed = () => {
 
   const fcInsert = (e) => {
     e.preventDefault();
+    console.log(e);
     console.log('확인', fccontentRef.current.value);
     console.log(e.target.id);
     axios
@@ -191,7 +199,7 @@ const MainFeed = () => {
                           src={msgbt}
                           alt="댓글보기"
                           id={mainlist.fnum}
-                          onClick={onClick}
+                          onClick={commentVisible}
                           height="25px"
                         ></input>
                       </td>
@@ -221,11 +229,13 @@ const MainFeed = () => {
                       </tr>
                     </table>
                   </form>
-                  <div className="fclist">
-                    {fccontentlist.fccontentList.map((article) => {
-                      return <Fcommant article={article} />;
-                    })}
-                  </div>
+                  {visible && (
+                    <div className="fclist">
+                      {fccontentlist.fccontentList.map((article) => {
+                        return <Fcommant article={article} />;
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
             );
@@ -265,7 +275,7 @@ const MainFeed = () => {
                       </td>
                     </tr>
                   </table>
-                  <form onSubmit={fcInsert} id={mainlist.fnum}>
+                  {/* <form onSubmit={fcInsert} id={mainlist.fnum}>
                     <table className="fccommant" align="center" width="700px">
                       <tr>
                         <td align="center">
@@ -288,7 +298,7 @@ const MainFeed = () => {
                         </td>
                       </tr>
                     </table>
-                  </form>
+                  </form> */}
                 </div>
               </div>
             );
