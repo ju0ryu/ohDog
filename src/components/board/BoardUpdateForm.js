@@ -74,6 +74,12 @@ const BoardUpdateForm = () => {
       <form>
         <table border="1" width="700px" align="center">
           <tr>
+            <td width="100px">카테고리</td>
+            <td align="left" width="600px">
+              <p>{state[0].category}</p>
+            </td>
+          </tr>
+          <tr>
             <td width="100px">제목</td>
             <td align="left" width="600px">
               <input
@@ -85,7 +91,7 @@ const BoardUpdateForm = () => {
             </td>
           </tr>
           <tr>
-            <td width="100px">글쓴이</td>
+            <td width="100px">작성자</td>
             <td align="left" width="600px">
               {state[0].userid}
             </td>
