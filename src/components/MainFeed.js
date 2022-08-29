@@ -116,7 +116,7 @@ const MainFeed = () => {
       <Swiper
         slidesPerView={3}
         spaceBetween={30}
-        centeredSlides={true}
+        centeredSlides={false}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
@@ -131,6 +131,7 @@ const MainFeed = () => {
         {/* // ========================이미지============================== */}
 
         <div className="container">
+
           {imagelist.imageList.map((article) => {
             return (
               <SwiperSlide>
@@ -145,12 +146,6 @@ const MainFeed = () => {
           })}
         </div>
 
-        {/* <SwiperSlide>1</SwiperSlide>
-        <SwiperSlide>2</SwiperSlide>
-        <SwiperSlide>3</SwiperSlide>
-        <SwiperSlide>4</SwiperSlide>
-        <SwiperSlide>5</SwiperSlide>
-        <SwiperSlide>6</SwiperSlide> */}
       </Swiper>
       {/* // ========================이미지============================== */}
       <div className="mainbox">
@@ -209,7 +204,7 @@ const MainFeed = () => {
                             size="60"
                             defaultValue=""
                             placeholder="댓글달기"
-                            // onChange={onChange}
+                          // onChange={onChange}
                           />
                           <input
                             className="inputbt"
@@ -277,7 +272,7 @@ const MainFeed = () => {
                             size="60"
                             defaultValue=""
                             placeholder="댓글달기"
-                            // onChange={onChange}
+                          // onChange={onChange}
                           />
                           <input
                             className="inputbt"
