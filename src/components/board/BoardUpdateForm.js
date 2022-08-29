@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from '../../../node_modules/axios/index';
 import { useNavigate } from '../../../node_modules/react-router-dom/index';
+import '../../css/boardupdate.scss';
 
 const BoardUpdateForm = () => {
   const { state } = useLocation();
@@ -70,17 +71,17 @@ const BoardUpdateForm = () => {
   };
 
   return (
-    <div>
-      <form>
-        <table border="1" width="700px" align="center">
-          <tr>
+    <div className="boardUpdate">
+      <form className="updateForm">
+        <table className="updateTable">
+          <tr className="updateCategory">
             <td width="100px">카테고리</td>
             <td align="left" width="600px">
               <p>{state[0].category}</p>
             </td>
           </tr>
-          <tr>
-            <td width="100px">제목</td>
+          <tr className="updateTitle">
+            <td width="120px">제목</td>
             <td align="left" width="600px">
               <input
                 type="text"
@@ -90,14 +91,14 @@ const BoardUpdateForm = () => {
               ></input>
             </td>
           </tr>
-          <tr>
-            <td width="100px">작성자</td>
+          <tr className="updateId">
+            <td width="120px">작성자</td>
             <td align="left" width="600px">
               {state[0].userid}
             </td>
           </tr>
-          <tr>
-            <td width="100px">글내용</td>
+          <tr className="updateContent">
+            <td width="120px ">글내용</td>
             <td align="left" width="600px">
               <input
                 type="text"
@@ -107,21 +108,22 @@ const BoardUpdateForm = () => {
               ></input>
             </td>
           </tr>
-          <tr>
+          <tr className="boardbtns">
             <td colspan="2" align="center">
               <input
+                className="updateBoardBtn"
                 type="button"
                 value="글수정"
                 onClick={handleUpdate}
               ></input>
               <input
+                className="deleteBoardBtn"
                 type="button"
                 value="글삭제"
                 id={state[0].boardnum}
                 onClick={handleDelete}
               ></input>
             </td>
-            <td></td>
           </tr>
         </table>
       </form>

@@ -1,9 +1,12 @@
 import axios from 'axios';
+import { useState } from 'react';
 import { useNavigate } from '../../../node_modules/react-router-dom/index';
+import '../../css/boardarticle.scss';
 
 const BoardArticle = ({ article }) => {
   console.log('BoardArticle =>', article);
   const navigate = useNavigate();
+  const [boardLike, setBoardLike] = useState(false);
 
   //상세보기로 넘겨주기
   const handleDetail = (e) => {
@@ -42,8 +45,11 @@ const BoardArticle = ({ article }) => {
   // const moveToDetail = (detail) => {
   //   navigate('/detail', { state: detail });
   // };
+  const likeChange = () => {
+    setBoardLike(!boardLike);
+  };
   return (
-    <tr>
+    <tr className="boardTr">
       <td>{article.category}</td>
       <td>
         <a href="#" id={article.boardnum} onClick={handleDetail}>
@@ -51,7 +57,9 @@ const BoardArticle = ({ article }) => {
         </a>
       </td>
       <td>{article.userid}</td>
-      <td>좋아요</td>
+      <td className="boardLike" onClick={likeChange}>
+        {boardLike ? '♥' : '♡'}
+      </td>
       <td>{article.views}</td>
     </tr>
   );

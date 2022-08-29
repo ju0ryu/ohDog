@@ -2,6 +2,9 @@ import React, { useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
 import '../css/login.scss';
+import logoNew1 from '../icon/ohDog_title.png';
+import facebook from '../icon/facebook.svg';
+
 //로그인
 const Login = () => {
   const idRef = useRef();
@@ -32,6 +35,8 @@ const Login = () => {
         pw: pwRef.current.value,
       })
       .then((res) => {
+        console.log('session :', idRef.current.value);
+        // console.log('res.data :', res.data);
         if (idRef.current.value === 'admin' && res.data[0].cnt === 1) {
           window.sessionStorage.setItem('id', idRef.current.value);
           navigate('/member');
@@ -49,52 +54,71 @@ const Login = () => {
   };
 
   const handleMemberForm = () => {
-    navigate('/join');
+    navigate('/join1');
   };
 
   return (
-    <div>
-      <p></p>
-      <form>
-        <table border="1" width="300px" align="center">
-          <tr>
-            <td width="100px">아이디</td>
-            <td align="left" width="200px">
-              <input
-                type="text"
-                name="id"
-                size="20"
-                ref={idRef}
-                placeholder="아이디를 입력하세요"
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td width="100px">패스워드</td>
-            <td align="left" width="200px">
-              <input
-                type="password"
-                name="pw"
-                size="20"
-                ref={pwRef}
-                placeholder="패스워드를 입력하세요"
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td colSpan="2" align="center">
-              <input type="button" value="로그인" onClick={handleLogin}></input>
-              &nbsp;
-              <input
-                type="button"
-                value="회원가입"
-                onClick={handleMemberForm}
-              ></input>
-            </td>
-          </tr>
-        </table>
-      </form>
-    </div>
+    <html>
+      <head>
+        <title></title>
+      </head>
+      <body>
+        <div class="container1">
+          <main class="loginMain">
+            <section class="login">
+              <article class="login__form__container">
+                <div class="login__form">
+                  <h1>
+                    <a href="http://localhost:3000/">
+                      <img src={logoNew1} alt="" />
+                    </a>
+                  </h1>
+                  <div class="login__input">
+                    <input
+                      type="text"
+                      name="username"
+                      placeholder="아이디를 입력하세요"
+                      required="required"
+                      ref={idRef}
+                    />
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="비밀번호를 입력하세요"
+                      required="required"
+                      ref={pwRef}
+                    />
+                    <button onClick={handleLogin}>로그인</button>
+                  </div>
+
+                  <div class="login__horizon">
+                    <div class="br"></div>
+                    <div class="or">또는</div>
+                    <div class="br"></div>
+                  </div>
+                  <div class="login__facebook">
+                    <button onclick="javascript:location.href=''">
+                      <i class="fab fa-facebook-square"></i>
+                      <span>
+                        <img src={facebook} width="14px" />
+                        &nbsp; Facebook으로 로그인
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="login__register">
+                  <span>계정이 없으신가요?</span>
+                  <div class="signup1" onClick={handleMemberForm}>
+                    가입하기
+                  </div>
+                </div>
+              </article>
+            </section>
+          </main>
+        </div>
+      </body>
+    </html>
   );
 };
 
