@@ -72,6 +72,7 @@ const BoardUpdateForm = () => {
 
   return (
     <div className="boardUpdate">
+      <p>글 수정</p>
       <form className="updateForm">
         <table className="updateTable">
           <tr className="updateCategory">

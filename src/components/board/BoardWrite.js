@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from '../../../node_modules/react-router-dom/index';
+import '../../css/boardwrite.scss';
 
 const BoardWrite = () => {
   const titleRef = useRef();
@@ -68,9 +69,10 @@ const BoardWrite = () => {
   };
 
   return (
-    <div>
-      <form>
-        <table border="1" width="700px" align="center">
+    <div className="boardWrite">
+      <p>글쓰기</p>
+      <form className="writeForm">
+        <table className="writeTable" border="1" width="700px" align="center">
           <tr>
             <td width="100px">카테고리</td>
             <td align="left" width="550px">
@@ -91,7 +93,7 @@ const BoardWrite = () => {
           </tr>
           <tr>
             <td width="100px">제목</td>
-            <td align="left" width="550px">
+            <td className="writeTitle" align="left" width="550px">
               <input
                 type="text"
                 name="title"
@@ -101,11 +103,11 @@ const BoardWrite = () => {
               ></input>
             </td>
           </tr>
-
           <tr>
             <td>내용</td>
             <td align="left">
               <textarea
+                className="writeContent"
                 rows="5"
                 cols="70"
                 name="content"
@@ -117,12 +119,18 @@ const BoardWrite = () => {
           <tr>
             <td colSpan="2" align="center">
               <input
+                className="writeUpdate"
                 type="button"
                 value="글쓰기"
                 onClick={handleInsert}
               ></input>
               &nbsp;
-              <input type="button" value="취소" onClick={handleOut}></input>
+              <input
+                className="writeDelete"
+                type="button"
+                value="취소"
+                onClick={handleOut}
+              ></input>
             </td>
           </tr>
         </table>
