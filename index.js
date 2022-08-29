@@ -437,7 +437,7 @@ app.post('/eupdate', (req, res) => {
 app.get('/list', (req, res) => {
   console.log('게시판 게시글 전체조회');
   const sqlQuery =
-    'SELECT boardnum, btitle, category, views FROM board order by boardnum desc;';
+    'SELECT boardnum, userid, btitle, category, views FROM board order by boardnum desc;';
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
@@ -450,7 +450,7 @@ app.post('/searchList', (req, res) => {
   console.log('/searchList2(search)', search);
   var querySearch = '%' + search + '%';
   const sqlQuery =
-    'SELECT boardnum, btitle, category, views FROM board WHERE btitle LIKE ? order by boardnum desc;';
+    'SELECT boardnum, userid, btitle, category, views FROM board WHERE btitle LIKE ? order by boardnum desc;';
   db.query(sqlQuery, [querySearch], (err, result) => {
     res.send(result);
     console.log('/searchList3(result)', result);
@@ -463,7 +463,7 @@ app.post('/searchCategoryList', (req, res) => {
   var category = req.body.category;
 
   const sqlQuery =
-    'SELECT boardnum, btitle, category, views FROM board WHERE category LIKE ? order by boardnum desc;';
+    'SELECT boardnum, userid, btitle, category, views FROM board WHERE category LIKE ? order by boardnum desc;';
   db.query(sqlQuery, [category], (err, result) => {
     res.send(result);
   });
@@ -490,7 +490,7 @@ app.post('/detail', (req, res) => {
   var num = parseInt(req.body.boardnum);
 
   const sqlQuery =
-    "SELECT boardnum, userid, btitle, bcontent, DATE_FORMAT(bdate, '%Y-%m-%d') AS bdate, category FROM board WHERE boardnum = ?;";
+    "SELECT boardnum, userid, btitle, bcontent, DATE_FORMAT(bdate, '%Y-%m-%d') AS bdate, category, views FROM board WHERE boardnum = ?;";
   db.query(sqlQuery, [num], (err, result) => {
     console.log('/datail2(result)', result);
     res.send(result);
