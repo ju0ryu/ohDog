@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../css/login.scss';
+import '../css/join.scss';
 import PopupPostCode from './PopupPostCode';
 import PopupDom from './PopupDom';
+import logoNew1 from '../icon/ohDog_title.png';
 
 const Join = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -157,7 +158,7 @@ const Join = () => {
         console.log('handleMember =>', res);
         if (res.data.affectedRows === 1) alert('환영합니다!!');
         else alert('회원가입에 실패하였습니다.');
-        navigate('/');
+        navigate('/Login1');
       })
       .catch((e) => {
         console.error(e);
@@ -165,153 +166,171 @@ const Join = () => {
   };
 
   return (
-    <div>
-      <p></p>
-      <form>
-        <table border="1" width="400px" align="center">
-          <tr>
-            <td width="100px">아이디</td>
-            <td align="left" width="200px">
-              <input
-                type="text"
-                name="id"
-                size="20"
-                defaultValue=""
-                ref={idRef}
-                placeholder="아이디를 입력하세요"
-                required
-              ></input>
-              <input
-                type="button"
-                value="중복확인"
-                width="20px"
-                align="right"
-                onClick={checkid}
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td width="100px">비밀번호</td>
-            <td align="left" width="200px">
-              <input
-                type="password"
-                name="pw"
-                size="20"
-                defaultValue=""
-                ref={pwRef}
-                placeholder="비밀번호를 입력하세요"
-                required
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">비밀번호 확인</td>
-            <td align="left" width="200px">
-              <input
-                type="password"
-                name="checkpw"
-                size="20"
-                defaultValue=""
-                ref={checkpwRef}
-                placeholder="비밀번호를 확인해주세요"
-                required
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td width="100px">닉네임</td>
-            <td align="left" width="200px">
-              <input
-                type="text"
-                name="Nickname"
-                size="20"
-                defaultValue=""
-                ref={nicknameRef}
-                placeholder="닉네임을 입력하세요"
-                required
-              ></input>
-              <input
-                type="button"
-                value="중복확인"
-                width="20px"
-                align="right"
-                onClick={checknickname}
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td width="100px">전화번호</td>
-            <td align="left" width="200px">
-              <input
-                type="tel"
-                name="tel"
-                size="20"
-                defaultValue=""
-                ref={telRef}
-                placeholder="'-'를 빼고 입력하세요"
-                required
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td width="100px">주소</td>
-            <td>
-              <div id="popupDom">
-                {isPopupOpen && (
-                  <PopupDom>
-                    <PopupPostCode
-                      onClose={closePostCode}
-                      setAddress={setAddress}
+    <html>
+      <head></head>
+      <body>
+        <div class="container2">
+          <main class="loginMain">
+            <section class="login">
+              <article class="login__form__container">
+                <div class="login__form">
+                  <h1>
+                    <a href="http://localhost:3000/join1">
+                      <img src={logoNew1} alt="" />
+                    </a>
+                  </h1>
+                  <div id="popupDom">
+                    {isPopupOpen && (
+                      <PopupDom>
+                        <PopupPostCode
+                          onClose={closePostCode}
+                          setAddress={setAddress}
+                        />
+                      </PopupDom>
+                    )}
+                  </div>
+                  <form class="login__input">
+                    <input
+                      type="text"
+                      name="username"
+                      placeholder="아이디를 입력하세요"
+                      required="required"
+                      maxlength="30"
+                      maxLength={10}
+                      ref={idRef}
                     />
-                  </PopupDom>
-                )}
-              </div>
-              <label for="addr">주소 : </label>
-              <input ref={addrRef} type="text" name="addr" value={address} />
-              <button type="button" onClick={openPostCode}>
-                🔍
-              </button>
-              <div>
-                <label for="addrDetail">상세주소 : </label>
-                <input ref={addr2Ref} type="text" name="addrDetail" />
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="100px">생년월일</td>
-            <td align="left" width="200px">
-              <input
-                type="date"
-                name="birth"
-                size="20"
-                defaultValue=""
-                ref={birthRef}
-                placeholder="생년월일을 입력하세요"
-                required
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td width="100px">성별</td>
-            <td align="left" width="200px">
-              <input type="radio" name="gender" value="M" onChange={onChange} />
-              <label>남성</label>
-              <input type="radio" name="gender" value="F" onChange={onChange} />
-              <label>여성</label>
-            </td>
-          </tr>
-          <tr>
-            <td colSpan="2" align="center">
-              <input
-                type="button"
-                value="회원등록"
-                onClick={handleMember}
-              ></input>
-            </td>
-          </tr>
-        </table>
-      </form>
-    </div>
+                    <button
+                      type="button"
+                      class="jb"
+                      value="중복확인"
+                      onClick={checkid}
+                    >
+                      중복확인
+                    </button>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="비밀번호를 입력하세요"
+                      required="required"
+                      maxLength={20}
+                      ref={pwRef}
+                    />
+                    <input
+                      type="password"
+                      name="checkpw"
+                      placeholder="비밀번호를 확인해주세요"
+                      required="required"
+                      maxLength={20}
+                      ref={checkpwRef}
+                    />
+                    <input
+                      type="text"
+                      name="Nickname"
+                      placeholder="닉네임을 입력하세요"
+                      required="required"
+                      maxLength={10}
+                      ref={nicknameRef}
+                    />
+
+                    <button
+                      type="button"
+                      value="중복확인"
+                      class="jb"
+                      onClick={checknickname}
+                    >
+                      중복확인
+                    </button>
+                    <input
+                      type="tel"
+                      name="tel"
+                      placeholder="전화번호를 입력하세요"
+                      required="required"
+                      maxLength={10}
+                      ref={telRef}
+                    />
+
+                    <tr>
+                      <td className="abc">주소</td>
+                      <td className="addr">
+                        {/* <label for="addr">주소 : </label> */}
+                        <input
+                          ref={addrRef}
+                          type="text"
+                          name="addr"
+                          value={address}
+                        />
+                      </td>
+                      <td>
+                        <button type="button" onClick={openPostCode}>
+                          🔍
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="abc">상세주소</td>
+                      <td className="def">
+                        <div>
+                          <input
+                            ref={addr2Ref}
+                            type="text"
+                            name="addrDetail"
+                            placeholder="상세주소를 입력해주세요"
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="abc">생년월일</td>
+                      <td className="def">
+                        <input
+                          type="date"
+                          name="birth"
+                          size="20"
+                          defaultValue=""
+                          ref={birthRef}
+                          placeholder="생년월일을 입력하세요"
+                          required
+                        ></input>
+                      </td>
+                    </tr>
+                    <div className="select">
+                      <td className="abc">&nbsp;&nbsp;성별</td>
+                      <td className="def">
+                        <input
+                          className="l"
+                          id="male"
+                          type="radio"
+                          name="inputGender"
+                          value="M"
+                          onChange={onChange}
+                        />
+                        <label for="male">남성</label>
+                      </td>
+                      <td>
+                        <input
+                          className="l"
+                          id="female"
+                          type="radio"
+                          name="inputGender"
+                          value="F"
+                          onChange={onChange}
+                        />
+                        <label for="female">여성</label>
+                      </td>
+                    </div>
+                    <button onClick={handleMember}>가입</button>
+                  </form>
+                </div>
+                <div class="login__register">
+                  <span>계정이 있으신가요?</span>
+                  <a href="/auth/signin">&nbsp;&nbsp;로그인</a>
+                </div>
+              </article>
+            </section>
+          </main>
+        </div>
+      </body>
+    </html>
   );
 };
 
