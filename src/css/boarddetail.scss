@@ -1,0 +1,153 @@
+#root {
+  .detailForm {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    .detailTable {
+      margin: 0 auto;
+      width: 700px;
+      text-align: center;
+      font-size: 20px;
+      border-radius: 15px;
+      //   border: 1px solid #ccc;
+      background-color: #fff;
+      //   padding-top: 15px;
+      //   padding-bottom: 15px;
+      padding: 15px 15px;
+      .detailCategory {
+        td {
+          p {
+            padding-right: 30px;
+            height: 40px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            font-size: 25px;
+            text-align: left;
+            padding-left: 15px;
+            // border: 1px solid #ccc;
+            border-radius: 15px;
+          }
+        }
+      }
+      .detailTitle {
+        td {
+          p {
+            padding-right: 30px;
+            height: 40px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            font-size: 25px;
+            text-align: left;
+            padding-left: 15px;
+            // border: 1px solid #ccc;
+            border-radius: 15px;
+          }
+        }
+      }
+      .detailId {
+        td {
+          p {
+            padding-right: 30px;
+            height: 40px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            font-size: 25px;
+            text-align: left;
+            padding-left: 15px;
+            // border: 1px solid #ccc;
+            border-radius: 15px;
+          }
+        }
+      }
+      .detailDate {
+        td {
+          p {
+            padding-right: 30px;
+            height: 40px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            font-size: 25px;
+            text-align: left;
+            padding-left: 15px;
+            // border: 1px solid #ccc;
+            border-radius: 15px;
+          }
+        }
+      }
+      .detailContent {
+        td {
+          p {
+            padding: 15px;
+            // padding-right: 30px;
+            height: 150px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            font-size: 25px;
+            text-align: left;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+          }
+        }
+      }
+      .boardEdit {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        input {
+          font-family: 'Dongle', sans-serif;
+          font-size: x-large;
+          width: 60px;
+          height: 42px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          background-color: rgba(152, 152, 255, 0.179);
+          &:hover {
+            background-color: rgb(0, 0, 255);
+            opacity: 0.5;
+            color: white;
+            cursor: pointer;
+            transition: 0.5s ease-out;
+          }
+        }
+      }
+    }
+  }
+  .boardInput {
+    .boardForm {
+      .boardComment {
+        .binput {
+          font-size: 25px;
+          font-family: 'Dongle', sans-serif;
+          padding: 0 15px;
+          width: 610px;
+          height: 40px;
+          border-left: 1px solid #ccc;
+          border-top: 1px solid #ccc;
+          border-bottom: 1px solid #ccc;
+          border-right: none;
+          border-radius: 5px 0px 0px 5px;
+        }
+        .bSubmit {
+          font-family: 'Dongle', sans-serif;
+          font-size: 25px;
+          width: 60px;
+          height: 42px;
+          border-radius: 0 5px 5px 0;
+          border-left: 1px solid #ccc;
+          border-top: 1px solid #ccc;
+          border-bottom: 1px solid #ccc;
+          border-right: 1px solid #ccc;
+          background-color: white;
+          cursor: pointer;
+          &:hover {
+            background-color: rgb(0, 0, 255);
+            opacity: 0.7;
+            color: white;
+            transition: 0.5s ease-out;
+          }
+        }
+      }
+    }
+  }
+  .bCommentList {
+    border-radius: 15px;
+  }
+}

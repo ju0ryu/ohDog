@@ -2,6 +2,7 @@ import BoardArticle from './BoardArticle';
 import { useState } from 'react';
 import Pagination from 'react-js-pagination';
 import styled from 'styled-components';
+import '../../css/boardlist.scss';
 
 const BoardList = ({ boardlist }) => {
   // 페이지 넘기기 기능
@@ -21,7 +22,7 @@ const BoardList = ({ boardlist }) => {
   // 리턴값
   if (boardlist.boardList.length === 0) {
     return (
-      <>
+      <div className="boardList">
         <table width="900px" border="1" align="center">
           <thead>
             <tr>
@@ -33,7 +34,7 @@ const BoardList = ({ boardlist }) => {
             </tr>
           </thead>
         </table>
-      </>
+      </div>
     );
   } else {
     return (
@@ -49,8 +50,8 @@ const BoardList = ({ boardlist }) => {
             </select>
           </div>
         </div> */}
-        <div>
-          <table width="900px" border="1" align="center">
+        <div className="boardList">
+          <table className="boardTable">
             <thead>
               <tr>
                 <th width="60">카테고리</th>
@@ -71,7 +72,7 @@ const BoardList = ({ boardlist }) => {
             </tbody>
           </table>
         </div>
-        <div>
+        <div className="tablePage">
           <PaginationBox>
             <Pagination
               activePage={page}

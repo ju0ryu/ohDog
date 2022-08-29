@@ -1,0 +1,38 @@
+#root {
+  .boardList {
+    .boardTable {
+      margin: 0 auto;
+      width: 900px;
+      text-align: center;
+      font-size: 20px;
+      border-radius: 15px;
+      //   border: 1px solid #ccc;
+      background-color: #fff;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      //   cursor: pointer;
+
+      thead {
+        th {
+        }
+      }
+      tbody {
+        tr {
+          &:hover {
+            background-color: rgba(152, 152, 255, 0.179);
+          }
+          td {
+            margin-left: 0px;
+            margin-right: 0px;
+            // border-bottom: 1px solid rgba(204, 204, 204, 0.648);
+          }
+        }
+      }
+    }
+  }
+  .tablePage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

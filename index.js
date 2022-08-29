@@ -528,8 +528,10 @@ app.post('/boardCommentList', (req, res) => {
   var boardnum = parseInt(req.body.boardnum);
   console.log('boardCommentList(req.body)', req.body);
   console.log('boardCommentList(req.body.boardnum)', boardnum);
+  // const sqlQuery =
+  //   "SELECT bcnum, userid, bccontent, DATE_FORMAT(bcdate, '%m월%d일 %H:%i') AS bcdate FROM bcomment WHERE boardnum = ? order by bcdate desc;";
   const sqlQuery =
-    "SELECT bcnum, userid, bccontent, DATE_FORMAT(bcdate, '%m월%d일 %H:%i') AS bcdate FROM bcomment WHERE boardnum = ? order by bcdate desc;";
+    'SELECT bcnum, userid, bccontent,bcdate FROM bcomment WHERE boardnum = ? order by bcdate desc;';
   db.query(sqlQuery, [boardnum], (err, result) => {
     console.log('boardCommentList(result)', result);
     res.send(result);

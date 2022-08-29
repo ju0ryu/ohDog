@@ -46,7 +46,7 @@
       table {
         margin-right: 20px;
         width: 200px;
-        border: 1px solid rgb(180, 179, 179);
+        // border: 1px solid rgb(180, 179, 179);
         border-radius: 10px;
         font-family: 'Dongle', sans-serif;
         font-size: 25px;
@@ -92,7 +92,8 @@
       input {
         width: 220px;
         height: 430px;
-        border: 1px solid rgb(180, 179, 179);
+        border: none;
+        // border: 1px solid rgb(180, 179, 179);
         border-radius: 10px;
         font-family: 'Dongle', sans-serif;
         font-size: 35px;
