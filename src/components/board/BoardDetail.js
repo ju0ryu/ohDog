@@ -106,40 +106,103 @@ const BoardDetail = () => {
 
   if (login_id === state[0].userid) {
     return (
-      <div>
-        <form>
+      <>
+        <div>
           <table border="1" width="700px" align="center">
             <tr>
-              <td width="100px">글번호</td>
               <td align="left" width="600px">
-                {state[0].boardnum}번글
+                <p>카테고리 &gt;&nbsp;{state[0].category}</p>
               </td>
             </tr>
             <tr>
-              <td width="100px">제목</td>
               <td align="left" width="600px">
-                {state[0].btitle}
+                <p>{state[0].btitle}</p>
               </td>
             </tr>
             <tr>
-              <td width="100px">글쓴이</td>
               <td align="left" width="600px">
-                {state[0].userid}
+                <p> {state[0].userid}</p>
               </td>
             </tr>
             <tr>
-              <td width="100px">글쓴날짜</td>
               <td align="left" width="600px">
-                {state[0].bdate}
+                <p>{state[0].bdate}</p>
+                <p>{state[0].views}</p>
               </td>
             </tr>
             <tr>
-              <td width="100px">글내용</td>
               <td align="left" width="600px">
-                {state[0].bcontent}
+                <p>{state[0].bcontent}</p>
               </td>
             </tr>
           </table>
+        </div>
+        <div>
+          <form>
+            <div align="center">
+              <input
+                type="button"
+                id={state[0].boardnum}
+                value="글수정"
+                onClick={handleUpdateForm}
+              ></input>
+            </div>
+
+            <div align="center">
+              <input
+                className="fcinput"
+                type="text"
+                name="comment"
+                ref={boardCommentRef}
+                size="40"
+                defaultValue=""
+                placeholder="댓글을 남겨주세요."
+              />
+              <input type="button" onClick={boardInsert} value="등록"></input>
+            </div>
+          </form>
+        </div>
+        <div align="center" className="fclist">
+          {boardComment.BoardComment.map((article) => {
+            return <BoardComment article={article} />;
+          })}
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div>
+          <table border="1" width="700px" align="center">
+            <tr>
+              <td align="left" width="600px">
+                <p>카테고리 &gt;&nbsp;{state[0].category}</p>
+              </td>
+            </tr>
+            <tr>
+              <td align="left" width="600px">
+                <p>{state[0].btitle}</p>
+              </td>
+            </tr>
+            <tr>
+              <td align="left" width="600px">
+                <p> {state[0].userid}</p>
+              </td>
+            </tr>
+            <tr>
+              <td align="left" width="600px">
+                <p>{state[0].bdate}</p>
+                <p>{state[0].views}</p>
+              </td>
+            </tr>
+            <tr>
+              <td align="left" width="600px">
+                <p>{state[0].bcontent}</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div>
           <form>
             <div align="center">
               <input
@@ -149,82 +212,18 @@ const BoardDetail = () => {
                 ref={boardCommentRef}
                 size="40"
                 defaultValue=""
-                placeholder="댓글을 남겨주세요"
+                placeholder="댓글을 남겨주세요."
               />
               <input type="button" onClick={boardInsert} value="등록"></input>
             </div>
           </form>
-          <div align="center">
-            <input
-              type="button"
-              id={state[0].boardnum}
-              value="수정"
-              onClick={handleUpdateForm}
-            ></input>
-          </div>
-        </form>
+        </div>
         <div align="center" className="fclist">
           {boardComment.BoardComment.map((article) => {
             return <BoardComment article={article} />;
           })}
         </div>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <form>
-          <table border="1" width="700px" align="center">
-            <tr>
-              <td width="100px">글번호</td>
-              <td align="left" width="600px">
-                {state[0].boardnum}번글
-              </td>
-            </tr>
-            <tr>
-              <td width="100px">제목</td>
-              <td align="left" width="600px">
-                {state[0].btitle}
-              </td>
-            </tr>
-            <tr>
-              <td width="100px">글쓴이</td>
-              <td align="left" width="600px">
-                {state[0].userid}
-              </td>
-            </tr>
-            <tr>
-              <td width="100px">글쓴날짜</td>
-              <td align="left" width="600px">
-                {state[0].bdate}
-              </td>
-            </tr>
-            <tr>
-              <td width="100px">글내용</td>
-              <td align="left" width="600px">
-                {state[0].bcontent}
-              </td>
-            </tr>
-          </table>
-          <div align="center">
-            <input
-              className="fcinput"
-              type="text"
-              name="comment"
-              ref={boardCommentRef}
-              size="40"
-              defaultValue=""
-              placeholder="댓글을 남겨주세요"
-            />
-            <input type="button" onClick={boardInsert} value="등록"></input>
-          </div>
-        </form>
-        <div align="center" className="fclist">
-          {boardComment.BoardComment.map((article) => {
-            return <BoardComment article={article} />;
-          })}
-        </div>
-      </div>
+      </>
     );
   }
 };

@@ -39,18 +39,18 @@ const BoardArticle = ({ article }) => {
       });
   };
 
-  const moveToDetail = (detail) => {
-    navigate('/detail', { state: detail });
-  };
+  // const moveToDetail = (detail) => {
+  //   navigate('/detail', { state: detail });
+  // };
   return (
     <tr>
-      <td>{article.boardnum}</td>
       <td>{article.category}</td>
       <td>
         <a href="#" id={article.boardnum} onClick={handleDetail}>
           {article.btitle}
         </a>
       </td>
+      <td>{article.userid}</td>
       <td>좋아요</td>
       <td>{article.views}</td>
     </tr>

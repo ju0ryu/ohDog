@@ -6,6 +6,9 @@ import { useState } from 'react';
 import axios from 'axios';
 
 function Board() {
+  const [countboard, setCountBoard] = useState(0);
+  const [categoryboard, setCategoryBoard] = useState('전체');
+  console.log('categoryboard()', categoryboard);
   const [boardlist, setBoardlist] = useState({
     boardList: [],
   });
@@ -23,6 +26,11 @@ function Board() {
         setBoardlist({
           boardList: data,
         });
+        console.log('list(boardlist.boardList) ==>', boardlist);
+        setCountBoard({
+          countBoard: data.length,
+        });
+        setCategoryBoard('전체');
       })
       .catch((e) => {
         console.error(e);
@@ -68,6 +76,14 @@ function Board() {
         setBoardlist({
           boardList: data,
         });
+        setCountBoard({
+          countBoard: data.length,
+        });
+        console.log('handlecategorySearch(countboard) ==>', countboard);
+        setCategoryBoard({
+          categoryBoard: searchCategoryRef.current.value,
+        });
+        console.log('handlecategorySearch(categoryboard) ==>', categoryboard);
       })
       .catch((e) => {
         console.error(e);
@@ -82,10 +98,17 @@ function Board() {
         console.log('list(res) ==>', res);
         const { data } = res;
         console.log('list(data) ==>', data);
+        console.log('list(data.length) ==>', data.length);
         setBoardlist({
           boardList: data,
         });
+
+        setCountBoard({
+          countBoard: data.length,
+        });
+        console.log('list(countboard) ==>', countboard);
       })
+
       .catch((e) => {
         console.error(e);
       });
@@ -118,8 +141,8 @@ function Board() {
               <option onClick={handlecategorySearch} value="자유">
                 자유게시판
               </option>
-              <option onClick={handlecategorySearch} value="리뷰">
-                리뷰게시판
+              <option onClick={handlecategorySearch} value="동물병원">
+                동물병원
               </option>
               <option onClick={handlecategorySearch} value="분양">
                 분양게시판
@@ -127,7 +150,7 @@ function Board() {
               <option onClick={handlecategorySearch} value="분실">
                 분실게시판
               </option>
-              <option onClick={handlecategorySearch} value="질문">
+              <option onClick={handlecategorySearch} value="Q&A">
                 Q&amp;A게시판
               </option>
             </select>
@@ -137,16 +160,25 @@ function Board() {
               value="카테고리검색"
             ></input> */}
           </form>
-
           <button onClick={allList} className="searchCategoryList">
             전체글보기
           </button>
-
           <Link to="/insert">
             <button className="searchCategoryList">글쓰기</button>
           </Link>
         </div>
       </div>
+
+      <div>
+        <p>
+          {categoryboard === '전체'
+            ? categoryboard
+            : categoryboard.categoryBoard}
+          &nbsp;
+          {countboard.countBoard}개의 글
+        </p>
+      </div>
+
       <div>
         <BoardList boardlist={boardlist}></BoardList>
       </div>
