@@ -223,13 +223,16 @@ const Image = ({ handlelist }) => {
               </div>
 
               <div className='fileBox_box3'>
-                <button className="send_but" type="submit" value="전송" onClick={handleInsert}>
+                {/* <button className="send_but" type="submit" value="전송" onClick={handleInsert}>
                   업로드
-                </button>
+                </button> */}
+                <label for="send_but">업로드</label>
+                <input className='send_but' id="send_but" type="file" onClick={handleInsert}></input>
+
                 &nbsp;
-                <button className="cancel_but" type="reset" value="취소"  >
+                {/* <button className="cancel_but" type="reset" value="취소"  >
                   취소
-                </button>
+                </button> */}
               </div>
             </td>
           </tr>
