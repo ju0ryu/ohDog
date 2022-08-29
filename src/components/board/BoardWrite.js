@@ -13,12 +13,12 @@ const BoardWrite = () => {
   console.log('id:', login_id);
 
   const handleInsert = () => {
-    // if (categoryRef.current.value === undefined) {
-    //   console.log('handleInsert =>', categoryRef.current.value);
-    //   alert('카테고리를 선택하세요!!!');
-    //   categoryRef.current.focus();
-    //   return false;
-    // }
+    console.log('handleInsert =>', categoryRef.current.value);
+    if (categoryRef.current.value === '') {
+      alert('카테고리를 선택하세요!!!');
+      categoryRef.current.focus();
+      return false;
+    }
 
     if (titleRef.current.value === '' || titleRef.current.value === undefined) {
       alert('제목을 입력하세요!!!');
@@ -58,6 +58,15 @@ const BoardWrite = () => {
       });
   };
 
+  //나가기 기능
+  const handleOut = () => {
+    if (window.confirm('글 작성을 취소하시겠습니까?')) {
+      navigate('/board');
+    } else {
+      alert('취소되었습니다.');
+    }
+  };
+
   return (
     <div>
       <form>
@@ -67,11 +76,17 @@ const BoardWrite = () => {
             <td align="left" width="550px">
               <select name="board" size="6" ref={categoryRef}>
                 <option value="자유">자유게시판</option>
-                <option value="리뷰">리뷰게시판</option>
+                <option value="동물병원">동물병원게시판</option>
                 <option value="분양">분양게시판</option>
                 <option value="분실">분실게시판</option>
-                <option value="질문">질문게시판</option>
+                <option value="Q&A">Q&amp;A게시판</option>
               </select>
+            </td>
+          </tr>
+          <tr>
+            <td width="100px">글쓴이</td>
+            <td align="left" width="550px">
+              <td>{login_id}</td>
             </td>
           </tr>
           <tr>
@@ -86,12 +101,7 @@ const BoardWrite = () => {
               ></input>
             </td>
           </tr>
-          <tr>
-            <td width="100px">글쓴이</td>
-            <td align="left" width="550px">
-              <td>{login_id}</td>
-            </td>
-          </tr>
+
           <tr>
             <td>내용</td>
             <td align="left">
@@ -112,7 +122,7 @@ const BoardWrite = () => {
                 onClick={handleInsert}
               ></input>
               &nbsp;
-              <input type="reset" value="취소"></input>
+              <input type="button" value="취소" onClick={handleOut}></input>
             </td>
           </tr>
         </table>

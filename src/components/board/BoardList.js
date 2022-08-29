@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const BoardList = ({ boardlist }) => {
   // 페이지 넘기기 기능
   const [page, setPage] = useState(1);
-  const [items, setItems] = useState(5);
+  const [items, setItems] = useState(15);
 
   const handlePageChange = (page) => {
     setPage(page);
@@ -21,38 +21,41 @@ const BoardList = ({ boardlist }) => {
   // 리턴값
   if (boardlist.boardList.length === 0) {
     return (
-      <div>
+      <>
         <table width="900px" border="1" align="center">
           <thead>
             <tr>
-              <th width="60">번호</th>
-              <th width="100">카테고리</th>
+              <th width="60">카테고리</th>
               <th width="300">제목</th>
+              <th width="100">작성자</th>
               <th width="60">좋아요</th>
-              <th width="60">미정</th>
+              <th width="60">조회수</th>
             </tr>
           </thead>
         </table>
-      </div>
+      </>
     );
   } else {
     return (
-      <div>
-        <div>
-          <select name="items" onChange={itemChange}>
-            <option value="5">5개</option>
-            <option value="10">10개</option>
-            <option value="15">15개</option>
-            <option value="20">20개</option>
-          </select>
-        </div>
+      <>
+        {' '}
+        {/* <div>
+          <div>
+            <select name="items" onChange={itemChange}>
+              <option value="5">5개</option>
+              <option value="10">10개</option>
+              <option value="15">15개</option>
+              <option value="20">20개</option>
+            </select>
+          </div>
+        </div> */}
         <div>
           <table width="900px" border="1" align="center">
             <thead>
               <tr>
-                <th width="60">번호</th>
-                <th width="100">카테고리</th>
+                <th width="60">카테고리</th>
                 <th width="300">제목</th>
+                <th width="100">작성자</th>
                 <th width="60">좋아요</th>
                 <th width="60">조회수</th>
               </tr>
@@ -79,7 +82,7 @@ const BoardList = ({ boardlist }) => {
             ></Pagination>
           </PaginationBox>
         </div>
-      </div>
+      </>
     );
   }
 };
