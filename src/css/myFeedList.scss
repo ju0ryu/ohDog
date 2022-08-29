@@ -2,26 +2,26 @@
 .myfeedlistbox {
     margin:0 auto;
     display: block;
-    width: 720px;
+    width: 700px;
     height: 350px;
-    overflow: auto;
+    // overflow: auto;
 }
 
-.myfeedlistbox::-webkit-scrollbar {
-    width: 10px;
-    /* 스크롤바의 너비 */
-}
+// .myfeedlistbox::-webkit-scrollbar {
+//     width: 10px;
+//     /* 스크롤바의 너비 */
+// }
 
-.myfeedlistbox::-webkit-scrollbar-thumb {
-    height: 30%;
-    /* 스크롤바의 길이 */
-    background: rgb(248, 245, 245);
-    /* 스크롤바의 색상 */
+// .myfeedlistbox::-webkit-scrollbar-thumb {
+//     height: 30%;
+//     /* 스크롤바의 길이 */
+//     background: rgb(248, 245, 245);
+//     /* 스크롤바의 색상 */
 
-    border-radius: 10px;
-}
+//     border-radius: 10px;
+// }
 
-.myfeedlistbox::-webkit-scrollbar-track {
-    background: rgb(248, 245, 245);
-    /*스크롤바 뒷 배경 색상*/
-}
+// .myfeedlistbox::-webkit-scrollbar-track {
+//     background: rgb(248, 245, 245);
+//     /*스크롤바 뒷 배경 색상*/
+// }
