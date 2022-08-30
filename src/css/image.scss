@@ -36,12 +36,13 @@
 .imageHoverForm {
   top: 24%;
   position: fixed;
-  left: 33%;
+  left: 38%;
   z-index: 2;
   .imgtable {
     padding: 15px;
     border-radius: 10px;
     background-color: #fff;
+    box-shadow: 1px 1px 1px 0px #ccc;
     tr {
       td {
         .img-preview {
@@ -174,12 +175,12 @@
   // display: flex;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 30px;
+  gap: 70px;
   width: 80%;
   overflow: hidden;
   // border: 5px solid black;
   text-align: center;
-  margin: auto;
+  //   margin: auto;
 }
 
 // 업로드버튼????
