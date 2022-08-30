@@ -257,73 +257,7 @@ const Image = ({ handlelist }) => {
             {/* <tr> */}
             {/* <td colSpan="4" align="center"> */}
 
-<<<<<<< HEAD
             {/* <label for="send_but">
-=======
-              <div className="img-preview">
-                {
-                  image_name
-                    ? (<img src={renderImage} alt="비어있음" />)
-                    : (<img src={noImg} alt="preview-img" />)
-                }
-              </div>
-            </td>
-            {/* 이미지 인풋 라벨 연결할떄 인풋을 아이디로 바꿔줘야함 네임 */}
-            {/* <tr > */}
-            <td className='fileBox'>
-              <div className='fileBox_box1'>
-                <label for="imgUpload">사진선택</label>
-                {/* <td align="left"> */}
-                <input className="imgUpload" type="file" id="imgUpload" ref={imgurl} accept="image/*"
-                  // onChange={onImage}
-                  onChange={(e) => {
-                    encodeFileToBase64(e.target.files[0]);
-                  }} />
-              </div>
-              {/* </td> */}
-              {/* </td> */}
-              {/* </tr> */}
-              {/* <td> */}
-              <div className='fileBox_box2'>
-                <input
-                  type="radio"
-                  name="cs_open"
-                  id="cs_open"
-                  value="Y"
-                  class="radio"
-                  onChange={onChange}></input>
-                &nbsp;&nbsp;<span>공개</span>&nbsp;&nbsp;
-                <input
-                  type="radio"
-                  name="cs_open"
-                  id="cs_open"
-                  value="N"
-                  class="radio"
-                  onChange={onChange} />
-                &nbsp;&nbsp;<span>비공개</span>&nbsp;
-              </div>
-
-              <div className='fileBox_box3'>
-                {/* <button className="send_but" type="submit" value="전송" onClick={handleInsert}>
-                  업로드
-                </button> */}
-                <label for="send_but">업로드</label>
-                <input className='send_but' id="send_but" type="file" onClick={handleInsert}></input>
-
-                &nbsp;
-                {/* <button className="cancel_but" type="reset" value="취소"  >
-                  취소
-                </button> */}
-              </div>
-            </td>
-          </tr>
-          {/* <tr> */}
-          {/* <td colSpan="4" align="center"> */}
-
-
-
-          {/* <label for="send_but">
->>>>>>> 44d58c433843753ba34e7f07a4df6a8ad4360645
             <input className='send_but' id="send_but" type="submit" value="업로드" onClick={handleInsert}></input>
           </label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
