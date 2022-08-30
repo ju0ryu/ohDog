@@ -33,14 +33,9 @@ const BoardComment = ({ article }) => {
         <form className="bcForm" id={article.bcnum}>
           <table className="bcommentlist">
             <tr>
-              <td className="bidbox">
-                작성자
-                {article.userid}
-              </td>
+              <td className="bidbox">{article.userid}</td>
               <td className="bcbox">{article.bccontent}</td>
-              <td className="bdatebox">
-                <p>{makeFeedTime(article.bcdate)}</p>
-              </td>
+              <td className="bdatebox">{makeFeedTime(article.bcdate)}</td>
             </tr>
           </table>
         </form>

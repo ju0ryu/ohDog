@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from '../../node_modules/react-router-dom/index';
 import '../css/login.scss';
-import logoNew1 from '../icon/ohDog_title.png';
+import logoNew1 from '../icon/ohDogNew.jpg';
 import facebook from '../icon/facebook.svg';
 
 //로그인
