@@ -1,26 +1,55 @@
 #root {
-    font-size: 20px;
-    font-family: 'Dongle', sans-serif;
+  font-size: 20px;
+  font-family: 'Dongle', sans-serif;
+  .fcommentbox {
+    height: 220px;
+    border: none;
+    .fclistbox {
+      padding: 15px;
+      //   border-collapse: collapse;
+      //   background-color: rgb(248, 245, 245);
+      background-color: #fff;
+      border-radius: 10px;
+      width: 700px;
+      tr {
+        td {
+        }
+        .mfDelete {
+          text-align: right;
+          .mfDeleteBtn {
+            height: 20px;
+          }
+        }
+      }
+      .mfArticleBox {
+        display: flex;
+        .userid {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: rgb(248, 245, 245);
+          font-size: 20px;
+          border-radius: 80px;
+          height: 80px;
+          width: 80px;
+          font-weight: 500;
+          margin-right: 0px;
+          flex-direction: row;
+        }
+        .fcomment {
+          border: none;
+          font-size: 25px;
+          font-weight: 400;
+          width: 490px;
+          height: 20px;
+        }
+        .mfdate {
+          text-align: right;
+          padding-top: 80px;
+          color: rgb(108, 108, 108);
+          font-weight: 400;
+        }
+      }
+    }
+  }
 }
-
-.fcommantbox {
-        border:none;
-                background-color: rgb(248, 245, 245);
-}
-
-.fclistbox {
-    border-collapse: collapse;
-                background-color: rgb(248, 245, 245);
-          background-color: #fff;
-          border-radius: 10px;
-          width: 700px;
-}
-
-.userid {
-    background-color: rgb(248, 245, 245);
-    border-radius: 80px;
-    height: 100px;
-    width: 100px;
-}
-
-

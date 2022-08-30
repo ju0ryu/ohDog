@@ -44,28 +44,23 @@ const MyFeedWrite = ({ handlelist }) => {
   };
 
   return (
-    <div>
-      <form>
-        <table
-          className="myfeedwrite"
-          height="100px"
-          width="700px"
-          align="center"
-        >
+    <div className="feedWrite">
+      <form className="feedWriteForm">
+        <table className="feedWriteTable">
           <tr>
-            <td width="550px" align="center">
+            <td>
               <input
                 className="myfeedinput"
                 type="text"
                 name="writer"
                 size="70"
                 ref={writerRef}
-                placeholder="일상을 입력하세요"
+                placeholder="나의 일상을 기록해보세요"
               ></input>{' '}
               &nbsp;
               <input
                 align="center"
-                className="inputbt"
+                className="writeInputbt"
                 type="image"
                 src={inputbt}
                 alt="글쓰기"

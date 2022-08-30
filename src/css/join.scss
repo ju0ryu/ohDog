@@ -2,15 +2,47 @@
   width: 100px;
   text-align: left;
   height: 20px;
-  font-size: 14px;
+  font-size: 20px;
 }
 .def {
-  width: 200px;
-  text-align: right;
-  height: 20px;
+  input {
+    width: 200px;
+    text-align: left;
+    height: 20px;
+  }
 }
 .addr {
-  height: 20px;
+  margin-top: 10px;
+  // margin-left: 88px;
+  // width: 340px;
+  // padding-top: 10px;
+  height: 40px;
+  margin-bottom: 5px;
+  display: flex;
+  // margin-left: 25px;
+  line-height: -30px;
+  .abcc {
+    padding-top: 10px;
+    width: 100px;
+    text-align: left;
+    height: 20px;
+    font-size: 20px;
+    // margin-left: -25px;
+  }
+  input {
+    // margin-left: 12px;
+    width: 150px;
+    height: 20px;
+  }
+  .joinSearch {
+    margin: 0;
+    // margin-top: 30px;
+    // margin-left: 10px;
+    // padding-top: 5px;
+    // height: 20px;
+    width: 50px;
+    height: 38px;
+  }
 }
 
 /*가입페이지 이동버튼*/
@@ -26,11 +58,11 @@
   display: none;
 }
 .select input[type='radio'] + label {
-  margin-right: 10px;
+  margin-right: 5px;
   display: inline-block;
   cursor: pointer;
   height: 35px;
-  width: 95px;
+  width: 100px;
   border: 1px solid #ccc;
   line-height: 33px;
   text-align: center;
@@ -50,6 +82,5 @@
   color: white;
 }
 .joinSearchTd {
-}
-.joinSearch {
+  height: 20px;
 }

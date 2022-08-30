@@ -22,18 +22,21 @@ a {
 // }
 
 #menu {
-    display: flex;
+  display: flex;
   justify-content: center;
+  height: 80px;
 }
-.changeTitle{
- margin: 0;
- margin-top: 17px;
-font-family: 'Dongle', sans-serif;
+.changeTitle {
+  margin: 0;
+  margin-top: 17px;
+  font-family: 'Dongle', sans-serif;
   font-size: 40px;
 }
-
+#menu ul {
+  padding: 0px;
+}
 #menu li a {
-      // margin: 0 auto;
+  // margin: 0 auto;
   margin-right: 92px;
 }
 

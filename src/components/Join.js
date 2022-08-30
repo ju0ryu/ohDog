@@ -249,9 +249,9 @@ const Join = () => {
                       ref={telRef}
                     />
 
-                    <tr>
-                      <td className="abc">&nbsp;주소</td>
-                      <td className="addr">
+                    <tr className="addr">
+                      <td className="abcc">주소</td>
+                      <div>
                         {/* <label for="addr">주소 : </label> */}
                         <input
                           ref={addrRef}
@@ -259,19 +259,18 @@ const Join = () => {
                           name="addr"
                           value={address}
                         />
-                      </td>
-                      <td className="joinSearchTd">
-                        <button
-                          className="joinSearch"
-                          type="button"
-                          onClick={openPostCode}
-                        >
-                          🔍
-                        </button>
-                      </td>
+                      </div>
+                      <button
+                        className="joinSearch"
+                        type="button"
+                        onClick={openPostCode}
+                      >
+                        🔍
+                      </button>
+                      <td className="joinSearchTd"></td>
                     </tr>
                     <tr>
-                      <td className="abc">&nbsp;상세주소</td>
+                      <td className="abc">상세주소</td>
                       <td className="def">
                         <div>
                           <input
@@ -284,7 +283,7 @@ const Join = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="abc">&nbsp;생년월일</td>
+                      <td className="abc">생년월일</td>
                       <td className="def">
                         <input
                           type="date"
@@ -298,7 +297,7 @@ const Join = () => {
                       </td>
                     </tr>
                     <div className="select">
-                      <td className="abc">&nbsp;&nbsp;&nbsp;&nbsp;성별</td>
+                      <td className="abc">성별</td>
                       <td className="def">
                         <input
                           className="l"

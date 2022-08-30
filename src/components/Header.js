@@ -77,11 +77,13 @@ const Header = () => {
           </ul>
         </nav>
         <div className="logo">
-          <img
-            src={logoNew}
-            alt="로고"
-            style={{ width: '100%', height: '100%' }}
-          />
+          <Link to="/mainFeed">
+            <img
+              src={logoNew}
+              alt="로고"
+              style={{ width: '100%', height: '100%' }}
+            />
+          </Link>
         </div>
         <nav className="navigation2">
           <ul className="nav-wrapper">

@@ -88,7 +88,7 @@ app.post('/admindelete', (req, res) => {
 app.get('/mainfeed', (req, res) => {
   console.log('main!!!');
   const sqlQuery =
-    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m-%d-%H-%i') AS fdate FROM feed where secret =  'Y' order by date_format(fdate, '%m-%d-%H-%i') desc ;";
+    "SELECT fnum, userid, fcomment, fdate FROM feed where secret =  'Y' order by fdate desc ;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
@@ -102,7 +102,7 @@ app.post('/flist', (req, res) => {
   console.log('내피드', req.body);
   var userid = req.body.userid;
   const sqlQuery =
-    "SELECT fnum, userid, fcomment, DATE_FORMAT(fdate, '%m.%d. %H:%i') AS fdate from feed where userid = ? order by date_format(fdate, '%m월%d일 %H:%i') desc;";
+    'SELECT fnum, userid, fcomment, fdate from feed where userid = ? order by fdate desc;';
   db.query(sqlQuery, [userid], (err, result) => {
     res.send(result);
   });
@@ -140,7 +140,7 @@ app.post('/fccontentlist', (req, res) => {
   console.log('피드댓글(req.body)', req.body);
   console.log('피드댓글(req.body.funm)', req.body.fnum);
   const sqlQuery =
-    "SELECT fcnum, userid, fccontent, DATE_FORMAT(fcdate, '%m월%d일 %H:%i') AS fcdate from fcomment where fnum = ? order by date_format(fcdate, '%m월%d일 %H:%i') desc;";
+    'SELECT fcnum, userid, fccontent, fcdate from fcomment where fnum = ? order by fcdate desc;';
   db.query(sqlQuery, [fnum], (err, result) => {
     console.log('피드댓글(result)', result);
     res.send(result);
@@ -343,7 +343,7 @@ app.post('/main_ilist', (req, res) => {
   console.log('main_ilist(req.body)', req.body);
   console.log('main_ilist(req.body.main_ilist)', req.body.imgnum);
   const sqlQuery =
-    "SELECT imgnum, userid, imgurl, imgdate, secret from image where secret = 'Y';";
+    "SELECT imgnum, userid, imgurl, imgdate, secret from image where secret = 'Y' order by imgdate desc;";
   db.query(sqlQuery, [imgnum], (err, result) => {
     console.log('main_ilist(result)', result);
     res.send(result);
