@@ -2,7 +2,7 @@
   margin-top: 54px;
   .animalTitle {
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 40px;
 
     p {
       margin-top: 0px;
@@ -16,6 +16,27 @@
     z-index: 1;
     box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, 0.5);
     filter: blur(8px);
+  }
+  .addForms {
+    margin-top: 0px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+    input {
+      width: 220px;
+      height: 430px;
+      border: none;
+      // border: 1px solid rgb(180, 179, 179);
+      border-radius: 10px;
+      font-family: 'Dongle', sans-serif;
+      font-size: 35px;
+      &:hover {
+        background-color: rgb(156, 156, 248);
+        opacity: 0.7;
+        color: white;
+        cursor: pointer;
+        transition: 0.5s ease-out;
+      }
+    }
   }
 
   .updateDataWrapper {

@@ -195,7 +195,12 @@ function Maps() {
                       ? 'tel : ' + marker.content.phone
                       : 'tel :'}
                   </p>
-                  <a className="mURL" href={marker.content.url}>
+                  <a
+                    className="mURL"
+                    href={marker.content.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     {/* {marker.content.url} */} 상세보기
                   </a>
                 </div>

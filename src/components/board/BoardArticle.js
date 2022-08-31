@@ -5,6 +5,7 @@ import '../../css/boardarticle.scss';
 
 const BoardArticle = ({ article }) => {
   console.log('BoardArticle =>', article);
+
   const navigate = useNavigate();
   const [boardLike, setBoardLike] = useState(false);
 
@@ -56,11 +57,15 @@ const BoardArticle = ({ article }) => {
           {article.btitle}
         </a>
       </td>
-      <td>{article.userid}</td>
+      <td className="articleId">
+        <p>{article.userid}</p>
+      </td>
       <td className="boardLike" onClick={likeChange}>
         {boardLike ? '♥' : '♡'}
       </td>
-      <td>{article.views}</td>
+      <td>
+        <p>{article.views}</p>
+      </td>
     </tr>
   );
 };
