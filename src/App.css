@@ -2,10 +2,66 @@
 
 .App {
   font-family: 'Dongle', sans-serif;
-  width: 1200px;
+  width: 1000px;
   height: 100%;
   margin: 0 auto;
   background-color: rgb(248, 247, 247);
   /* border-right: 1px solid rgba(204, 204, 204, 0.456);
   border-left: 1px solid rgba(204, 204, 204, 0.456); */
 }
+body{
+  background-image: url('./icon/wells.gif'),url('./icon/normaldog.gif');
+  background-size: 20% 20%, 20% 20%;
+    background-position: 0px 100%, 100% 100%;
+    /* , 0px 0px; */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+/* .fade-appear,
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-appear-active,
+.fade-enter-active {
+  transition: opacity .3s linear;
+  opacity: 1;
+}
+
+.fade-exit {
+  transition: opacity .2s linear;
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+} */
+/* body {
+  overflow: hidden;
+}
+
+.transition-group {
+  position: relative;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: translateX(100%) rotateZ(45deg);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(-50%) rotateZ(0);
+  transition: all 1s ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateX(-50%) rotateZ(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(-100%) rotateZ(-45deg);
+  transition: all 1s ease-in;
+} */

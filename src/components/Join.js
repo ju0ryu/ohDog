@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/join.scss';
-import PopupPostCode from './PopupPostCode';
+import PopupPost from './PopupPost';
 import PopupDom from './PopupDom';
 import logoNew1 from '../icon/ohDog_title.png';
 
@@ -182,7 +182,7 @@ const Join = () => {
                   <div id="popupDom">
                     {isPopupOpen && (
                       <PopupDom>
-                        <PopupPostCode
+                        <PopupPost
                           onClose={closePostCode}
                           setAddress={setAddress}
                         />

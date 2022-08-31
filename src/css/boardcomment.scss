@@ -27,7 +27,7 @@
             border-radius: 50px;
           }
           .bcbox {
-            width: 70%;
+            width: 500px;
             // border: 1px solid #ccc;
             padding-left: 15px;
             font-size: 25px;
@@ -35,9 +35,10 @@
           .bdatebox {
             width: 20%;
             p {
+              text-align: right;
               margin: 0;
               padding-top: 60px;
-              padding-right: 3px;
+              padding-right: 10px;
               font-size: 20px;
               color: rgb(108, 108, 108);
             }
