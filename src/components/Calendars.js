@@ -347,6 +347,7 @@ const Calendars = () => {
       >
         <div className="calendar" style={{ margin: '25px 25px' }}>
           <FullCalendar
+            height="800px"
             plugins={[dayGridPlugin]}
             locale="ko"
             eventClick={function (arg) {
