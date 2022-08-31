@@ -4,7 +4,7 @@ import axios from 'axios';
 import '../css/join.scss';
 import PopupPost from './PopupPost';
 import PopupDom from './PopupDom';
-import logoNew1 from '../icon/ohDog_title.png';
+import logoNew1 from '../icon/ohDogNew.jpg';
 
 const Join = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
