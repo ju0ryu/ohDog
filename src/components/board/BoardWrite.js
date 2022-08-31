@@ -76,19 +76,22 @@ const BoardWrite = () => {
           <tr>
             <td width="100px">카테고리</td>
             <td align="left" width="550px">
-              <select name="board" size="6" ref={categoryRef}>
+              <select className="boardSelect" name="board" ref={categoryRef}>
+                <option value="">카테고리선택</option>
                 <option value="자유">자유게시판</option>
                 <option value="동물병원">동물병원게시판</option>
                 <option value="분양">분양게시판</option>
                 <option value="분실">분실게시판</option>
-                <option value="Q&A">Q&amp;A게시판</option>
+                <option value="Q&A">Q&A게시판</option>
               </select>
             </td>
           </tr>
           <tr>
             <td width="100px">글쓴이</td>
             <td align="left" width="550px">
-              <td>{login_id}</td>
+              <td>
+                <p>{login_id}</p>
+              </td>
             </td>
           </tr>
           <tr>
@@ -105,9 +108,8 @@ const BoardWrite = () => {
           </tr>
           <tr>
             <td>내용</td>
-            <td align="left">
+            <td className="writeContent" align="left">
               <textarea
-                className="writeContent"
                 rows="5"
                 cols="70"
                 name="content"

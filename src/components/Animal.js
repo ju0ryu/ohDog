@@ -181,7 +181,7 @@ const Animal = () => {
             </div>
           </div>
         ) : (
-          <div className="addForm">
+          <div className="addForms">
             <input type="button" value="➕" onClick={addForm} />
           </div>
         )}
@@ -257,6 +257,7 @@ const Animal = () => {
                 </td>
                 <td>
                   <select
+                    // size="5"
                     className="selectSpecies"
                     name="species"
                     ref={speciesRef}

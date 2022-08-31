@@ -12,8 +12,21 @@ function makeFeedTime(timestamp) {
   const nowDate = Date.now(); // 현재시간
   const milTime = feedDate.getTime();
   const timeGap = nowDate - milTime;
-  console.log('timeGap', timeGap);
   const date = parseInt(timeGap / oneDay);
+  console.log(
+    'feedDate :',
+    feedDate,
+    'nowDate :',
+    nowDate,
+    'milTime : ',
+    milTime,
+    'timeGap : ',
+    timeGap,
+    'oneDay : ',
+    oneDay,
+    'date : ',
+    date,
+  );
   //nowDate - timestamp > 24 어제
   const hour = feedDate.getHours();
   const minutes = feedDate.getMinutes();
@@ -35,7 +48,9 @@ const BoardComment = ({ article }) => {
             <tr>
               <td className="bidbox">{article.userid}</td>
               <td className="bcbox">{article.bccontent}</td>
-              <td className="bdatebox">{makeFeedTime(article.bcdate)}</td>
+              <td className="bdatebox">
+                <p>{makeFeedTime(article.bcdate)}</p>
+              </td>
             </tr>
           </table>
         </form>

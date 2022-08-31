@@ -172,11 +172,14 @@
 
 // image +
 .container {
-  // display: flex;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 70px;
-  width: 80%;
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // display: grid;
+  // grid-template-columns: 1fr 1fr 1fr;
+  // gap: 20px;
+  width: 100%;
   overflow: hidden;
   // border: 5px solid black;
   text-align: center;

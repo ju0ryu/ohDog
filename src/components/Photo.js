@@ -53,8 +53,8 @@ const Photos = ({ userid, imgurl, secret, imgnum }) => {
           <img
             src={imgurl}
             onClick={() => openImageViewer(imgnum)}
-            width="300px"
-            height="300px"
+            width="200px"
+            height="200px"
             borderRadius="15px"
             key={imgurl}
             style={{ margin: '5px' }}

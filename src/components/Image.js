@@ -274,20 +274,21 @@ const Image = ({ handlelist }) => {
         {imagelist.imageList.map((article) => {
           return (
             <div>
+              <div className="D_butWrapper">
+                <input
+                  className="D_but"
+                  id={article.imgnum}
+                  type="button"
+                  value="삭제"
+                  onClick={handleDelete}
+                ></input>
+              </div>
               <Photos
                 userid={article.userid}
                 imgurl={'http://localhost:8008/uploads/' + article.imgurl}
                 imgnum={article.imgnum}
                 secret={article.secret}
               />
-
-              <input
-                className="D_but"
-                id={article.imgnum}
-                type="button"
-                value="삭제"
-                onClick={handleDelete}
-              ></input>
             </div>
           );
         })}
