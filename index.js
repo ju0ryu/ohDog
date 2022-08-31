@@ -83,6 +83,15 @@ app.post('/admindelete', (req, res) => {
   });
 });
 
+app.post('/adminSearch', (req, res) => {
+  console.log('adminSearch : ', req.body);
+  var userid = req.body.userid;
+  const sqlQuery = 'select * from member where userid = ?;';
+  db.query(sqlQuery, [userid], (err, result) => {
+    res.send(result);
+  });
+});
+
 //mainfeed req res 설정 시작
 
 app.get('/mainfeed', (req, res) => {
