@@ -44,8 +44,8 @@ const Member = () => {
 
   console.log('data ==>', memberlist);
   return (
-    <div>
-      <table width="800px" border="1" align="center">
+    <div className="boardList">
+      <table className="boardTable">
         <thead>
           <tr>
             <th width="60">No</th>
@@ -72,13 +72,15 @@ const Member = () => {
                 <th width="100">{article.birth}</th>
                 <th width="100">{article.gender}</th>
                 <th width="100">
-                  <input
-                    className="delete"
+                  <button
+                    className="dbutton"
                     id={article.usernum}
                     type="button"
                     value="삭제"
                     onClick={Delete}
-                  ></input>
+                  >
+                    삭&nbsp;제
+                  </button>
                 </th>
               </tr>
             );
