@@ -507,7 +507,7 @@ app.post('/searchList', (req, res) => {
   console.log('/searchList2(search)', search);
   var querySearch = '%' + search + '%';
   const sqlQuery =
-    "SELECT boardnum, category, btitle FROM board WHERE btitle LIKE ? order by date_format(bdate, '%Y-%m-%d') desc;";
+    "SELECT * FROM board WHERE btitle LIKE ? order by date_format(bdate, '%Y-%m-%d') desc;";
   db.query(sqlQuery, [querySearch], (err, result) => {
     res.send(result);
     console.log('/searchList3(result)', result);
@@ -520,7 +520,7 @@ app.post('/searchCategoryList', (req, res) => {
   var category = req.body.category;
 
   const sqlQuery =
-    "SELECT boardnum, category, btitle FROM board WHERE category LIKE ? order by date_format(bdate, '%Y-%m-%d') desc;";
+    "SELECT * FROM board WHERE category LIKE ? order by date_format(bdate, '%Y-%m-%d') desc;";
   db.query(sqlQuery, [category], (err, result) => {
     res.send(result);
   });
