@@ -135,11 +135,11 @@ function Board() {
             <select
               className="searchCategoryList"
               name="board"
+              size="5"
               ref={searchCategoryRef}
+              // onClick={handlecategorySearch}
             >
-              <option onClick={handlecategorySearch} value="">
-                카테고리선택
-              </option>
+              <option value="">카테고리선택</option>
               <option onClick={handlecategorySearch} value="자유">
                 자유게시판
               </option>
