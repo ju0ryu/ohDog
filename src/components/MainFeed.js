@@ -14,6 +14,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import '../css/swiper-styles.css';
+import MainFeedArticle from './MainFeedArticle';
 
 const oneDay = 1000 * 60 * 60 * 24;
 
@@ -184,150 +185,146 @@ const MainFeed = () => {
       {/* // ========================이미지============================== */}
       <div className="mainbox">
         {mainfeedlist.mainfeedList.map((mainlist) => {
-          // console.log(
-          //   'mainlist.fnum=',
-          //   mainlist.fnum,
-          //   ',  fnumstate=',
-          //   fnumstate,
-          // );
-          if (mainlist.fnum == fnumstate) {
-            return (
-              <div>
-                <div className="mainfeedbox" height="700px">
-                  <table className="mainlistbox" width="700px">
-                    <tr>
-                      <td className="mainuserid">{mainlist.userid}</td>
-                      <td className="mainfcbox" colSpan="4" align="center">
-                        {mainlist.fcomment}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="msgbtTd">
-                        <input
-                          className="msgbt"
-                          type="image"
-                          src={msgbtn}
-                          alt="댓글보기"
-                          id={mainlist.fnum}
-                          onClick={commentVisible}
-                          height="25px"
-                        ></input>
-                        <p className="mainLike" onClick={likeChange}>
-                          {feedLike ? '♥' : '♡'}
-                        </p>
-                      </td>
-                      {/* <td></td> */}
-                      <td className="mainfdate">
-                        {makeFeedTime(mainlist.fdate)}
-                      </td>
-                    </tr>
-                  </table>
-                  <form onSubmit={fcInsert} id={mainlist.fnum}>
-                    <table className="fccommant" align="center" width="700px">
-                      <tr>
-                        <td className="insertfcomment">
-                          <input
-                            className="fcinput"
-                            type="text"
-                            name="comment"
-                            ref={fccontentRef}
-                            size="60"
-                            defaultValue=""
-                            placeholder="댓글달기"
-                            // onChange={onChange}
-                          />
-                          <div>
-                            <input
-                              className="inputbt"
-                              type="image"
-                              src={inputbt}
-                              alt="댓글달기"
-                            ></input>
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
-                  </form>
+          return <MainFeedArticle mainlist={mainlist} />;
 
-                  {visible && (
-                    <div className="fclist">
-                      {fccontentlist.fccontentList.length == 0 ? (
-                        <p style={{ fontSize: '25px' }}>댓글이 없습니다.</p>
-                      ) : (
-                        fccontentlist.fccontentList.map((article) => {
-                          return <Fcommant article={article} />;
-                        })
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          } else {
-            return (
-              <div>
-                <div className="mainfeedbox" height="700px">
-                  <table className="mainlistbox" width="700px">
-                    <tr>
-                      <td className="mainuserid">{mainlist.userid}</td>
+          // if (mainlist.fnum == fnumstate) {
+          //   return (
+          //     <div>
+          //       <div className="mainfeedbox" height="700px">
+          //         <table className="mainlistbox" width="700px">
+          //           <tr>
+          //             <td className="mainuserid">{mainlist.userid}</td>
+          //             <td className="mainfcbox" colSpan="4" align="center">
+          //               {mainlist.fcomment}
+          //             </td>
+          //           </tr>
+          //           <tr>
+          //             <td className="msgbtTd">
+          //               <input
+          //                 className="msgbt"
+          //                 type="image"
+          //                 src={msgbtn}
+          //                 alt="댓글보기"
+          //                 id={mainlist.fnum}
+          //                 onClick={commentVisible}
+          //                 height="25px"
+          //               ></input>
+          //               <p className="mainLike" onClick={likeChange}>
+          //                 {feedLike ? '♥' : '♡'}
+          //               </p>
+          //             </td>
+          //             {/* <td></td> */}
+          //             <td className="mainfdate">
+          //               {makeFeedTime(mainlist.fdate)}
+          //             </td>
+          //           </tr>
+          //         </table>
+          //         <form onSubmit={fcInsert} id={mainlist.fnum}>
+          //           <table className="fccommant" align="center" width="700px">
+          //             <tr>
+          //               <td className="insertfcomment">
+          //                 <input
+          //                   className="fcinput"
+          //                   type="text"
+          //                   name="comment"
+          //                   ref={fccontentRef}
+          //                   size="60"
+          //                   defaultValue=""
+          //                   placeholder="댓글달기"
+          //                   // onChange={onChange}
+          //                 />
+          //                 <div>
+          //                   <input
+          //                     className="inputbt"
+          //                     type="image"
+          //                     src={inputbt}
+          //                     alt="댓글달기"
+          //                   ></input>
+          //                 </div>
+          //               </td>
+          //             </tr>
+          //           </table>
+          //         </form>
 
-                      <td className="mainfcbox" colSpan="4" align="center">
-                        {mainlist.fcomment}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="msgbtTd">
-                        <input
-                          className="msgbt"
-                          type="image"
-                          src={msgbtn}
-                          alt="댓글보기"
-                          id={mainlist.fnum}
-                          onClick={commentVisible}
-                          height="25px"
-                        ></input>
-                        <p
-                          align="left"
-                          className="mainLike"
-                          onClick={likeChange}
-                        >
-                          {feedLike ? '♥' : '♡'}
-                        </p>
-                      </td>
-                      {/* <td></td> */}
-                      <td className="mainfdate">
-                        {makeFeedTime(mainlist.fdate)}
-                      </td>
-                    </tr>
-                  </table>
-                  {/* <form onSubmit={fcInsert} id={mainlist.fnum}>
-                    <table className="fccommant" align="center" width="700px">
-                      <tr>
-                        <td align="center">
-                          <input
-                            className="fcinput"
-                            type="text"
-                            name="comment"
-                            ref={fccontentRef}
-                            size="60"
-                            defaultValue=""
-                            placeholder="댓글달기"
-                          // onChange={onChange}
-                          />
-                          <input
-                            className="inputbt"
-                            type="image"
-                            src={inputbt}
-                            alt="댓글달기"
-                          ></input>
-                        </td>
-                      </tr>
-                    </table>
-                  </form> */}
-                </div>
-              </div>
-            );
-          }
+          //         {visible && (
+          //           <div className="fclist">
+          //             {fccontentlist.fccontentList.length == 0 ? (
+          //               <p style={{ fontSize: '25px' }}>댓글이 없습니다.</p>
+          //             ) : (
+          //               fccontentlist.fccontentList.map((article) => {
+          //                 return <Fcommant article={article} />;
+          //               })
+          //             )}
+          //           </div>
+          //         )}
+          //       </div>
+          //     </div>
+          //   );
+          // } else {
+          //   return (
+          //     <div>
+          //       <div className="mainfeedbox" height="700px">
+          //         <table className="mainlistbox" width="700px">
+          //           <tr>
+          //             <td className="mainuserid">{mainlist.userid}</td>
+
+          //             <td className="mainfcbox" colSpan="4" align="center">
+          //               {mainlist.fcomment}
+          //             </td>
+          //           </tr>
+          //           <tr>
+          //             <td className="msgbtTd">
+          //               <input
+          //                 className="msgbt"
+          //                 type="image"
+          //                 src={msgbtn}
+          //                 alt="댓글보기"
+          //                 id={mainlist.fnum}
+          //                 onClick={commentVisible}
+          //                 height="25px"
+          //               ></input>
+          //               <p
+          //                 align="left"
+          //                 className="mainLike"
+          //                 onClick={likeChange}
+          //               >
+          //                 {feedLike ? '♥' : '♡'}
+          //               </p>
+          //             </td>
+          //             {/* <td></td> */}
+          //             <td className="mainfdate">
+          //               {makeFeedTime(mainlist.fdate)}
+          //             </td>
+          //           </tr>
+          //         </table>
+          //         {/* <form onSubmit={fcInsert} id={mainlist.fnum}>
+          //           <table className="fccommant" align="center" width="700px">
+          //             <tr>
+          //               <td align="center">
+          //                 <input
+          //                   className="fcinput"
+          //                   type="text"
+          //                   name="comment"
+          //                   ref={fccontentRef}
+          //                   size="60"
+          //                   defaultValue=""
+          //                   placeholder="댓글달기"
+          //                 // onChange={onChange}
+          //                 />
+          //                 <input
+          //                   className="inputbt"
+          //                   type="image"
+          //                   src={inputbt}
+          //                   alt="댓글달기"
+          //                 ></input>
+          //               </td>
+          //             </tr>
+          //           </table>
+          //         </form> */}
+          //       </div>
+          //     </div>
+          //   );
+          // }
         })}
       </div>
     </div>

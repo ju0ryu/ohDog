@@ -17,6 +17,15 @@ body {
     display: flex;
     width: 40px;
     text-align: center;
+    .flikeBtn {
+      background: none;
+      border: none;
+      font-weight: 700;
+      font-size: 48px;
+      font-family: 'Dongle';
+      color: rgb(255, 90, 90);
+      cursor: pointer;
+    }
   }
   .msgbt {
     margin-left: 30px;

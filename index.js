@@ -94,10 +94,48 @@ app.post('/adminSearch', (req, res) => {
 
 //mainfeed req res 설정 시작
 
+app.post('/flikelist', (req, res) => {
+  console.log('flikelist :', req.body);
+  var loginId = req.body.userid;
+  var lnum = parseInt(req.body.flnum);
+
+  const sqlQuery = 'select * from flikechange where fluserid =? and flnum =?;';
+  db.query(sqlQuery, [loginId, lnum], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/flikeinsert', (req, res) => {
+  console.log('flikeinsert :', req.body);
+  var loginId = req.body.userid;
+  var lnum = parseInt(req.body.flnum);
+  var likeck = req.body.flikeck;
+
+  const sqlQuery =
+    'insert into flikechange (fluserid,flnum,flikeck) values (?,?,?);';
+  db.query(sqlQuery, [loginId, lnum, likeck], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/flikeupdate', (req, res) => {
+  console.log('flikeupdate :', req.body);
+  var loginId = req.body.userid;
+  var lnum = parseInt(req.body.flnum);
+  var likeck = req.body.flikeck;
+
+  const sqlQuery =
+    'update flikechange set flikeck =? where fluserid =? and flnum=?;';
+
+  db.query(sqlQuery, [likeck, loginId, lnum], (err, result) => {
+    res.send(result);
+  });
+});
+
 app.get('/mainfeed', (req, res) => {
   console.log('main!!!');
   const sqlQuery =
-    "SELECT fnum, userid, fcomment, fdate FROM feed where secret =  'Y' order by fdate desc ;";
+    "select * from feed f left outer join flikechange l on f.fnum = l.flnum where secret =  'Y' order by fdate desc ;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
