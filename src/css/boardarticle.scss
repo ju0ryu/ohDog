@@ -13,9 +13,14 @@
       }
     }
     .boardLike {
-      font-size: 25px;
-      color: rgb(255, 90, 90);
-      cursor: pointer;
+      input {
+        background: none;
+        border: none;
+        font-size: 25px;
+        font-family: 'Dongle';
+        color: rgb(255, 90, 90);
+        cursor: pointer;
+      }
     }
   }
 }

@@ -442,10 +442,59 @@ app.post('/eupdate', (req, res) => {
 
 // ******************** 게시판 코드 시작 ********************
 
+app.post('/likelist', (req, res) => {
+  console.log('likelist :', req.body);
+  var loginId = req.body.loginId;
+  var lnum = parseInt(req.body.lnum);
+
+  const sqlQuery = 'select * from likechange where luserid =? and lnum =?;';
+  db.query(sqlQuery, [loginId, lnum], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/likeinsert', (req, res) => {
+  console.log('likeinsert :', req.body);
+  var loginId = req.body.loginId;
+  var lnum = parseInt(req.body.lnum);
+  var likeck = req.body.likeck;
+
+  const sqlQuery =
+    'insert into likechange (luserid,lnum,likeck) values (?,?,?);';
+  db.query(sqlQuery, [loginId, lnum, likeck], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/likeupdate', (req, res) => {
+  console.log('likeupdate :', req.body);
+  var loginId = req.body.loginId;
+  var lnum = parseInt(req.body.lnum);
+  var likeck = req.body.likeck;
+
+  const sqlQuery =
+    'update likechange set likeck =? where luserid =? and lnum=?;';
+
+  db.query(sqlQuery, [likeck, loginId, lnum], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post('/boardliklist', (req, res) => {
+  var loginId = req.body.loginId;
+
+  const sqlQuery =
+    'select * from board b left outer join likechange l on b.boardnum = l.lnum where luserid = ?;';
+
+  db.query(sqlQuery, [loginId], (err, result) => {
+    res.send(result);
+  });
+});
 // 게시판 게시글 전체조회
 app.get('/list', (req, res) => {
   console.log('게시판 게시글 전체조회');
-  const sqlQuery = 'SELECT * FROM board order by bdate desc;';
+  const sqlQuery =
+    'select * from board b left outer join likechange l on b.boardnum = l.lnum order by bdate desc;';
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
