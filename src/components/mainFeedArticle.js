@@ -32,28 +32,14 @@ const MainFeedArticle = ({ mainlist }) => {
   const userid = window.sessionStorage.getItem('id');
 
   const fccontentRef = useRef();
-
-  const [mainfeedlist, setMainfeedList] = useState({
-    mainfeedList: [],
-  });
-
   const [fccontentlist, setFccontentList] = useState({
     fccontentList: [],
   });
 
   const [fnumstate, setFnumstate] = useState(-1);
-
   const [visible, setVisible] = useState(false);
-
-  // =============================이미지===================================
-  const [imagelist, setImagelist] = useState({
-    imageList: [],
-  });
-  // =============================이미지===================================
   const [feedLike, setFeedLike] = useState(mainlist.flikeck);
-  // const likeChange = () => {
-  //   setFeedLike(!feedLike);
-  // };
+
   const commentVisible = (e) => {
     setVisible(!visible);
     onClick(e);
@@ -65,7 +51,6 @@ const MainFeedArticle = ({ mainlist }) => {
       .post('http://localhost:8008/fccontentlist', { fnum: e.target.id })
       .then((res) => {
         const { data } = res;
-        // console.log('data(fccontentlist) : ', data);
         setFnumstate(e.target.id);
         setFccontentList({
           fccontentList: data,
@@ -78,9 +63,6 @@ const MainFeedArticle = ({ mainlist }) => {
 
   const fcInsert = (e) => {
     e.preventDefault();
-    // console.log(e);
-    // console.log('확인', fccontentRef.current.value);
-    // console.log(e.target.id);
     axios
       .post('http://localhost:8008/fccontentinsert', {
         fnum: e.target.id,
@@ -107,11 +89,11 @@ const MainFeedArticle = ({ mainlist }) => {
         flnum: e.target.id,
       })
       .then((res) => {
-        console.log('좋아요 리스트 :', res);
+        // console.log('좋아요 리스트 :', res);
         const { data } = res;
-        console.log('data.length :', data[0]);
+        // console.log('data.length :', data[0]);
         if (data.length == 0) {
-          console.log('if enter');
+          // console.log('if enter');
           axios
             .post('http://localhost:8008/flikeinsert', {
               userid,
@@ -119,7 +101,7 @@ const MainFeedArticle = ({ mainlist }) => {
               flikeck: true,
             })
             .then((res) => {
-              console.log('좋아요 등록 :', res);
+              // console.log('좋아요 등록 :', res);
             });
         } else {
           console.log('boardlike check :', data[0].flikeck);
@@ -135,7 +117,6 @@ const MainFeedArticle = ({ mainlist }) => {
             });
         }
       });
-    // window.location.reload();
   };
 
   return (
@@ -170,7 +151,9 @@ const MainFeedArticle = ({ mainlist }) => {
                     id={mainlist.fnum}
                     type="button"
                     // value={article.likeck == 1 ? '♥' : '♡'}
-                    value={feedLike == 1 ? '♥' : '♡'}
+                    value={
+                      mainlist.fluserid == userid && feedLike == 1 ? '♥' : '♡'
+                    }
                   />
                 </td>
                 {/* <td></td> */}

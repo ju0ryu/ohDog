@@ -124,7 +124,7 @@ const BoardArticle = ({ article }) => {
           id={article.boardnum}
           type="button"
           // value={article.likeck == 1 ? '♥' : '♡'}
-          value={boardLike == 1 ? '♥' : '♡'}
+          value={article.luserid == loginId && boardLike == 1 ? '♥' : '♡'}
         />
       </td>
       <td>
